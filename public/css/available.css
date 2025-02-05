@@ -226,7 +226,7 @@ div#connect {
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.5);
   display: flex;
-  padding: 0px 8px;
+  padding: 0 8px;
   justify-content: center;
   align-items: center;
   height: fit-content;

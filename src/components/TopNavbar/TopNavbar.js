@@ -129,7 +129,6 @@ const TopOfNavbar = () => {
                     <IframeContainer show={showLivepeer}>
                         <Iframe
                             src="https://player.vimeo.com/video/929333857?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                            frameBorder="0"
                             allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
                             title="Activate Your Media With Livepeer"
                         ></Iframe>
@@ -137,7 +136,6 @@ const TopOfNavbar = () => {
                     <IframeContainer show={showAurpay}>
                         <Iframe
                             src="https://player.vimeo.com/video/929334312?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                            frameBorder="0"
                             allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
                             title="Activate Your Crypto Payment Gateway With Aurpay"
                         ></Iframe>
@@ -152,14 +150,12 @@ const TopOfNavbar = () => {
                         <Iframe
                             className="airtable-embed"
                             src="https://airtable.com/embed/appGIQrU1Lv6MOgvQ/shrYDbZ9YLA7S51zy?viewControls=on"
-                            frameBorder="0"
                         ></Iframe>
                     </IframeContainer>
                     <IframeContainer show={showPodcasts}>
                         <Iframe
                             className="airtable-embed"
                             src="https://airtable.com/embed/appGIQrU1Lv6MOgvQ/shrb3cmaWpPv6IEi1?viewControls=on"
-                            frameBorder="0"
                         ></Iframe>
                     </IframeContainer>
 

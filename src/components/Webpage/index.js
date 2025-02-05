@@ -903,7 +903,6 @@ function WebPage({ setIsOpen }) {
                   {websiteData?.value?.video?.path && (
                     <iframe
                       src={websiteData?.value?.video?.path}
-                      frameBorder="0"
                       allowFullScreen
                       allow="autoplay; encrypted-media; picture-in-picture;cover"
                       sandbox="allow-same-origin allow-scripts"
