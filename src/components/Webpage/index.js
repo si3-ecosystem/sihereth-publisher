@@ -1,31 +1,24 @@
-import React from "react"
-import { useSelector } from "react-redux"
-import { Link } from "react-router-dom"
-import "../../CSS/webpage.css"
+import React from "react";
+import { useSelector } from "react-redux";
+import "../../CSS/webpage.css";
 function WebPage({ setIsOpen }) {
-  const { websiteData } = useSelector((state) => state?.content)
-
+  const { websiteData } = useSelector((state) => state?.content);
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
-
- function getUpdatedHref(url="") {
+  function getUpdatedHref(url = "") {
     if (isValidEmail(url)) {
-      return 'mailto:' + url; 
+      return "mailto:" + url;
     }
-
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      return url; 
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      return url;
     }
-
-    return 'https://' + url;
+    return "https://" + url;
   }
 
   return (
     <div>
-      {/* <!-- nav --> */}
-
       <nav
         className="mobile-padding-x-32 mobile-sm-padding-x-16 mobile-padding-y-18"
         style={{ borderBottom: "1px solid #14141414", padding: "10px 64px" }}
@@ -56,9 +49,8 @@ function WebPage({ setIsOpen }) {
             }}
           >
             {websiteData?.navbar?.links?.map((item, index) => {
-              return <div key={index}> {item}</div>
+              return <div key={index}>{item}</div>;
             })}
-            {/* <div id="google_translate_element"></div> */}
             <div>
               <select
                 style={{
@@ -89,14 +81,8 @@ function WebPage({ setIsOpen }) {
           </svg>
         </div>
       </nav>
-
-      {/* <!-- nav end --> */}
-
       {/* <!-- landing start --> */}
-      <div
-        className="hover_div"
-        onClick={() => setIsOpen && setIsOpen("landing")}
-      >
+      <div className="hover_div" onClick={() => setIsOpen && setIsOpen("landing")}>
         <div
           class="mobile-col mobile-padding-x-32 mobile-sm-padding-x-16"
           style={{
@@ -193,19 +179,11 @@ function WebPage({ setIsOpen }) {
                 width="1045.19"
                 height="856.479"
                 filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB"
+                colorInterpolationFilters="sRGB"
               >
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feBlend
-                  mode="normal"
-                  in="SourceGraphic"
-                  in2="BackgroundImageFix"
-                  result="shape"
-                />
-                <feGaussianBlur
-                  stdDeviation="95.1827"
-                  result="effect1_foregroundBlur_1_2813"
-                />
+                <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                <feGaussianBlur stdDeviation="95.1827" result="effect1_foregroundBlur_1_2813" />
               </filter>
               <linearGradient
                 id="paint0_linear_1_2813"
@@ -215,23 +193,23 @@ function WebPage({ setIsOpen }) {
                 y2="-160.152"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop offset="0.07" stop-color="#648EC1" />
-                <stop offset="0.09" stop-color="#688AC3" />
-                <stop offset="0.13" stop-color="#6E84C6" />
-                <stop offset="0.31" stop-color="#6138E1" />
-                <stop offset="0.38" stop-color="#6734D8" />
-                <stop offset="0.45" stop-color="#7131D0" />
-                <stop offset="0.47" stop-color="#8E4AC9" />
-                <stop offset="0.53" stop-color="#BC6EA5" />
-                <stop offset="0.58" stop-color="#B15A5A" />
-                <stop offset="0.62" stop-color="#CD734B" />
-                <stop offset="0.66" stop-color="#E18442" />
-                <stop offset="0.69" stop-color="#E88A3F" />
-                <stop offset="0.75" stop-color="#E79146" />
-                <stop offset="0.84" stop-color="#E5A65A" />
-                <stop offset="0.86" stop-color="#E5AD61" />
-                <stop offset="0.9" stop-color="#ECE47E" />
-                <stop offset="1" stop-color="#89FF5B" />
+                <stop offset="0.07" stopColor="#648EC1" />
+                <stop offset="0.09" stopColor="#688AC3" />
+                <stop offset="0.13" stopColor="#6E84C6" />
+                <stop offset="0.31" stopColor="#6138E1" />
+                <stop offset="0.38" stopColor="#6734D8" />
+                <stop offset="0.45" stopColor="#7131D0" />
+                <stop offset="0.47" stopColor="#8E4AC9" />
+                <stop offset="0.53" stopColor="#BC6EA5" />
+                <stop offset="0.58" stopColor="#B15A5A" />
+                <stop offset="0.62" stopColor="#CD734B" />
+                <stop offset="0.66" stopColor="#E18442" />
+                <stop offset="0.69" stopColor="#E88A3F" />
+                <stop offset="0.75" stopColor="#E79146" />
+                <stop offset="0.84" stopColor="#E5A65A" />
+                <stop offset="0.86" stopColor="#E5AD61" />
+                <stop offset="0.9" stopColor="#ECE47E" />
+                <stop offset="1" stopColor="#89FF5B" />
               </linearGradient>
               <linearGradient
                 id="paint1_linear_1_2813"
@@ -241,22 +219,22 @@ function WebPage({ setIsOpen }) {
                 y2="77.7502"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#648EC1" />
-                <stop offset="0.06" stop-color="#688AC3" />
-                <stop offset="0.15" stop-color="#6E84C6" />
-                <stop offset="0.31" stop-color="#6138E1" />
-                <stop offset="0.42" stop-color="#6734D8" />
-                <stop offset="0.52" stop-color="#7131D0" />
-                <stop offset="0.55" stop-color="#803DCC" />
-                <stop offset="0.6" stop-color="#A85FC4" />
-                <stop offset="0.68" stop-color="#B66581" />
-                <stop offset="0.77" stop-color="#E28441" />
-                <stop offset="0.78" stop-color="#E88A3F" />
-                <stop offset="0.82" stop-color="#E79146" />
-                <stop offset="0.89" stop-color="#E5A65A" />
-                <stop offset="0.9" stop-color="#E5AD61" />
-                <stop offset="0.93" stop-color="#ECE47E" />
-                <stop offset="1" stop-color="#89FF5B" />
+                <stop stopColor="#648EC1" />
+                <stop offset="0.06" stopColor="#688AC3" />
+                <stop offset="0.15" stopColor="#6E84C6" />
+                <stop offset="0.31" stopColor="#6138E1" />
+                <stop offset="0.42" stopColor="#6734D8" />
+                <stop offset="0.52" stopColor="#7131D0" />
+                <stop offset="0.55" stopColor="#803DCC" />
+                <stop offset="0.6" stopColor="#A85FC4" />
+                <stop offset="0.68" stopColor="#B66581" />
+                <stop offset="0.77" stopColor="#E28441" />
+                <stop offset="0.78" stopColor="#E88A3F" />
+                <stop offset="0.82" stopColor="#E79146" />
+                <stop offset="0.89" stopColor="#E5A65A" />
+                <stop offset="0.9" stopColor="#E5AD61" />
+                <stop offset="0.93" stopColor="#ECE47E" />
+                <stop offset="1" stopColor="#89FF5B" />
               </linearGradient>
               <linearGradient
                 id="paint2_linear_1_2813"
@@ -266,12 +244,12 @@ function WebPage({ setIsOpen }) {
                 y2="58.9211"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop offset="0.23" stop-color="white" />
-                <stop offset="0.26" stop-color="#FDFAF7" />
-                <stop offset="0.32" stop-color="#FAF1E3" />
-                <stop offset="0.39" stop-color="#F4DFC1" />
-                <stop offset="0.47" stop-color="#EDC793" />
-                <stop offset="0.54" stop-color="#E5AD61" />
+                <stop offset="0.23" stopColor="white" />
+                <stop offset="0.26" stopColor="#FDFAF7" />
+                <stop offset="0.32" stopColor="#FAF1E3" />
+                <stop offset="0.39" stopColor="#F4DFC1" />
+                <stop offset="0.47" stopColor="#EDC793" />
+                <stop offset="0.54" stopColor="#E5AD61" />
               </linearGradient>
               <linearGradient
                 id="paint3_linear_1_2813"
@@ -281,12 +259,12 @@ function WebPage({ setIsOpen }) {
                 y2="130.019"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop offset="0.34" stop-color="white" />
-                <stop offset="0.36" stop-color="#FDFAF7" />
-                <stop offset="0.4" stop-color="#FAF1E3" />
-                <stop offset="0.44" stop-color="#F4DFC1" />
-                <stop offset="0.49" stop-color="#EDC793" />
-                <stop offset="0.54" stop-color="#E5AD61" />
+                <stop offset="0.34" stopColor="#ffffff" />
+                <stop offset="0.36" stopColor="#FDFAF7" />
+                <stop offset="0.4" stopColor="#FAF1E3" />
+                <stop offset="0.44" stopColor="#F4DFC1" />
+                <stop offset="0.49" stopColor="#EDC793" />
+                <stop offset="0.54" stopColor="#E5AD61" />
               </linearGradient>
               <linearGradient
                 id="paint4_linear_1_2813"
@@ -332,16 +310,10 @@ function WebPage({ setIsOpen }) {
             </defs>
           </svg>
           <div style={{ flex: "1" }}>
-            <div
-              class="mobile-font-48 mobile-sm-font-24"
-              style={{ fontSize: "56px" }}
-            >
+            <div class="mobile-font-48 mobile-sm-font-24" style={{ fontSize: "56px" }}>
               <div>
                 {" "}
-                I’M{" "}
-                <span style={{ color: "#A020F0" }}>
-                  {websiteData?.landing?.title},
-                </span>{" "}
+                I’M <span style={{ color: "#A020F0" }}>{websiteData?.landing?.title},</span>{" "}
               </div>
               <div>{websiteData?.landing?.subTitle}</div>
             </div>
@@ -362,29 +334,22 @@ function WebPage({ setIsOpen }) {
                 gap: "8px",
               }}
             >
-              <div class="hero-tag">
-                {" "}
-                {websiteData?.landing?.categories?.region}
-              </div>
+              <div class="hero-tag"> {websiteData?.landing?.categories?.region}</div>
               {websiteData?.landing?.categories?.superPower.map((text) => (
                 <div key={text} class="hero-tag">
                   {text}
                 </div>
               ))}
-              {websiteData?.landing?.categories?.organizationAffiliations.map(
-                (text) => (
-                  <div key={text} class="hero-tag">
-                    {text}
-                  </div>
-                )
-              )}
-              {websiteData?.landing?.categories?.communityAffiliations.map(
-                (text) => (
-                  <div key={text} class="hero-tag">
-                    {text}
-                  </div>
-                )
-              )}
+              {websiteData?.landing?.categories?.organizationAffiliations.map((text) => (
+                <div key={text} class="hero-tag">
+                  {text}
+                </div>
+              ))}
+              {websiteData?.landing?.categories?.communityAffiliations.map((text) => (
+                <div key={text} class="hero-tag">
+                  {text}
+                </div>
+              ))}
             </div>
           </div>
           <div
@@ -401,9 +366,7 @@ function WebPage({ setIsOpen }) {
                 (typeof websiteData?.landing?.userimg?.path === "object" ? (
                   <img
                     alt=""
-                    src={URL.createObjectURL(
-                      websiteData?.landing?.userimg?.path
-                    )}
+                    src={URL.createObjectURL(websiteData?.landing?.userimg?.path)}
                     style={{
                       width: "100%",
                       aspectRatio: "1/1",
@@ -422,9 +385,7 @@ function WebPage({ setIsOpen }) {
                   />
                 ))}
             </div>
-            <div
-              style={{ padding: "40px 20px", borderTop: "1px solid #0000001a" }}
-            >
+            <div style={{ padding: "40px 20px", borderTop: "1px solid #0000001a" }}>
               <div
                 class="mobile-sm-font-16"
                 style={{
@@ -437,10 +398,7 @@ function WebPage({ setIsOpen }) {
                 }}
               >
                 <span>{websiteData?.landing?.name}</span>
-                <span
-                  className="mobile-sm-font-8"
-                  style={{ fontSize: 16, fontWeight: 400 }}
-                >
+                <span className="mobile-sm-font-8" style={{ fontSize: 16, fontWeight: 400 }}>
                   ({websiteData?.landing?.pronoun})
                 </span>
               </div>
@@ -457,9 +415,7 @@ function WebPage({ setIsOpen }) {
                   color: "#181b1f",
                 }}
               >
-                <div style={{ flexShrink: 0 }}>
-                  {websiteData?.landing?.hashTagTitle}
-                </div>
+                <div style={{ flexShrink: 0 }}>{websiteData?.landing?.hashTagTitle}</div>
                 <div
                   className="mobile-sm-font-6"
                   style={{
@@ -486,10 +442,7 @@ function WebPage({ setIsOpen }) {
     <!-- value start --> */}
       <hr style={{ marginTop: "2rem" }} className="mobile-shown" />
 
-      <div
-        className="hover_div"
-        onClick={() => setIsOpen && setIsOpen("value")}
-      >
+      <div className="hover_div" onClick={() => setIsOpen && setIsOpen("value")}>
         <div
           className="mobile-col mobile-gap-72 mobile-padding-x-32 mobile-sm-padding-x-16"
           style={{
@@ -519,15 +472,13 @@ function WebPage({ setIsOpen }) {
                 fontSize: "16px",
                 fontWeight: 400,
               }}
-              dangerouslySetInnerHTML={{ __html: websiteData?.value?.description.replace(/\n/g, '<br/>') }}
-            >
-            </p>
+              dangerouslySetInnerHTML={{
+                __html: websiteData?.value?.description.replace(/\n/g, "<br/>"),
+              }}
+            ></p>
           </div>
 
-          <div
-            className="mobile-gap-48"
-            style={{ display: "flex", gap: "80px", flex: 1 }}
-          >
+          <div className="mobile-gap-48" style={{ display: "flex", gap: "80px", flex: 1 }}>
             <div style={{ flex: 1, flexShrink: 0 }}>
               <svg
                 width="100%"
@@ -535,20 +486,8 @@ function WebPage({ setIsOpen }) {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <rect
-                  x="0.5"
-                  y="0.5"
-                  width="312.59"
-                  height="481.077"
-                  fill="#F2F2F2"
-                />
-                <rect
-                  x="0.5"
-                  y="0.5"
-                  width="312.59"
-                  height="481.077"
-                  stroke="#242323"
-                />
+                <rect x="0.5" y="0.5" width="312.59" height="481.077" fill="#F2F2F2" />
+                <rect x="0.5" y="0.5" width="312.59" height="481.077" stroke="#242323" />
                 <rect
                   x="16.4359"
                   y="307.615"
@@ -594,91 +533,23 @@ function WebPage({ setIsOpen }) {
                   stroke="#181B1F"
                   stroke-width="2.61538"
                 />
-                <path
-                  d="M292.359 54.3589L297.59 57.8461"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 59.5897L297.59 63.0769"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 64.8204L297.59 68.3076"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 70.0513L297.59 73.5384"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 75.282L297.59 78.7692"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 80.5127L297.59 83.9999"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 85.7435L297.59 89.2307"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 90.9742L297.59 94.4614"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 96.2051L297.59 99.6923"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 101.436L297.59 104.923"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 106.667L297.59 110.154"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 111.897L297.59 115.385"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 117.128L297.59 120.615"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 122.359L297.59 125.846"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 127.59L297.59 131.077"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 132.82L297.59 136.308"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
-                <path
-                  d="M292.359 138.051L297.59 141.538"
-                  stroke="#181B1F"
-                  stroke-width="2.61538"
-                />
+                <path d="M292.359 54.3589L297.59 57.8461" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 59.5897L297.59 63.0769" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 64.8204L297.59 68.3076" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 70.0513L297.59 73.5384" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 75.282L297.59 78.7692" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 80.5127L297.59 83.9999" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 85.7435L297.59 89.2307" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 90.9742L297.59 94.4614" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 96.2051L297.59 99.6923" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 101.436L297.59 104.923" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 106.667L297.59 110.154" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 111.897L297.59 115.385" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 117.128L297.59 120.615" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 122.359L297.59 125.846" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 127.59L297.59 131.077" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 132.82L297.59 136.308" stroke="#181B1F" stroke-width="2.61538" />
+                <path d="M292.359 138.051L297.59 141.538" stroke="#181B1F" stroke-width="2.61538" />
                 <rect
                   x="86.1795"
                   y="393.923"
@@ -890,9 +761,10 @@ function WebPage({ setIsOpen }) {
               <p
                 className="mobile-sm-font-12"
                 style={{ color: "#828282", fontSize: "16px", fontWeight: 400 }}
-                dangerouslySetInnerHTML={{ __html: websiteData?.vision?.description.replace(/\n/g, '<br/>') }}
-              >
-              </p>
+                dangerouslySetInnerHTML={{
+                  __html: websiteData?.vision?.description.replace(/\n/g, "<br/>"),
+                }}
+              ></p>
             </div>
           </div>
         </div>
@@ -992,29 +864,12 @@ function WebPage({ setIsOpen }) {
                   d="M598.5 22.788V15.2482H601.479C601.553 15.2482 601.64 15.2517 601.741 15.2587C601.842 15.2622 601.94 15.2726 602.034 15.2901C602.443 15.3529 602.785 15.4925 603.06 15.709C603.34 15.9254 603.549 16.1994 603.689 16.531C603.828 16.8591 603.898 17.2239 603.898 17.6253C603.898 18.0233 603.827 18.388 603.684 18.7197C603.544 19.0478 603.334 19.3218 603.055 19.5417C602.779 19.7581 602.439 19.8977 602.034 19.9606C601.94 19.9745 601.842 19.985 601.741 19.992C601.64 19.999 601.553 20.0025 601.479 20.0025H599.432V22.788H598.5ZM599.432 19.1176H601.448C601.514 19.1176 601.589 19.1141 601.673 19.1071C601.76 19.1001 601.842 19.0879 601.919 19.0705C602.16 19.0146 602.355 18.9134 602.505 18.7668C602.659 18.6167 602.771 18.4421 602.841 18.2432C602.91 18.0407 602.945 17.8348 602.945 17.6253C602.945 17.4159 602.91 17.2117 602.841 17.0127C602.771 16.8103 602.659 16.634 602.505 16.4839C602.355 16.3338 602.16 16.2326 601.919 16.1802C601.842 16.1593 601.76 16.147 601.673 16.1436C601.589 16.1366 601.514 16.1331 601.448 16.1331H599.432V19.1176Z"
                   fill="#0E1216"
                 />
-                <path
-                  d="M661.324 14H703.212V25.3769H661.324V14Z"
-                  fill="url(#pattern0)"
-                />
+                <path d="M661.324 14H703.212V25.3769H661.324V14Z" fill="url(#pattern0)" />
                 <line x1="43.5" y1="19.5" x2="581.5" y2="19.5" stroke="black" />
                 <path d="M581.5 20L593 1H704" stroke="black" />
                 <path d="M581.5 19L593 38H704" stroke="black" />
-                <line
-                  x1="324.5"
-                  y1="19.5"
-                  x2="359.5"
-                  y2="19.5"
-                  stroke="#181B1F"
-                  stroke-width="3"
-                />
-                <line
-                  x1="43.5"
-                  y1="19.5"
-                  x2="78.5"
-                  y2="19.5"
-                  stroke="#181B1F"
-                  stroke-width="3"
-                />
+                <line x1="324.5" y1="19.5" x2="359.5" y2="19.5" stroke="#181B1F" stroke-width="3" />
+                <line x1="43.5" y1="19.5" x2="78.5" y2="19.5" stroke="#181B1F" stroke-width="3" />
                 <defs>
                   <pattern
                     id="pattern0"
@@ -1036,10 +891,7 @@ function WebPage({ setIsOpen }) {
                 </defs>
               </svg>
             </div>
-            <div
-              className="mobile-col"
-              style={{ display: "flex", marginTop: "20px", gap: "20px" }}
-            >
+            <div className="mobile-col" style={{ display: "flex", marginTop: "20px", gap: "20px" }}>
               <div style={{ flex: 1 }}>
                 <div
                   style={{
@@ -1062,9 +914,7 @@ function WebPage({ setIsOpen }) {
                 </div>
               </div>
 
-              <div
-                style={{ flex: 1, display: "flex", flexDirection: "column" }}
-              >
+              <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
                 <div
                   style={{
                     flex: 1,
@@ -1099,38 +949,34 @@ function WebPage({ setIsOpen }) {
                             color: "inherit",
                           }}
                         >
-                          <span style={{ gridColumn: "span 2 / span 2" }}>
-                            {item.title}
-                          </span>
+                          <span style={{ gridColumn: "span 2 / span 2" }}>{item.title}</span>
                         </a>
                       </div>
-                    )
+                    );
                   })}
                 </div>
-{
-  websiteData?.value?.button && 
-  <div style={{ marginTop: "20px" }}>
-  {/* <a href={websiteData?.value?.button?.link} target="_blank"> */}
-    <button
-      class="mobile-font-20 mobile-sm-font-12"
-      style={{
-        border: "none",
-        borderRadius: "10px",
-        color: "white",
-        cursor: "pointer",
-        width: "100%",
-        padding: "12px",
-        fontSize: "18px",
-        fontWeight: "500",
-        background: "linear-gradient(#c8bafd, #3e21f3)",
-      }}
-    >
-      {websiteData?.value?.button?.text}
-    </button>
-  {/* </a> */}
-</div>
-}
-               
+                {websiteData?.value?.button && (
+                  <div style={{ marginTop: "20px" }}>
+                    {/* <a href={websiteData?.value?.button?.link} target="_blank"> */}
+                    <button
+                      class="mobile-font-20 mobile-sm-font-12"
+                      style={{
+                        border: "none",
+                        borderRadius: "10px",
+                        color: "white",
+                        cursor: "pointer",
+                        width: "100%",
+                        padding: "12px",
+                        fontSize: "18px",
+                        fontWeight: "500",
+                        background: "linear-gradient(#c8bafd, #3e21f3)",
+                      }}
+                    >
+                      {websiteData?.value?.button?.text}
+                    </button>
+                    {/* </a> */}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -1252,9 +1098,7 @@ function WebPage({ setIsOpen }) {
                   }}
                 >
                   <span>{item?.year}</span>
-                  <span style={{ gridColumn: "span 2 / span 2" }}>
-                    {item.text}
-                  </span>
+                  <span style={{ gridColumn: "span 2 / span 2" }}>{item.text}</span>
                 </div>
               ))}
             </div>
@@ -1301,7 +1145,9 @@ function WebPage({ setIsOpen }) {
                 fontWeight: 400,
                 color: "#828282",
               }}
-              dangerouslySetInnerHTML={{ __html: websiteData?.CV?.future?.text.replace(/\n/g, '<br/>') }}
+              dangerouslySetInnerHTML={{
+                __html: websiteData?.CV?.future?.text.replace(/\n/g, "<br/>"),
+              }}
             >
               {/* {websiteData?.CV?.future?.text} */}
             </div>
@@ -1312,15 +1158,9 @@ function WebPage({ setIsOpen }) {
       {/* <!-- cv end -->
 
     <!-- available start --> */}
-      <div
-        className="hover_div"
-        onClick={() => setIsOpen && setIsOpen("available")}
-      >
+      <div className="hover_div" onClick={() => setIsOpen && setIsOpen("available")}>
         <div style={{ maxWidth: "1440px", margin: "auto" }}>
-          <div
-            className="mobile-sm-padding-y-28"
-            style={{ padding: "160px 0" }}
-          >
+          <div className="mobile-sm-padding-y-28" style={{ padding: "160px 0" }}>
             <h2
               className="mobile-sm-font-10"
               style={{ fontSize: "24px", fontWeight: 500, textAlign: "center" }}
@@ -1369,7 +1209,7 @@ function WebPage({ setIsOpen }) {
                     </svg>
                     <h2>{item?.heading}</h2>
                   </div>
-                )
+                );
               })}
             </div>
 
@@ -1384,18 +1224,16 @@ function WebPage({ setIsOpen }) {
               }}
             >
               <p style={{ margin: "30px 0" }}>
-                You are viewing an ENS domain, which is a distributed and open
-                naming system based on the Ethereum blockchain. This website is
-                hosted with Pinata on the IPFS, or InterPlanetary File System,
-                which is a peer-to-peer file sharing network. The .limo domain
-                extension is a privacy-preserving ENS gateway for
-                resolving/accessing ENS records/domains & IPFS/internet 3.0
-                content. For a complete web3 experience, we recommend viewing
-                this site with a Metamask extension or Brave browser.
+                You are viewing an ENS domain, which is a distributed and open naming system based
+                on the Ethereum blockchain. This website is hosted with Pinata on the IPFS, or
+                InterPlanetary File System, which is a peer-to-peer file sharing network. The .limo
+                domain extension is a privacy-preserving ENS gateway for resolving/accessing ENS
+                records/domains & IPFS/internet 3.0 content. For a complete web3 experience, we
+                recommend viewing this site with a Metamask extension or Brave browser.
               </p>
               <p style={{ margin: "30px 0" }}>
-                This site has been built by Si3 in support of the decentralized
-                and democratized web.
+                This site has been built by Si3 in support of the decentralized and democratized
+                web.
               </p>
             </div>
           </div>
@@ -1440,7 +1278,7 @@ function WebPage({ setIsOpen }) {
                     </div>
                   </div>
                 </>
-              )
+              );
             })}
           </div>
           <div
@@ -1451,15 +1289,15 @@ function WebPage({ setIsOpen }) {
             }}
           >
             <p style={{ margin: "30px 0", textAlign: "center" }}>
-              @2024 Si3 Inc. Si3 is a decentralizing universe of media,
-              technologies and talent powered by the ecosystem's diverse voices.
+              @2024 Si3 Inc. Si3 is a decentralizing universe of media, technologies and talent
+              powered by the ecosystem's diverse voices.
             </p>
           </div>
         </div>
       </div>
       {/* <!-- available end --> */}
     </div>
-  )
+  );
 }
 
-export default WebPage
+export default WebPage;

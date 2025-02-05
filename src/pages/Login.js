@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -21,10 +21,7 @@ function Login() {
     onSubmit: async (values) => {
       try {
         setLoading(true);
-        const response = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/api/auth`,
-          values
-        );
+        const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth`, values);
         console.log(response.data); // Handle successful login
         toast.success("Login successfull");
         localStorage.setItem("SI_HER", JSON.stringify(response.data));
@@ -45,23 +42,20 @@ function Login() {
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className="flex flex-col justify-center items-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           href="#"
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
         >
-          <img className="w-18 h-8 mr-2" src="/eye_logo.png" alt="logo" />
+          <img className="mr-2 h-8 w-18" src="/eye_logo.png" alt="logo" />
           SI HER
         </a>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            <h1 className="text-xl font-bold tracking-tight leading-tight text-gray-900 md:text-2xl dark:text-white">
               Sign in to your account
             </h1>
-            <form
-              className="space-y-4 md:space-y-6"
-              onSubmit={formik.handleSubmit}
-            >
+            <form className="space-y-4 md:space-y-6" onSubmit={formik.handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
@@ -82,9 +76,7 @@ function Login() {
                   {...formik.getFieldProps("email")}
                 />
                 {formik.errors.email && formik.touched.email && (
-                  <p className="text-red-500 text-xs mt-1">
-                    *{formik.errors.email}
-                  </p>
+                  <p className="mt-1 text-xs text-red-500">*{formik.errors.email}</p>
                 )}
               </div>
               <div>
@@ -107,33 +99,28 @@ function Login() {
                   {...formik.getFieldProps("password")}
                 />
                 {formik.errors.password && formik.touched.password && (
-                  <p className="text-red-500 text-xs mt-1">
-                    *{formik.errors.password}
-                  </p>
+                  <p className="mt-1 text-xs text-red-500">*{formik.errors.password}</p>
                 )}
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex justify-between items-center">
                 <div className="flex items-start">
                   <div className="flex items-center h-5">
                     <input
                       id="remember"
                       aria-describedby="remember"
                       type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                      className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                       required=""
                     />
                   </div>
                   <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500 dark:text-gray-300"
-                    >
+                    <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">
                       Remember me
                     </label>
                   </div>
                 </div>
                 <Link
-                 to={"/auth/forget-password"}
+                  to={"/auth/forget-password"}
                   className="text-sm font-medium text-[#3E21F3] hover:underline dark:text-primary-500"
                 >
                   Forgot password?
@@ -148,13 +135,13 @@ function Login() {
                 style={{
                   background: "linear-gradient(#c8bafd, #3e21f3)",
                 }}
-                className="w-full flex items-center justify-center gap-4 text-white hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                className="flex gap-4 justify-center items-center px-5 py-2.5 w-full text-sm font-medium text-center text-white rounded-lg hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300"
               >
                 {loading && (
-                  <div role="status">
+                  <output>
                     <svg
                       aria-hidden="true"
-                      class="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                      className="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                       viewBox="0 0 100 101"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -168,20 +155,11 @@ function Login() {
                         fill="currentFill"
                       />
                     </svg>
-                    <span class="sr-only">Loading...</span>
-                  </div>
+                    <span className="sr-only">Loading...</span>
+                  </output>
                 )}
                 <p> Sign In</p>
               </button>
-              {/* <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
-                <Link
-                  to="/auth/register"
-                  className="font-medium text-[#3E21F3] hover:underline dark:text-primary-500"
-                >
-                  Sign up
-                </Link>
-              </p> */}
             </form>
           </div>
         </div>
