@@ -1,23 +1,12 @@
 let navbar = {
-  // logo: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
-  // logo: { path: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`, id: null },
-  // imageAltText: "logo",
   websiteName: "SI HER",
   links: ["VALUE", "LIVE", "TIMELINE", "CONNECT"],
-  // buttonText: "LOGIN",
-  // fixedHeader: true,
 };
 let landing = {
   title: " KARA",
   subTitle: "& I create equitable platforms for the new economy.",
   hashTagTitle: "WHAT I STAND FOR:",
-  hashTags: [
-    "COLLABORATION",
-    "EQUITY",
-    "IMPACT",
-    "DECENTRALIZATION",
-    "EDUCATION",
-  ],
+  hashTags: ["COLLABORATION", "EQUITY", "IMPACT", "DECENTRALIZATION", "EDUCATION"],
   categories: {
     region: "Middle East",
     superPower: ["Web3 Founder"],
@@ -28,16 +17,8 @@ let landing = {
     path: "https://kara.siher.eth.limo/images/karafuture.png",
     id: null,
   },
-  // userimg: "https://kara.siher.eth.limo/images/karafuture.png",
   name: "Kara Howard",
   pronoun: "SHE/HER",
-  // marquee: [
-  //   "Self-Realization",
-  //   "Emerging Market Opportunities",
-  //   "DECENTRALIZING CURRENCIES & TECHNOLOGIES",
-  //   "COLLABORATIVE WEB3-4 ECOSYSTEM GROWTH",
-  //   "Inclusive Platforms",
-  // ],
 };
 let value = {
   title: "MY VALUE",
@@ -48,7 +29,6 @@ let value = {
     path: "https://lvpr.tv?v=33e86xt51h1f718x",
     id: null,
   },
-  // video: "https://lvpr.tv?v=33e86xt51h1f718x",
   links: [
     {
       type: "WEBSITE",
@@ -66,9 +46,9 @@ let value = {
       link: "https://podcasters.spotify.com/pod/show/b-r-i/episodes/Diversity-in-the-new-economy-e26pn30/a-aa40rlt",
     },
   ],
-  button:{
-    text:"TIP IN CRYPTO",
-    link:"https://www.si-her.live/"
+  button: {
+    text: "TIP IN CRYPTO",
+    link: "https://www.si-her.live/",
   },
 };
 let vision = {
@@ -76,103 +56,50 @@ let vision = {
   description:
     "I envision a near-term future that is operating with values based on inclusion, equity, and decentralized decision-making. I am hopeful to support in creating platforms that streamline cooperation and accelerate our human potential.",
 };
-let CV={
+let CV = {
   present: {
-      "title": "Present",
-      "highlights": [
-          "WeAreSi3",
-          "Unlocking NFT´s for Meta Impact",
-          "Diversity in the New Economy"
-      ]
+    title: "Present",
+    highlights: ["WeAreSi3", "Unlocking NFT´s for Meta Impact", "Diversity in the New Economy"],
   },
   past: {
-      "title": "Past",
-      "highlights": [
-          {
-              "year": "2002-10",
-              "text": "EQUITY RESEARCH ASSOCIATE / FINANCIAL ANALYST"
-          },
-          {
-              "year": "2004",
-              "text": "BSC FROM UW-MADISON - PERSONAL FINANCE"
-          },
-          {
-              "year": "2012",
-              "text": "MBA FROM NYU STERN - MARKETING & ENTREPRENEURSHIP"
-          },
-          {
-              "year": "2015-19",
-              "text": "VP OF GROWTH & PARTNERSHIPS AT CLEVERTAP"
-          },
-          {
-              "year": "2017-21",
-              "text": "MANAGED THE FEMININE INTELLIGENCE"
-          },
-          {
-              "year": "2022",
-              "text": "PERSONAL DEVELOPMENT RETREAT"
-          },
-          {
-              "year": "2023",
-              "text": "INITIATED SI3 & SI HER TALENT COLLECTIVE"
-          }
-      ]
+    title: "Past",
+    highlights: [
+      {
+        year: "2002-10",
+        text: "EQUITY RESEARCH ASSOCIATE / FINANCIAL ANALYST",
+      },
+      {
+        year: "2004",
+        text: "BSC FROM UW-MADISON - PERSONAL FINANCE",
+      },
+      {
+        year: "2012",
+        text: "MBA FROM NYU STERN - MARKETING & ENTREPRENEURSHIP",
+      },
+      {
+        year: "2015-19",
+        text: "VP OF GROWTH & PARTNERSHIPS AT CLEVERTAP",
+      },
+      {
+        year: "2017-21",
+        text: "MANAGED THE FEMININE INTELLIGENCE",
+      },
+      {
+        year: "2022",
+        text: "PERSONAL DEVELOPMENT RETREAT",
+      },
+      {
+        year: "2023",
+        text: "INITIATED SI3 & SI HER TALENT COLLECTIVE",
+      },
+    ],
   },
   future: {
-      "title": "Future",
-      "text": "I envision a near-term future that is operating with values based on inclusion, equity, and decentralized decision-making. I am hopeful to support in creating platforms that streamline cooperation and accelerate our human potential."
-  }
-}
+    title: "Future",
+    text: "I envision a near-term future that is operating with values based on inclusion, equity, and decentralized decision-making. I am hopeful to support in creating platforms that streamline cooperation and accelerate our human potential.",
+  },
+};
 
-
-// let CV = {
-//   // title: "CV Highlights",
-//   present: {
-//     title: "Present",
-//     highlights: [
-//       {
-//         year: "2002-10",
-//         text: "EQUITY RESEARCH ASSOCIATE / FINANCIAL ANALYST",
-//       },
-//       {
-//         year: "2004",
-//         text: "BSC FROM UW-MADISON - PERSONAL FINANCE",
-//       },
-//       {
-//         year: "2012",
-//         text: "MBA FROM NYU STERN - MARKETING & ENTREPRENEURSHIP",
-//       },
-//       {
-//         year: "2015-19",
-//         text: "VP OF GROWTH & PARTNERSHIPS AT CLEVERTAP",
-//       },
-//       {
-//         year: "2017-21",
-//         text: "MANAGED THE FEMININE INTELLIGENCE",
-//       },
-//       {
-//         year: "2022",
-//         text: "PERSONAL DEVELOPMENT RETREAT",
-//       },
-//       {
-//         year: "2023",
-//         text: "INITIATED SI3 & SI HER TALENT COLLECTIVE",
-//       },
-//     ],
-//   },
-//   past: {
-//     title: "Past",
-//     highlights: [
-//       "WeAreSi3",
-//       "Unlocking NFT´s for Meta Impact",
-//       "Diversity in the New Economy",
-//     ],
-//   },
-//   future: {
-//     title: "Future",
-//     text: "I envision a near-term future that is operating with values based on inclusion, equity, and decentralized decision-making. I am hopeful to support in creating platforms that streamline cooperation and accelerate our human potential.",
-//   },
-// };
 let available = {
   title: "I’M AVAILABLE FOR",
   marque: [

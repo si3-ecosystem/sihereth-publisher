@@ -1,8 +1,4 @@
-import React from "react";
 import "./landing.css";
-import { useState } from "react";
-import girl from "../../Images/girl.png";
-import arrow from "../../Images/arrow-right.svg";
 import { useSelector } from "react-redux";
 function Landing({ setIsOpen }) {
   const { websiteData } = useSelector((state) => state.content);
@@ -16,22 +12,13 @@ function Landing({ setIsOpen }) {
       <div className="landing_innerContainer">
         <div className="landing_info">
           <h1 className="landing_heading">
-            {/* I’m <span className="special_heading">{props.name}</span>,<br /> */}
             {websiteData?.landing?.title}
             <br />
-            {/* {allContent.heading} */}
             {websiteData?.landing?.subTitle}
-            {/* {contentss[0]}
-            <br />
-            {contentss[1]}
-            <br />
-            {contentss[2]} */}
           </h1>
           <div className="stand_box">
             <span className="border"></span>
-            <p className="standbox_title">
-              {websiteData?.landing?.hashTagTitle}
-            </p>
+            <p className="standbox_title">{websiteData?.landing?.hashTagTitle}</p>
             <div className="tags">
               {websiteData?.landing?.hashTags?.length &&
                 websiteData?.landing?.hashTags?.map((hash) => <p>#{hash}</p>)}
@@ -52,7 +39,7 @@ function Landing({ setIsOpen }) {
 
           <div className="animation_region animation_region_mobile">
             {websiteData?.landing?.categories.map((value, index) => (
-              <div className="anim">
+              <div key={index} className="anim">
                 <div className="inner_anim">
                   <p className="top_hide">
                     {value.title}{" "}
@@ -97,12 +84,9 @@ function Landing({ setIsOpen }) {
         <div className="landing_img">
           {websiteData?.landing?.userimg?.path &&
             (typeof websiteData?.landing?.userimg?.path === "object" ? (
-              <img
-                src={URL.createObjectURL(websiteData?.landing?.userimg?.path)}
-                alt="image"
-              />
+              <img src={URL.createObjectURL(websiteData?.landing?.userimg?.path)} alt="" />
             ) : (
-              <img src={websiteData?.landing?.userimg?.path} alt="image" />
+              <img src={websiteData?.landing?.userimg?.path} alt="" />
             ))}
 
           {/* <img src={websiteData?.landing?.userimg} /> */}

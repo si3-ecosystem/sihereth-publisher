@@ -33,7 +33,6 @@ function Home() {
   const [isSubDomain, setIsSubDomain] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isPublishWebpage, setIsPublishWebpage] = useState(false);
-  console.log(isSubDomain);
   const [mode, setMode] = useState("Publish");
   const userData = JSON.parse(localStorage.getItem("SI_HER"));
   const [isOpen, setIsOpen] = useState("");
@@ -96,7 +95,7 @@ function Home() {
       });
       console.log(response);
       setDomainLoading(false);
-      toast.success(`Domain assign successfully`);
+      toast.success(`Domain assigned successfully`);
       setIsSubDomain(subDomain);
     } catch (error) {
       console.log(error);
