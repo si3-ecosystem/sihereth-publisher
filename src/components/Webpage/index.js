@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import "../../CSS/webpage.css";
+
 function WebPage({ setIsOpen }) {
   const { websiteData } = useSelector((state) => state?.content);
   function isValidEmail(email) {

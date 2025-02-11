@@ -23,7 +23,7 @@ function Navbar({ setIsOpen }) {
       // onClick={() => setIsOpen("navbar")}
       onClick={() => setIsOpen && setIsOpen("navbar")}
     >
-      <nav className={`nav ${checkClass} `}>
+      <nav className={`nav ${checkClass}`}>
         <div className="nav_wrapper">
           <div className="logo">
             <h1>{websiteData?.navbar?.websiteName}</h1>
@@ -36,7 +36,7 @@ function Navbar({ setIsOpen }) {
                     <a
                       href={`#${item.toString().toLowerCase()}`}
                       key={index}
-                      className="text-red-500 "
+                      className="text-red-500"
                     >
                       {item}
                     </a>
