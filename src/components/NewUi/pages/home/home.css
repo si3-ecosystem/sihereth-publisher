@@ -1,0 +1,36 @@
+/* text animation  */
+.ml1 .letter {
+ 
+  line-height: 1em;
+}
+
+.ml1 .text-wrapper {
+  position: relative;
+  
+}
+
+.ml1 .letters {
+  display: inline-block;
+  transform-origin: 50% 50%;
+}
+
+.text-with-dash {
+  display: inline;
+  word-break: break-word;
+}
+
+.text-with-dash::after {
+  content: "-";
+  display: none;
+}
+
+.text-with-dash br + .text-with-dash::after {
+  display: inline;
+}
+
+
+/* image animation */
+
+
+
+

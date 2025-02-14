@@ -3,18 +3,19 @@ import { useEffect, useState, useCallback } from "react";
 import Drawer from "react-modern-drawer";
 import websiteContent from "../DataFiles/6abc2.js";
 import "react-modern-drawer/dist/index.css";
-import { IFrame } from "../components/IFrame/iframe";
+// import { IFrame } from "../components/IFrame/iframe";
 import DynamicComponent from "../components/DynamicComponent/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { handleNewWebpage, handleWebsiteData } from "../reducers/contentReducer.js";
 import { useNavigate } from "react-router-dom";
-import { cssPaths } from "../utils/constants.js";
+// import { cssPaths } from "../utils/constants.js";
 import toast from "react-hot-toast";
 import axiosInstance from "../utils/axiosInstance.js";
-import WebPage from "../components/Webpage/index.js";
+// import WebPage from "../components/Webpage/index.js";
 import Header from "../components/main/Header.jsx";
 import { RiLoaderFill } from "react-icons/ri";
 import Navbar from "../components/main/Nav.jsx";
+import HomeNew from "../components/NewUi/pages/home/home.js";
 
 function Home() {
   // States
@@ -182,7 +183,7 @@ function Home() {
       ) : (
         <div className={`transition-width duration-500 ${isOpen ? "w-[75%]" : "w-[100%]"}`}>
           <div style={{ width: `${screenWidth}` }}>
-            <IFrame
+            {/* <IFrame
               cssFiles={[
                 cssPaths.index,
                 cssPaths.app,
@@ -196,7 +197,8 @@ function Home() {
               ]}
             >
               <WebPage setIsOpen={setIsOpen} />
-            </IFrame>
+            </IFrame> */}
+            <HomeNew setIsOpen={setIsOpen} />
           </div>
           <Drawer
             open={isOpen}
