@@ -2,63 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* *{
-  margin: 0;
-  padding: 0;
-  
-} */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-}
 
-.hero-tag {
-  color: #181b1f;
-  padding: 8px 12px;
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-}
 @font-face {
   font-family: "Clash Display";
-  src: url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/ts2mbbtlvdejvcqvf4ei.woff2")
-      format("woff2"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/beenkrnngsrifadiezcp.woff")
-      format("woff"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/b663bunwvutpswct40ry.woff2")
-      format("woff"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/cszvi2ojjraq3k9v7rc1.woff")
-      format("woff"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/kft6rdftfi6nzqxmemny.woff")
-      format("woff"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570586/kara-fonts/i5x6xqcnh19j3ray1fyi.woff2")
-      format("woff2"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/dfnainbs6idwklvrqil3.woff2")
-      format("woff2"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570586/kara-fonts/xgvwxrwumph01f0l52zf.woff")
-      format("woff"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570586/kara-fonts/py9gfjlgshbnzusbremg.woff")
-      format("woff"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570586/kara-fonts/ofgpv1fbxbrfrpylxnz4.woff2")
-      format("woff2"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570586/kara-fonts/vhta5vdcwplrfqpwlqvr.woff")
-      format("woff"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570585/kara-fonts/xmfjtc7td8pbbg1xgn2s.woff2")
-      format("woff2"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570585/kara-fonts/dxgq4bzzjpsnm0j0au8h.woff")
-      format("woff"),
-    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570585/kara-fonts/zpssggbsmikoutlwaf4w.woff")
-      format("woff");
+  src: url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/ts2mbbtlvdejvcqvf4ei.woff2") format("woff2"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/beenkrnngsrifadiezcp.woff") format("woff"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/b663bunwvutpswct40ry.woff2") format("woff"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/cszvi2ojjraq3k9v7rc1.woff") format("woff"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/kft6rdftfi6nzqxmemny.woff") format("woff"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570586/kara-fonts/i5x6xqcnh19j3ray1fyi.woff2") format("woff2"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570587/kara-fonts/dfnainbs6idwklvrqil3.woff2") format("woff2"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570586/kara-fonts/xgvwxrwumph01f0l52zf.woff") format("woff"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570586/kara-fonts/py9gfjlgshbnzusbremg.woff") format("woff"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570586/kara-fonts/ofgpv1fbxbrfrpylxnz4.woff2") format("woff2"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570586/kara-fonts/vhta5vdcwplrfqpwlqvr.woff") format("woff"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570585/kara-fonts/xmfjtc7td8pbbg1xgn2s.woff2") format("woff2"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570585/kara-fonts/dxgq4bzzjpsnm0j0au8h.woff") format("woff"),
+    url("https://res.cloudinary.com/rizwanamjad/raw/upload/v1712570585/kara-fonts/zpssggbsmikoutlwaf4w.woff") format("woff");
 }
 body {
-  font-family: Clash Display, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: Clash Display, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .hero-tag {

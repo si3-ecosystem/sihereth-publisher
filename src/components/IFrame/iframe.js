@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
-export const IFrame = ({
-  children,
-  width,
-  height,
-  cssFiles,
-  // setScreenWidth,
-  ...props
-}) => {
-  console.log(width);
+import PropTypes from "prop-types";
+
+export const IFrame = ({ children, cssFiles }) => {
   const [contentRef, setContentRef] = useState(null);
 
   const handleLoad = () => {
-    if (!contentRef || !contentRef.contentWindow) return;
+    if (!contentRef?.contentWindow) return;
     const iframeHead = contentRef.contentWindow.document.head;
     cssFiles.forEach((cssFile) => {
       const linkElement = document.createElement("link");
@@ -21,24 +15,20 @@ export const IFrame = ({
       iframeHead.appendChild(linkElement);
     });
   };
-  // useEffect(() => {
-  //   if (contentRef && contentRef.contentWindow) {
-  //     contentRef.contentWindow.addEventListener("resize", () => {
-  //       console.log(contentRef.offsetWidth);
-  //       setScreenWidth(contentRef.offsetWidth);
-  //     });
-  //   }
-  // }, [contentRef]);
+
   return (
     <iframe
-      {...props}
+      title="iframe"
       ref={setContentRef}
       onLoad={handleLoad}
-      width={width}
-      height={height}
+      className="w-full h-[calc(100vh-13.6rem)]"
     >
-      {contentRef &&
-        createPortal(children, contentRef.contentWindow.document.body)}
+      {contentRef && createPortal(children, contentRef.contentWindow.document.body)}
     </iframe>
   );
+};
+
+IFrame.propTypes = {
+  children: PropTypes.node.isRequired,
+  cssFiles: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

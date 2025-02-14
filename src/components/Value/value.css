@@ -42,7 +42,7 @@
 .value_media .bold_line {
   margin: 5px 0;
   /* width: 389.44px; */
-  height: 0px;
+  height: 0;
   /* opacity: 0.9; */
   border: 3.9577px solid #0e1216;
 }
@@ -99,8 +99,8 @@
 }
 .value_container .value_links a {
   width: 33%;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0,
+    rgba(27, 31, 35, 0.15) 0 0 0 1px;
   text-decoration: none;
   font-family: "Clash Display Variable";
   font-style: normal;

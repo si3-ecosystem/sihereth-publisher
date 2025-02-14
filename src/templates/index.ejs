@@ -1148,7 +1148,6 @@
             <div style="width: 100%; border-radius: 16px; overflow: hidden">
               <iframe
                 src="<%= value.video.path %>"
-                frameborder="0"
                 allowfullscreen
                 allow="autoplay; encrypted-media; picture-in-picture;cover"
                 sandbox="allow-same-origin allow-scripts"
@@ -1437,7 +1436,8 @@
               background: -webkit-linear-gradient(#eee, #333);
               background: linear-gradient(
                 to right,
-                #a8a9ad #b4b5b8,
+                #a8a9ad,
+                #b4b5b8,
                 #c0c0c3,
                 #cbcccd,
                 #e3e3e3,

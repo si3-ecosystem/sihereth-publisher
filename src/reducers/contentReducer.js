@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
   websiteData: null,
   isNewWebpage: true,
@@ -9,7 +10,6 @@ const contentReducer = createSlice({
   initialState,
   reducers: {
     handleWebsiteData: (state, action) => {
-      console.log(action.payload);
       state.websiteData = action.payload;
     },
     handleNewWebpage: (state, action) => {
@@ -17,5 +17,6 @@ const contentReducer = createSlice({
     },
   },
 });
+
 export const { handleWebsiteData, handleNewWebpage } = contentReducer.actions;
 export default contentReducer.reducer;

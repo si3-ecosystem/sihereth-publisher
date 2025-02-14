@@ -1027,7 +1027,6 @@ function PreviewWebPage() {
                   {websiteData?.value?.video?.path && (
                     <iframe
                       src={websiteData?.value?.video?.path}
-                      frameBorder="0"
                       allowFullScreen
                       allow="autoplay; encrypted-media; picture-in-picture;cover"
                       sandbox="allow-same-origin allow-scripts"
@@ -1049,7 +1048,7 @@ function PreviewWebPage() {
                     alignItems: "center",
                   }}
                 >
-                  <img src="/eye_logo.png" />
+                  <img src="/eye_logo.png" alt=''/>
                 </div>
                 <div
                   class="mobile-sm-font-14"

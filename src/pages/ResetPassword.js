@@ -1,28 +1,27 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 const validationSchema = Yup.object().shape({
-    password: Yup.string()
-      .required("Password is required")
-      .min(8, "Password must be at least 8 characters long"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], "Passwords must match")
-      .required("Confirm Password is required"),
-  });
-  
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters long"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
+});
 
 function ResetPassword() {
-    const [searchParams] = useSearchParams();
-const token=searchParams.get("token")
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       password: "",
-      confirmPassword:""
+      confirmPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -30,7 +29,7 @@ const token=searchParams.get("token")
         setLoading(true);
         const response = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/api/auth/reset-password?token=${token}`,
-          {password:values.password}
+          { password: values.password }
         );
         toast.success(response.data);
         navigate("/auth/login");
@@ -50,24 +49,21 @@ const token=searchParams.get("token")
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className="flex flex-col justify-center items-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           href="#"
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
         >
-          <img className="w-18 h-8 mr-2" src="/eye_logo.png" alt="logo" />
+          <img className="mr-2 h-8 w-18" src="/eye_logo.png" alt="logo" />
           SI HER
         </a>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Change Password
+            <h1 className="text-xl font-bold tracking-tight leading-tight text-gray-900 md:text-2xl dark:text-white">
+              Change Password
             </h1>
-            <form
-              className="space-y-4 md:space-y-6"
-              onSubmit={formik.handleSubmit}
-            >
-                 <div>
+            <form className="space-y-4 md:space-y-6" onSubmit={formik.handleSubmit}>
+              <div>
                 <label
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -87,9 +83,7 @@ const token=searchParams.get("token")
                   {...formik.getFieldProps("password")}
                 />
                 {formik.errors.password && formik.touched.password && (
-                  <p className="text-red-500 text-xs mt-1">
-                    *{formik.errors.password}
-                  </p>
+                  <p className="mt-1 text-xs text-red-500">*{formik.errors.password}</p>
                 )}
               </div>
               <div>
@@ -112,28 +106,22 @@ const token=searchParams.get("token")
                   {...formik.getFieldProps("confirmPassword")}
                 />
                 {formik.errors.confirmPassword && formik.touched.confirmPassword && (
-                  <p className="text-red-500 text-xs mt-1">
-                    *{formik.errors.confirmPassword}
-                  </p>
+                  <p className="mt-1 text-xs text-red-500">*{formik.errors.confirmPassword}</p>
                 )}
               </div>
-           
               <button
                 disabled={loading}
                 type="submit"
-                //                 background: linear-gradient(180deg, #3E21F3 0%, #C8BAFD 100%),
-                // linear-gradient(90deg, #A020F0 0%, rgba(160, 32, 240, 0) 100%);
-
                 style={{
                   background: "linear-gradient(#c8bafd, #3e21f3)",
                 }}
-                className="w-full flex items-center justify-center gap-4 text-white hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                className="flex gap-4 justify-center items-center px-5 py-2.5 w-full text-sm font-medium text-center text-white rounded-lg hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300"
               >
                 {loading && (
-                  <div role="status">
+                  <output>
                     <svg
                       aria-hidden="true"
-                      class="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                      className="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                       viewBox="0 0 100 101"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -147,20 +135,11 @@ const token=searchParams.get("token")
                         fill="currentFill"
                       />
                     </svg>
-                    <span class="sr-only">Loading...</span>
-                  </div>
+                    <span className="sr-only">Loading...</span>
+                  </output>
                 )}
                 <p> Reset Password</p>
               </button>
-              {/* <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
-                <Link
-                  to="/auth/register"
-                  className="font-medium text-[#3E21F3] hover:underline dark:text-primary-500"
-                >
-                  Sign up
-                </Link>
-              </p> */}
             </form>
           </div>
         </div>
