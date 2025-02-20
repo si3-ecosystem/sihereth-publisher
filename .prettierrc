@@ -1,0 +1,9 @@
+{
+  "singleQuote": false,
+  "trailingComma": "none",
+  "tailwindConfig": "./tailwind.config.ts",
+  "printWidth": 120,
+  "tabWidth": 2,
+  "semi": true,
+  "endOfLine": "lf"
+}

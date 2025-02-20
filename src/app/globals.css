@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "clash-display";
+  src: url("../assets/fonts/ClashDisplayVariable.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "segoe-ui";
+  src: url("../assets/fonts/SegoeUIBold.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+}
+
+body {
+  color: #171717;
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.font-clash-display {
+  font-family: "clash-display", sans-serif;
+}
+
+.font-segoe-ui {
+  font-family: "segoe-ui", sans-serif;
+}

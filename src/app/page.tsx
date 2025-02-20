@@ -1,0 +1,192 @@
+"use client";
+import { useEffect, useState, useCallback } from "react";
+import Drawer from "react-modern-drawer";
+import "react-modern-drawer/dist/index.css";
+import Header from "@/components/main/Header";
+import Navbar from "@/components/main/Navbar";
+import { useRouter } from "next/navigation";
+import apiClient from "@/utils/interceptor";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import toast from "react-hot-toast";
+import { handleNewWebpage, handleWebsiteData } from "../redux/contentSlice";
+import websiteContent from "../DataFiles/6abc2";
+import DynamicComponent from "../components/DynamicComponent";
+import { RiLoaderFill } from "react-icons/ri";
+import HomeNew from "@/components/NewUi/pages/home/home";
+
+function Home() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { websiteData, isNewWebpage } = useSelector((state: RootState) => state.content);
+  const [domainLoading, setDomainLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [getLoading, setGetLoading] = useState<boolean>(false);
+  const [screenWidth, setScreenWidth] = useState<string>("100%");
+  const [subDomain, setSubDomain] = useState<string>("");
+  const [isSubDomain, setIsSubDomain] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("error");
+  const [isPublishWebpage, setIsPublishWebpage] = useState<boolean>(false);
+  const [mode, setMode] = useState<string>("Publish");
+  const userData = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("SI_HER") || "{}") : null;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleDrawer = () => setIsOpen((prevState) => !prevState);
+  const handleToggleView = (viewSize: string) => setScreenWidth(viewSize);
+
+  const getWebsiteContent = useCallback(async () => {
+    try {
+      setGetLoading(true);
+      const { data } = await apiClient.get(`/api/webpage`);
+      if (data?.subDomain) {
+        setIsSubDomain(data?.subDomain);
+      }
+      if (!data?.data) {
+        setIsPublishWebpage(false);
+        dispatch(handleWebsiteData(websiteContent));
+        setGetLoading(false);
+        return;
+      }
+      setIsPublishWebpage(true);
+      setMode("Update");
+      setGetLoading(false);
+      dispatch(handleNewWebpage(false));
+      dispatch(handleWebsiteData(data?.data));
+    } catch (error: any) {
+      setGetLoading(false);
+      console.log(error);
+      if (error.response?.status === 404) {
+        dispatch(handleWebsiteData(websiteContent));
+        return;
+      }
+      toast.error("Server error. Please refresh the page");
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!websiteData && userData) {
+      getWebsiteContent();
+    }
+  }, [websiteData, userData, getWebsiteContent]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSubDomain(value);
+    const regex = /\.?siher(?:\.eth)?(?:eth)?(?:eth\b|\b)/i;
+    const containsInvalidCharacters = /[^a-zA-Z\s]/.test(value);
+    if (regex.test(value) || containsInvalidCharacters) {
+      setErrorMessage("Please enter only text without special characters or siher.eth variations.");
+    } else {
+      setErrorMessage("");
+    }
+  };
+
+  const AssignDomain = async () => {
+    try {
+      setDomainLoading(true);
+      await apiClient.post(`/api/subDomain`, { subDomain });
+      toast.success("Domain assigned successfully");
+      setIsSubDomain(subDomain);
+    } catch (error: any) {
+      console.log("Error assigning domain:", error);
+      let errorMessage;
+      if (error.response?.data === "Subdomain Already registered") {
+        errorMessage = "Subdomain Already registered";
+      } else if (error.response?.status === 404) {
+        errorMessage = "Please publish the webpage before assigning a subdomain.";
+      } else {
+        errorMessage = "Server error. Please try again!";
+      }
+      toast.error(errorMessage);
+    } finally {
+      setDomainLoading(false);
+    }
+  };
+
+  const handlePublish = async () => {
+    try {
+      setLoading(true);
+      console.log(websiteData);
+      // const response = isNewWebpage
+      //   ? await apiClient.post(`/api/webpage`, websiteData)
+      //   : await apiClient.put(`/api/webpage`, websiteData);
+      setLoading(false);
+      toast.success(`Webpage ${isNewWebpage ? "created" : "updated"} successfully`);
+      getWebsiteContent();
+    } catch (error: any) {
+      console.log(error);
+      setLoading(false);
+      toast.error(error.response?.status === 400 ? error.response.data : "Server error. Please try again!");
+    }
+  };
+
+  return (
+    <div className="h-screen">
+      {/* Header */}
+      <Header />
+      {/* Navbar */}
+      <Navbar
+        handleToggleView={handleToggleView}
+        screenWidth={screenWidth}
+        handlePublish={handlePublish}
+        loading={loading}
+        mode={mode}
+        navigate={router.push}
+      />
+      {/* Domain section */}
+      <div className="flex justify-center items-center py-4 mx-auto w-full font-serif text-lg tracking-wider border-b border-gray-300 shadow-md">
+        {isSubDomain ? (
+          <>
+            <p>Web page url: </p>
+            <a
+              href={`https://${isSubDomain}.${process.env.NEXT_PUBLIC_SIHER_DOMAIN}`}
+              target="_blank"
+              className="ml-2 font-serif text-blue-600 hover:underline underline-offset-2"
+            >{`https://${isSubDomain}.${process.env.NEXT_PUBLIC_SIHER_DOMAIN}`}</a>
+          </>
+        ) : (
+          <section className="items-center w-[40%] relative text-lg flex border text-gray-500 hover:text-gray-700 border-gray-300 rounded-lg hover:border-gray-500 justify-between">
+            <div className="flex justify-center items-center w-full">
+              <GrDomain className="ml-4 size-8" />
+              <input
+                disabled={!isPublishWebpage}
+                type="text"
+                className="w-full leading-4 text-gray-900 border-none outline-none focus:ring-0"
+                placeholder="Submit your siher.eth domain of choice"
+                value={subDomain}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex justify-center items-center">
+              <p className="mr-4 text-gray-500">.siher.eth</p>
+              <button
+                disabled={domainLoading || !!errorMessage || !isPublishWebpage}
+                onClick={AssignDomain}
+                className="flex gap-3 justify-center items-center px-3 py-1 w-max text-white bg-black rounded-lg border border-black disabled:opacity-80 hover:bg-opacity-80 focus:outline-none focus:ring-none hover:shadow-md"
+              >
+                {domainLoading && <RiLoaderFill className="animate-spin size-5" />}
+                {domainLoading ? "Loading..." : "Publish your domain"}
+              </button>
+            </div>
+          </section>
+        )}
+      </div>
+      {/* Page View */}
+      {getLoading ? (
+        <div className="flex justify-center items-center w-full h-96">
+          <RiLoaderFill className="text-gray-900 animate-spin size-12" />
+        </div>
+      ) : (
+        <div className={`transition-width duration-500 ${isOpen ? "w-[75%]" : "w-[100%]"}`}>
+          <div style={{ width: `${screenWidth}` }}>
+            {/* <HomeNew setIsOpen={setIsOpen} /> */}
+          </div>
+          <Drawer open={isOpen} onClose={toggleDrawer} direction="right" size="25%" enableOverlay={false}>
+            <DynamicComponent isOpen={isOpen} toggleDrawer={toggleDrawer} />
+          </Drawer>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Home;
