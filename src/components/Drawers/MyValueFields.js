@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { RxCrossCircled } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { handleWebsiteData } from "../../reducers/contentReducer";
+import { handleWebsiteData } from "../../redux/contentReducer";
 
 function MyValueFields({ toggleDrawer }) {
   const { websiteData } = useSelector((state) => state.content);

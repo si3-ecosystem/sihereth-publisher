@@ -4,7 +4,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import FileUpload from "../FileUpload";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
-import { handleWebsiteData } from "../../reducers/contentReducer";
+import { handleWebsiteData } from "../../redux/contentReducer";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCirclePlus } from "react-icons/fa6";
 function AvailableFields({ toggleDrawer }) {

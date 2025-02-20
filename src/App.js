@@ -1,16 +1,16 @@
-import "../CSS/App.css";
-import "../CSS/responsive.css";
-import Error from "../components/404/Error";
+import "./CSS/responsive.css";
+import Error from "./components/404/Error.js";
 import "react-modern-drawer/dist/index.css";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { PrivateRoutes } from "../components/PrivateRoutes/index.js";
-import Home from "../pages/Home.js";
-import Login from "../pages/Login.js";
-import Register from "../pages/Register.js";
+import { PrivateRoutes } from "./components/PrivateRoutes/index.js";
+import Home from "./pages/Home.js";
+import Login from "./pages/Login.js";
+import Register from "./pages/Register.js";
 import { Toaster } from "react-hot-toast";
-import PreviewWebPage from "../components/preview/index.js";
-import ForgetPassword from "../pages/ForgetPassword.js";
-import ResetPassword from "../pages/ResetPassword.js";
+import PreviewWebPage from "./components/preview/index.js";
+import ForgetPassword from "./pages/ForgetPassword.js";
+import ResetPassword from "./pages/ResetPassword.js";
+
 function App() {
   return (
     <div>

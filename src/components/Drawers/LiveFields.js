@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { RxCrossCircled } from "react-icons/rx";
 import { IoIosAddCircle } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { handleWebsiteData } from "../../reducers/contentReducer";
+import { handleWebsiteData } from "../../redux/contentReducer";
 import VideoUpload from "../FileUpload/videoUpload";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCirclePlus } from "react-icons/fa6";

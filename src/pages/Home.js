@@ -6,7 +6,7 @@ import "react-modern-drawer/dist/index.css";
 // import { IFrame } from "../components/IFrame/iframe";
 import DynamicComponent from "../components/DynamicComponent/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { handleNewWebpage, handleWebsiteData } from "../reducers/contentReducer.js";
+import { handleNewWebpage, handleWebsiteData } from "../redux/contentReducer.js";
 import { useNavigate } from "react-router-dom";
 // import { cssPaths } from "../utils/constants.js";
 import toast from "react-hot-toast";

@@ -3,7 +3,7 @@ import { RxCrossCircled } from "react-icons/rx";
 import { IoIosAddCircle } from "react-icons/io";
 import FileUpload from "../FileUpload";
 import { useDispatch, useSelector } from "react-redux";
-import { handleWebsiteData } from "../../reducers/contentReducer";
+import { handleWebsiteData } from "../../redux/contentReducer";
 import { handleDeleteFile, handleUpload } from "../../utils/fileUploader";
 
 function NavbarFields({ toggleDrawer }) {
