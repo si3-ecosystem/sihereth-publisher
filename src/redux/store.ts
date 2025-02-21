@@ -1,17 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./authSlice";
+import contentReducer from "./contentSlice";
 import logger from "redux-logger";
 import storage from "redux-persist/lib/storage";
-import {
-  persistReducer,
-  persistStore,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER
-} from "redux-persist";
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 
 // Encryption transform configuration
@@ -36,7 +28,8 @@ const persistedUserReducer = persistReducer(persistConfig, userReducer);
 // Configure the store
 const store = configureStore({
   reducer: {
-    user: persistedUserReducer
+    user: persistedUserReducer,
+    content: contentReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
