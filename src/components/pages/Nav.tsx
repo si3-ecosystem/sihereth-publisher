@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center border-b border-[#1E1E1E] p-6 sm:px-16 sm:py-4 md:px-10 md:py-2 lg:py-6 relative xl:py-6 xl:px-12">
+    <nav className="flex justify-between items-center border-b border-gray-800 p-6 sm:px-16 sm:py-4 md:px-10 md:py-2 lg:py-6 relative xl:py-6 xl:px-12">
       {/* Logo */}
       <Image
         src={eyeLogo}

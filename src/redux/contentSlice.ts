@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ContentState, LandingTypes } from "@/utils/types";
+import { ContentState } from "@/utils/types";
 
 const initialState: ContentState = {
   navbar: {
@@ -73,59 +73,22 @@ const contentSlice = createSlice({
   name: "content",
   initialState,
   reducers: {
-    handleLandingData: (state, action: PayloadAction<LandingTypes>) => {
-      state.landing = action.payload;
-    },
-    handleNewWebpage: (state, action: PayloadAction<boolean>) => {
-      state.isNewWebpage = action.payload;
-    },
-    editSectionData: (state, action: PayloadAction<{ section: keyof ContentState; data: any }>) => {
+    updateContent: (state, action: PayloadAction<{ section: keyof ContentState; data: any }>) => {
       const { section, data } = action.payload;
-      const targetSection = state[section];
 
-      if (typeof targetSection === "object" && targetSection !== null) {
+      if (section === "isNewWebpage" && typeof data === "boolean") {
+        state.isNewWebpage = data;
+      } else if (state[section] && typeof state[section] === "object") {
         state[section] = {
-          ...targetSection,
+          ...state[section],
           ...data
         };
       } else {
-        console.error(`The section ${section} is not an object.`);
-      }
-    },
-    resetSectionData: (state, action: PayloadAction<keyof ContentState>) => {
-      const section = action.payload;
-      const initialSection = initialState[section];
-
-      if (typeof initialSection === "object" && initialSection !== null) {
-        state[section] = initialSection;
-      } else {
-        console.error(`The section ${section} cannot be reset because it is not an object.`);
-      }
-    },
-    addToArray: (state, action: PayloadAction<{ section: keyof ContentState; item: any }>) => {
-      const { section, item } = action.payload;
-      const targetSection = state[section];
-
-      if (Array.isArray(targetSection)) {
-        targetSection.push(item);
-      } else {
-        console.error(`The section ${section} is not an array.`);
-      }
-    },
-    removeFromArray: (state, action: PayloadAction<{ section: keyof ContentState; index: number }>) => {
-      const { section, index } = action.payload;
-      const targetSection = state[section];
-
-      if (Array.isArray(targetSection)) {
-        targetSection.splice(index, 1);
-      } else {
-        console.error(`The section ${section} is not an array.`);
+        console.error(`Invalid section or data type: ${section}`);
       }
     }
   }
 });
 
-export const { handleLandingData, handleNewWebpage, editSectionData, resetSectionData, addToArray, removeFromArray } =
-  contentSlice.actions;
-
+export const { updateContent } = contentSlice.actions;
 export default contentSlice.reducer;

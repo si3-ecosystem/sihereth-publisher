@@ -11,23 +11,12 @@ type ViewMode = "mobile" | "tablet" | "desktop";
 
 interface NavbarProps {
   handleToggleView: (viewSize: string) => void;
-  mode: string;
   navigate: (path: string) => void;
   viewMode: ViewMode;
   setViewMode: (viewMode: ViewMode) => void;
-  getWebsiteContent: () => void;
-  isNewWebpage: boolean;
 }
 
-const Navbar = ({
-  handleToggleView,
-  mode,
-  navigate,
-  viewMode,
-  setViewMode,
-  getWebsiteContent,
-  isNewWebpage
-}: NavbarProps) => {
+const Navbar = ({ handleToggleView, navigate, viewMode, setViewMode }: NavbarProps) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -69,8 +58,6 @@ const Navbar = ({
       //   ? await apiClient.post(`/api/webpage`, websiteData)
       //   : await apiClient.put(`/api/webpage`, websiteData);
       setLoading(false);
-      toast.success(`Webpage ${isNewWebpage ? "created" : "updated"} successfully`);
-      getWebsiteContent();
     } catch (error: any) {
       console.log(error);
       setLoading(false);
@@ -127,21 +114,20 @@ const Navbar = ({
         {/* Publish Button */}
         <button
           onClick={handlePublish}
-          className="flex gap-2 items-center px-5 py-2 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 hover:shadow-md border transition"
+          className="flex gap-4 items-center px-5 py-2 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 hover:shadow-md border transition"
         >
+          <div className="bg-green-500 size-2 rounded-full"></div>Publish
           {loading && <RiLoaderFill className="animate-spin size-5" />}
-          {loading ? "Loading..." : mode}
         </button>
         {/* Logout Button */}
         <button
           onClick={() => {
-            localStorage.removeItem("SI_HER");
             navigate("/auth/login");
           }}
-          className="flex gap-2 items-center px-5 py-2 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 hover:shadow-md border transition"
+          className="flex gap-3 items-center px-5 py-2 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 hover:shadow-md border transition"
         >
           <p>Logout</p>
-          <IoIosLogOut />
+          <IoIosLogOut className="size-5" />
         </button>
       </div>
     </nav>

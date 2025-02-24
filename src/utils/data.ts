@@ -133,14 +133,13 @@ let available = {
   ]
 };
 
-const countries = [
+export const countries = [
   { value: "North America", label: "North America" },
   { value: "South America", label: "South America" },
   { value: "Central America", label: "Central America" },
   { value: "Caribbean", label: "Caribbean" },
   { value: "Central & South Asia", label: "Central & South Asia" },
   { value: "Northeastern Asia", label: "Northeastern Asia" },
-  { value: "Caribbean", label: "Caribbean" },
   { value: "Southeastern Asia", label: "Southeastern Asia" },
   { value: "Australia and Oceania", label: "Australia and Oceania" },
   { value: "Northern Europe", label: "Northern Europe" },
@@ -152,4 +151,4 @@ const countries = [
   { value: "Southern Africa", label: "Southern Africa" }
 ];
 
-export default { navbar, landing, value, vision, CV, available, countries };
+export default { navbar, landing, value, vision, CV, available };

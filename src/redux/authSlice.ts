@@ -4,14 +4,16 @@ interface User {
   id: string;
   name: string;
   email: string;
-  role: "buyer" | "artist" | "personalAssistant";
+  domain?: string;
+  token: string;
 }
 
 const initialState: User = {
   id: "",
   name: "",
   email: "",
-  role: "buyer"
+  domain: "",
+  token: ""
 };
 
 const authSlice = createSlice({
@@ -22,7 +24,8 @@ const authSlice = createSlice({
       state.id = action.payload.id;
       state.name = action.payload.name;
       state.email = action.payload.email;
-      state.role = action.payload.role;
+      state.domain = action.payload.domain;
+      state.token = action.payload.token;
     },
     logout: (state) => {
       Object.assign(state, initialState);

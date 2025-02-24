@@ -1,35 +1,33 @@
 import Navbar from "./Nav";
 import Landing from "./Landing";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { ContentState } from "@/utils/types";
+import Slider from "./Slider";
+import Value from "./Value";
 
 interface HomeProps {
   setEditPage: (section: string) => void;
   openDrawer: () => void;
+  content: ContentState;
 }
 
-const Home: React.FC<HomeProps> = ({ setEditPage, openDrawer }) => {
-  const content = useSelector((state: RootState) => state.content);
-  console.log("content", content);
-
+const Home: React.FC<HomeProps> = ({ setEditPage, openDrawer, content }) => {
   return (
     <div className="px-4 font-clash-display">
       <Navbar />
-      <span
+      <div
         onClick={() => {
           setEditPage("landing");
           openDrawer();
         }}
-        className="border border-transparent hover:border-gray-400"
+        className="hover:bg-gray-50"
       >
         <Landing data={content.landing} />
-        {/* <Info />
-        <AutoScrollSlider /> */}
-      </span>
+        <Slider />
+      </div>
       <section id="value">
-        <button onClick={() => setEditPage("value")} className="border border-transparent hover:border-gray-400">
-          {/* <Value /> */}
-        </button>
+        <div onClick={() => setEditPage("value")} className="hover:bg-gray-50">
+          <Value />
+        </div>
       </section>
       <section id="live">
         <button onClick={() => setEditPage("live")} className="w-full border border-transparent hover:border-gray-400">

@@ -7,7 +7,7 @@ const AnimationHome = ({ title, headline }: { title: string; headline: string })
   useEffect(() => {
     const textWrappers = document.querySelectorAll<HTMLElement>(".ml1 .letter");
     textWrappers.forEach((wrapper) => {
-      wrapper.innerHTML = wrapper.textContent?.replace(/\S/g, "<span class='letters'>$&</span>") || "";
+      wrapper.innerHTML = wrapper.textContent?.replace(/\S/g, "<span class='letters'>$&</span>") ?? "";
     });
 
     anime.timeline({ loop: false }).add({
@@ -25,8 +25,8 @@ const AnimationHome = ({ title, headline }: { title: string; headline: string })
     <div className="font-clash-display text-7xl font-medium tracking-wide leading-[57.6px] lg:leading-[76.8px] ml1">
       <span className="relative">
         <span className="letter">I'm </span>
-        <span className="text-[#3E21F3] text-7xl letter">{title}</span>
-        <span className="letter">, {headline}</span>
+        <span className="text-[#3E21F3] text-7xl letter">{title ?? ""}</span>
+        <span className="letter">, {headline ?? ""}</span>
       </span>
     </div>
   );
