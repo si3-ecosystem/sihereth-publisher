@@ -81,9 +81,10 @@ const contentSlice = createSlice({
   reducers: {
     updateContent: (state, action: PayloadAction<{ section: keyof ContentState; data: any }>) => {
       const { section, data } = action.payload;
-
       if (section === "isNewWebpage" && typeof data === "boolean") {
         state.isNewWebpage = data;
+      } else if (Array.isArray(state[section])) {
+        state[section] = data;
       } else if (state[section] && typeof state[section] === "object") {
         state[section] = {
           ...state[section],

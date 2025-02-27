@@ -1,17 +1,23 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
 const Slider = () => {
-  const data: string[] = useSelector((state: RootState) => state.content.slider);
+  const sliderData = useSelector((state: RootState) => state.content.slider);
+  const [data, setData] = useState<string[] | null>(null);
   const scrollerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    setData(sliderData);
+  }, [sliderData]);
+
+  useEffect(() => {
     const scroller = scrollerRef.current;
-    if (!scroller) return;
+    if (!scroller || !data?.length) return;
     let animationFrame: number;
     let scrollAmount = 0;
     const animate = () => {
+      if (!scroller || !data?.length) return;
       scrollAmount -= 1;
       if (Math.abs(scrollAmount) >= scroller.scrollWidth / 2) {
         scrollAmount = 0;
@@ -21,7 +27,9 @@ const Slider = () => {
     };
     animate();
     return () => cancelAnimationFrame(animationFrame);
-  }, []);
+  }, [data?.length]);
+
+  if (!data || data.length === 0) return null;
 
   return (
     <div className="relative overflow-hidden h-12 md:h-20 bg-gray-800 py-3 px-4 lg:py-auto flex items-center mt-14">

@@ -2,13 +2,11 @@ import Navbar from "./Nav";
 import Landing from "./Landing";
 import Slider from "./Slider";
 import Value from "./Value";
+import Live from "./Live";
+import Orgs from "./Orgs";
+import TimeLine from "./Timeline";
 
-interface HomeProps {
-  setEditPage: (section: string) => void;
-  openDrawer: () => void;
-}
-
-const Home = ({ setEditPage, openDrawer }: HomeProps) => {
+const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => void; openDrawer: () => void }) => {
   return (
     <div className="px-4">
       <Navbar />
@@ -34,34 +32,26 @@ const Home = ({ setEditPage, openDrawer }: HomeProps) => {
         <Slider />
       </section>
       {/* Value section */}
-      <section id="value">
-        <div onClick={() => setEditPage("value")} className="hover:bg-gray-50">
-          <Value />
-        </div>
+      <section id="value" onClick={() => setEditPage("value")}>
+        <Value />
       </section>
       {/* Live section */}
-      <section id="live">
-        <button onClick={() => setEditPage("live")} className="w-full border border-transparent hover:border-gray-400">
-          {/* <Live />
-          <Orgs /> */}
-        </button>
+      <section id="live" onClick={() => setEditPage("live")}>
+        <Live />
+      </section>
+      {/* Orgs section */}
+      <section id="orgs" onClick={() => setEditPage("orgs")}>
+        <Orgs />
       </section>
       {/* Timeline section */}
-      <section id="timeline">
-        <button onClick={() => setEditPage("CV")} className="border border-transparent hover:border-gray-400">
-          {/* <TimeLine />
-          <ImgScroller />
-          <Available /> */}
-        </button>
+      <section id="timeline" onClick={() => setEditPage("CV")}>
+        <TimeLine />
+        {/* <ImgScroller />
+        <Available /> */}
       </section>
       {/* Connect section */}
-      <section id="connect">
-        <button
-          onClick={() => setEditPage("available")}
-          className="w-full border border-transparent hover:border-gray-400"
-        >
-          {/* <Footer /> */}
-        </button>
+      <section id="connect" onClick={() => setEditPage("available")}>
+        {/* <Footer /> */}
       </section>
     </div>
   );

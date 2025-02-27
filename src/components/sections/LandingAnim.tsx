@@ -1,13 +1,22 @@
-"use client";
-
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import anime from "animejs";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
-const AnimationHome = ({ title, headline }: { title: string; headline: string }) => {
+const AnimationHome = () => {
+  const title = useSelector((state: RootState) => state.content.landing.title) || "";
+  const headline = useSelector((state: RootState) => state.content.landing.headline) || "\u00A0";
+  const containerRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
+
   useEffect(() => {
-    const textWrappers = document.querySelectorAll<HTMLElement>(".ml1 .letter");
+    if (hasAnimated.current || !containerRef.current) return;
+    hasAnimated.current = true;
+    const textWrappers = containerRef.current.querySelectorAll<HTMLElement>(".letter");
     textWrappers.forEach((wrapper) => {
-      wrapper.innerHTML = wrapper.textContent?.replace(/\S/g, "<span class='letters'>$&</span>") ?? "";
+      if (wrapper.textContent?.trim()) {
+        wrapper.innerHTML = wrapper.textContent.replace(/\S/g, "<span class='letters'>$&</span>");
+      }
     });
 
     anime.timeline({ loop: false }).add({
@@ -19,15 +28,15 @@ const AnimationHome = ({ title, headline }: { title: string; headline: string })
       duration: 100,
       delay: (_el, i) => 50 * (i + 1)
     });
-  }, []);
+  }, []); // Run only on first render
 
   return (
-    <div className="font-clash-display text-7xl font-medium tracking-wide leading-[57.6px] lg:leading-[76.8px] ml1">
-      <span className="relative">
-        <span className="letter">I'm </span>
-        <span className="text-[#3E21F3] text-7xl letter">{title ?? ""}</span>
-        <span className="letter">, {headline ?? ""}</span>
-      </span>
+    <div ref={containerRef} className="font-clash-display text-7xl font-semibold leading-[6rem] tracking-wider ml1">
+      <span className="letter">I'm </span>
+      <span className="text-blue-primary letter">{title ?? ""}</span>
+      <span className="letter">,</span>
+      <span className="letter"> </span>
+      <span className="letter">{headline ?? ""}</span>
     </div>
   );
 };

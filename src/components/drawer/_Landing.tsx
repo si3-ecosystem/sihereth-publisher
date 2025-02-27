@@ -34,12 +34,13 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
+    if (event?.target?.files?.[0]) {
       const file = event.target.files[0];
       const imageUrl = URL.createObjectURL(file);
       handleInputChange("image", imageUrl);
     }
   };
+
   return (
     <>
       {/* Header */}
@@ -82,7 +83,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         <section className="p-4 xl:p-6">
           <label htmlFor="tags">Tags</label>
           {data?.hashTags?.map((item, index) => (
-            <div className="flex gap-4 items-center w-full" key={index}>
+            <div className="flex gap-4 items-center w-full" key={`${item}-${index}`}>
               <input
                 type="text"
                 id={`tag-${index}`}
@@ -119,81 +120,6 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
               </option>
             ))}
           </select>
-        </section>
-        {/* Organization Affiliations */}
-        <section className="p-4 xl:p-6">
-          <label htmlFor="organizationAffiliations">Organization Affiliations</label>
-          {data?.organizationAffiliations?.map((item, index) => (
-            <div className="flex gap-4 items-center w-full" key={index}>
-              <input
-                type="text"
-                className={inputStyles}
-                value={item}
-                onChange={(e) => handleArrayChange("organizationAffiliations", index, e.target.value)}
-              />
-              <RiDeleteBinLine
-                className="mt-2 size-5 text-red-500 cursor-pointer"
-                onClick={() => removeFromArray("organizationAffiliations", index)}
-              />
-            </div>
-          ))}
-          <div
-            className="flex gap-2 items-center mt-6 cursor-pointer"
-            onClick={() => addToArray("organizationAffiliations", "New Organization")}
-          >
-            <FaCirclePlus className="text-[#a020f0] text-lg" />
-            <p className="text-sm text-gray-600">Add Organization Affiliation</p>
-          </div>
-        </section>
-        {/* Community Affiliations */}
-        <section className="p-4 xl:p-6">
-          <label htmlFor="communityAffiliations">Community Affiliations</label>
-          {data?.communityAffiliations?.map((item, index) => (
-            <div className="flex gap-4 items-center w-full" key={index}>
-              <input
-                type="text"
-                className={inputStyles}
-                value={item}
-                onChange={(e) => handleArrayChange("communityAffiliations", index, e.target.value)}
-              />
-              <RiDeleteBinLine
-                className="mt-2 size-5 text-red-500 cursor-pointer"
-                onClick={() => removeFromArray("communityAffiliations", index)}
-              />
-            </div>
-          ))}
-          <div
-            className="flex gap-2 items-center mt-6 cursor-pointer"
-            onClick={() => addToArray("communityAffiliations", "New Community")}
-          >
-            <FaCirclePlus className="text-[#a020f0] text-lg" />
-            <p className="text-sm text-gray-600">Add Community Affiliation</p>
-          </div>
-        </section>
-        {/* Super Powers */}
-        <section className="p-4 xl:p-6">
-          <label htmlFor="superPowers">Super Powers</label>
-          {data?.superPowers?.map((item, index) => (
-            <div className="flex gap-4 items-center w-full" key={index}>
-              <input
-                type="text"
-                className={inputStyles}
-                value={item}
-                onChange={(e) => handleArrayChange("superPowers", index, e.target.value)}
-              />
-              <RiDeleteBinLine
-                className="mt-2 size-5 text-red-500 cursor-pointer"
-                onClick={() => removeFromArray("superPowers", index)}
-              />
-            </div>
-          ))}
-          <div
-            className="flex gap-2 items-center mt-6 cursor-pointer"
-            onClick={() => addToArray("superPowers", "New Super Power")}
-          >
-            <FaCirclePlus className="text-[#a020f0] text-lg" />
-            <p className="text-sm text-gray-600">Add Super Power</p>
-          </div>
         </section>
         {/* Image */}
         <section className="p-4 xl:p-6">

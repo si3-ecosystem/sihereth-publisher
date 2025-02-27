@@ -69,6 +69,7 @@ body {
   color: #171717;
   background: #fff;
   font-family: "FiraMono", monospace;
+  -ms-overflow-style: none;
 }
 
 .font-clash-display {
@@ -77,4 +78,28 @@ body {
 
 .font-segoe-ui {
   font-family: "segoe-ui", monospace;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c8bafd;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c8bafd transparent;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
