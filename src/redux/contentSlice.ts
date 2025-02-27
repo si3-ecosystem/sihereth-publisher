@@ -19,6 +19,12 @@ const initialState: ContentState = {
     name: "Kara Howard",
     pronoun: "SHE/HER"
   },
+  slider: [
+    "INCLUSIVE PLATFORMS",
+    "decentralizing currencies & technologies",
+    "ECOSYSTEM GROWTH",
+    "COLLABORATE WITH WEB3"
+  ],
   value: {
     title: "",
     description: "",

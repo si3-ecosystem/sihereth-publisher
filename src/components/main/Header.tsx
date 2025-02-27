@@ -31,9 +31,7 @@ const Header: React.FC = () => {
         closeIframe();
       }
     };
-
     document.addEventListener("keydown", handleKeyDown);
-
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
@@ -63,7 +61,7 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <div className="flex gap-40 items-center w-full h-20 text-gray-900 border-b border-gray-300">
+    <div className="flex gap-40 items-center w-full h-20 text-gray-900 border-b border-gray-300 bg-gray-100">
       {/* Left Section */}
       <section className="flex relative flex-1 justify-center items-center w-4/5 max-w-4/5">
         <p className="mx-auto text-lg">Tutorial Videos</p>
@@ -71,7 +69,7 @@ const Header: React.FC = () => {
           <button
             key={key}
             onClick={() => toggleIframe(key)}
-            className="px-5 mx-2 w-44 h-12 text-sm font-medium rounded-md border border-gray-900 hover:bg-gray-100 focus:outline-none hover:shadow-md"
+            className="px-5 mx-2 w-48 h-12 text-sm font-medium rounded-md border border-gray-900 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
           >
             {label}
           </button>
@@ -83,7 +81,7 @@ const Header: React.FC = () => {
           <button
             key={key}
             onClick={() => toggleIframe(key)}
-            className="px-5 mx-2 w-44 h-12 text-sm font-medium rounded-md border border-black hover:bg-gray-100 focus:outline-none hover:shadow-md"
+            className="px-5 mx-2 w-48 h-12 text-sm font-medium rounded-md border border-black hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
           >
             {label}
           </button>

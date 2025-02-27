@@ -1,9 +1,7 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
-import axios, { AxiosError } from "axios";
 import { RiLoaderFill } from "react-icons/ri";
 import Link from "next/link";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import eyeLogo from "@/assets/images/eye_logo.png";
@@ -117,12 +115,12 @@ function Login() {
               <input
                 type="checkbox"
                 id="remember"
-                className="accent-[#3E21F3] focus:ring-0 focus:ring-offset-0 focus:ring-none"
+                className="accent-blue-primary focus:ring-0 focus:ring-offset-0 focus:ring-none"
               />
               <span className="text-gray-500">Remember me</span>
             </label>
 
-            <Link href="/forgot-password" className="text-[#3E21F3] hover:underline">
+            <Link href="/forgot-password" className="text-blue-primary hover:underline">
               Forgot password?
             </Link>
           </div>
@@ -130,7 +128,7 @@ function Login() {
           <button
             disabled={loading}
             type="submit"
-            className="flex items-center justify-center gap-2 w-full px-5 py-2.5 text-sm font-medium text-white rounded-lg bg-gradient-to-b from-[#c8bafd] to-[#3e21f3] hover:opacity-90 disabled:opacity-80"
+            className="flex items-center justify-center gap-2 w-full px-5 py-2.5 text-sm font-medium text-white rounded-lg bg-gradient-to-b from-light-purple to-blue-primary hover:opacity-90 disabled:opacity-80"
           >
             {loading ? (
               <>

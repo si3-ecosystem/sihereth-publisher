@@ -55,7 +55,7 @@ const Domain = () => {
   };
 
   return (
-    <div className="flex justify-center items-center py-4 mx-auto w-full font-serif text-lg tracking-wider border-b border-gray-300 shadow-md">
+    <div className="flex justify-center items-center py-4 mx-auto w-full font-serif text-lg tracking-wider border-b border-gray-300 bg-gray-100 shadow-md">
       {isSubDomain ? (
         <>
           <p>Web page url: </p>
@@ -71,7 +71,7 @@ const Domain = () => {
             <GrDomain className="mx-4 size-8" />
             <input
               type="text"
-              className="w-full leading-4 text-gray-900 border-none outline-none focus:ring-0"
+              className="w-full leading-4 text-gray-900 bg-transparent border-none outline-none focus:ring-0"
               placeholder="Submit your siher.eth domain of choice"
               value={subDomain}
               onChange={handleChange}

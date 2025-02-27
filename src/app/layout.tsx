@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Fira_Mono, DM_Sans } from "next/font/google";
+import { DM_Sans, Poppins } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-
-const firaMono = Fira_Mono({
-  variable: "--font-fira-mono",
+import { ReactScan } from "@/utils/reactScan";
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
   weight: ["400", "500", "700"]
 });
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["400", "500", "700"]
 });
@@ -27,7 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${firaMono.variable} ${dmSans.variable} font-fira-mono antialiased`}>
+      <body className={`${dmSans.variable} ${poppins.variable} antialiased`}>
+        <ReactScan />
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -151,4 +151,6 @@ export const countries = [
   { value: "Southern Africa", label: "Southern Africa" }
 ];
 
+const footerText = "SI<3> is a collaborative Web3 Ecosystem powered by global voices.";
+
 export default { navbar, landing, value, vision, CV, available };

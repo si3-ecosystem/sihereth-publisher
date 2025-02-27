@@ -16,16 +16,65 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "FiraMono";
+  src: url("../assets/fonts/FiraMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FiraMono";
+  src: url("../assets/fonts/FiraMono-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FiraMono";
+  src: url("../assets/fonts/FiraMono-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("../assets/fonts/DMSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("../assets/fonts/DMSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("../assets/fonts/DMSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("../assets/fonts/DMSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
 body {
   color: #171717;
   background: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "FiraMono", monospace;
 }
 
 .font-clash-display {
-  font-family: "clash-display", sans-serif;
+  font-family: "clash-display", monospace;
 }
 
 .font-segoe-ui {
-  font-family: "segoe-ui", sans-serif;
+  font-family: "segoe-ui", monospace;
 }

@@ -4,14 +4,14 @@ import { FaCirclePlus } from "react-icons/fa6";
 import { countries } from "@/utils/data";
 import DrawerHeader from "./DrawerHeader";
 import { LandingTypes } from "@/utils/types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
+import { RootState } from "@/redux/store";
+import { inputStyles } from "@/utils/customStyles";
 
-const inputStyles =
-  "px-4 py-2 mt-3 w-full bg-gray-100 rounded-lg border border-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 focus:outline-none";
-
-const LandingFields = ({ toggleDrawer, data }: { toggleDrawer: () => void; data: LandingTypes }) => {
+const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
+  const data: LandingTypes = useSelector((state: RootState) => state.content.landing);
 
   const handleInputChange = (field: keyof LandingTypes, value: any) => {
     dispatch(updateContent({ section: "landing", data: { [field]: value } }));
@@ -44,7 +44,7 @@ const LandingFields = ({ toggleDrawer, data }: { toggleDrawer: () => void; data:
     <>
       {/* Header */}
       <DrawerHeader label="Headline Section" toggleDrawer={toggleDrawer} />
-      <div className="w-full text-lg font-medium text-gray-900 mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
+      <div className="w-full font-dm-sans font-medium text-lg text-gray-800 mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
         {/* Title */}
         <section className="p-4 xl:p-6">
           <label htmlFor="title">Title</label>

@@ -80,4 +80,5 @@ export interface ContentState {
   CV: CVTypes;
   available: AvailableTypes;
   isNewWebpage: boolean;
+  slider: string[];
 }

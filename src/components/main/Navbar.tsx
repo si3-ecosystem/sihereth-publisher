@@ -46,7 +46,6 @@ const Navbar = ({ handleToggleView, navigate, viewMode, setViewMode }: NavbarPro
   useEffect(() => {
     const handleResize = debounce(updateViewMode, 200);
     updateViewMode();
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -66,7 +65,7 @@ const Navbar = ({ handleToggleView, navigate, viewMode, setViewMode }: NavbarPro
   };
 
   return (
-    <nav className="flex relative justify-between items-center px-2 w-full h-16 border-b border-gray-300 sm:px-6 lg:px-8">
+    <nav className="flex relative justify-between items-center px-2 w-full h-16 border-b border-gray-300 sm:px-6 lg:px-8 bg-gray-100">
       {/* Logo Section */}
       <div className="flex gap-4 items-center">
         <GrHomeRounded className="text-2xl" />

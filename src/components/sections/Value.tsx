@@ -4,7 +4,7 @@ function Value() {
   return (
     <div className="py-16 px-6 bg-white space-y-12 flex flex-col sm:flex-row sm:flex-row-reverse sm:gap-6 sm:pb-8 lg:px-12 lg:pb-10 lg:gap-24 xxl:py-[118px] xxl:px-16 xxl:gap-32">
       <div className="space-y-12 value sm:translate-y-4 lg:w-1/2 xxl:translate-y-0 xxl:space-y-8">
-        <div className="bg-[#ECE9FD] py-3 px-4 font-fira-mono text-lg font-medium leading-[30px] tracking-wide uppercase w-fit rounded-[12px] lg:px-6 lg:py-4 lg:text-xl xxl:text-[24px] xxl:leading-9">
+        <div className="bg-primary py-3 px-4 font-fira-mono text-lg font-medium leading-[30px] tracking-wide uppercase w-fit rounded-[12px] lg:px-6 lg:py-4 lg:text-xl xxl:text-[24px] xxl:leading-9">
           My Value
         </div>
         <div className="font-clash-display text-4xl font-medium leading-[50.4px] text-black w-[303px] sm:text-2xl sm:w-fit sm:leading-16 lg:text-[40px] lg:leading-[55px] xxl:text-[48px] xxl:leading-[57.6px]">
