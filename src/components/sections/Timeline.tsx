@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import TimeLineLogo from "../../images/runes (1).png";
+import TimeLineLogo from "@/assets/images/runes1.png";
 import TimeLineCard from "./TimelineCard";
 
 const TimeLine: React.FC = () => {
