@@ -13,10 +13,7 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
   {
     rules: {
-      "prettier/prettier": [
-        "error",
-        { endOfLine: "auto", trailingComma: "none" }
-      ]
+      "prettier/prettier": ["error", { endOfLine: "auto", trailingComma: "none" }]
     }
   }
 ];

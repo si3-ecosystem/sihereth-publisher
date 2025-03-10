@@ -59,7 +59,7 @@ const Landing = () => {
           {data.hashTags.map((hashtag) => (
             <div
               key={hashtag}
-              className="bg-primary text-gray-800 tracking-wider whitespace-nowrap py-3 px-4 rounded-lg hover:text-gray-200 hover:bg-gray-800 transition-all ease-out duration-500 cursor-default hover:shadow-md"
+              className="bg-primary tracking-wider whitespace-nowrap py-3 px-4 rounded-lg hover:text-gray-200 hover:bg-gray-800 transition-all ease-out duration-500 cursor-default hover:shadow-md"
             >
               #{hashtag.toUpperCase()}
             </div>
@@ -67,6 +67,10 @@ const Landing = () => {
         </section>
         {/* Information */}
         <section className="p-5 space-y-4 bg-gray-100 border border-gray-200 w-full rounded-lg">
+          <div className="flex gap-6 font-medium">
+            <p className="text-blue-primary tracking-wide font-medium w-80 whitespace-nowrap">Title:</p>
+            <p className="hover:text-blue-primary cursor-default">{"Si<3> Founder"}</p>
+          </div>
           <div className="flex gap-6 font-medium">
             <p className="text-blue-primary tracking-wide font-medium w-80 whitespace-nowrap">Based in:</p>
             <p className="hover:text-blue-primary cursor-default">{data.region}</p>

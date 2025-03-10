@@ -45,7 +45,7 @@ const Navbar = () => {
             <span
               id="close"
               onClick={toggleMobileNav}
-              className="top-12 text-2xl text-gray-800 duration-500 hover:rotate-90"
+              className="top-12 text-2xl hover:rotate-90"
             >
               <IoClose className="text-2xl duration-500 hover:rotate-90" />
             </span>
@@ -65,7 +65,7 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <IoMenu className="text-2xl text-gray-800" />
+          <IoMenu className="text-2xl" />
         )}
       </button>
     </nav>

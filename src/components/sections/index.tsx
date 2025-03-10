@@ -5,6 +5,9 @@ import Value from "./Value";
 import Live from "./Live";
 import Orgs from "./Orgs";
 import TimeLine from "./Timeline";
+import People from "./People";
+import Available from "./Available";
+import Footer from "./Footer";
 
 const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => void; openDrawer: () => void }) => {
   return (
@@ -40,18 +43,30 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
         <Live />
       </section>
       {/* Orgs section */}
-      <section id="orgs" onClick={() => setEditPage("orgs")}>
+      <section
+        id="orgs"
+        onClick={() => {
+          setEditPage("orgs");
+          openDrawer();
+        }}
+      >
         <Orgs />
       </section>
       {/* Timeline section */}
       <section id="timeline" onClick={() => setEditPage("CV")}>
         <TimeLine />
-        {/* <ImgScroller />
-        <Available /> */}
       </section>
-      {/* Connect section */}
-      <section id="connect" onClick={() => setEditPage("available")}>
-        {/* <Footer /> */}
+      {/* People section */}
+      <section id="people">
+        <People />
+      </section>
+      {/* Available section */}
+      <section id="available" onClick={() => setEditPage("available")}>
+        <Available />
+      </section>
+      {/* Footer section */}
+      <section id="footer" onClick={() => setEditPage("footer")}>
+        <Footer />
       </section>
     </div>
   );

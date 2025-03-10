@@ -70,7 +70,7 @@ const Navbar = ({ handleToggleView, navigate, viewMode, setViewMode }: NavbarPro
       <div className="flex gap-4 items-center">
         <GrHomeRounded className="text-2xl" />
         <div>
-          <p className="text-lg font-semibold">Si Her Brand</p>
+          <p className="text-lg font-semibold">Si Her Publisher</p>
           <p className="text-sm text-gray-600">Home</p>
         </div>
       </div>

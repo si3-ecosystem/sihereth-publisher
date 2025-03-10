@@ -72,7 +72,7 @@ const Domain = () => {
             <input
               type="text"
               className="w-full leading-4 text-gray-900 bg-transparent border-none outline-none focus:ring-0"
-              placeholder="Submit your siher.eth domain of choice"
+              placeholder="Type your siher.eth domain:"
               value={subDomain}
               onChange={handleChange}
             />

@@ -151,6 +151,62 @@ export const countries = [
   { value: "Southern Africa", label: "Southern Africa" }
 ];
 
-const footerText = "SI<3> is a collaborative Web3 Ecosystem powered by global voices.";
+export const languagesByRegion = {
+  Africa: ["Afrikaans", "Amharic", "Arabic", "Hausa", "Igbo", "Somali", "Swahili", "Xhosa", "Yoruba", "Zulu"],
+  Asia: [
+    "Arabic",
+    "Bengali",
+    "Chinese (Simplified)",
+    "Chinese (Traditional)",
+    "Hindi",
+    "Japanese",
+    "Korean",
+    "Malay",
+    "Punjabi",
+    "Tamil",
+    "Telugu",
+    "Thai",
+    "Urdu",
+    "Vietnamese"
+  ],
+  Europe: [
+    "Albanian",
+    "Basque",
+    "Bulgarian",
+    "Catalan",
+    "Croatian",
+    "Czech",
+    "Danish",
+    "Dutch",
+    "English",
+    "Estonian",
+    "Finnish",
+    "French",
+    "Galician",
+    "German",
+    "Greek",
+    "Hungarian",
+    "Icelandic",
+    "Italian",
+    "Latvian",
+    "Lithuanian",
+    "Macedonian",
+    "Norwegian",
+    "Polish",
+    "Portuguese",
+    "Romanian",
+    "Russian",
+    "Serbian",
+    "Slovak",
+    "Slovenian",
+    "Spanish",
+    "Swedish",
+    "Ukrainian",
+    "Welsh"
+  ],
+  MiddleEast: ["Arabic", "Hebrew", "Kurdish (Kurmanji)", "Kurdish (Sorani)", "Persian", "Pashto"],
+  Americas: ["English", "French", "Haitian Creole", "Portuguese", "Quechua", "Spanish"],
+  Oceania: ["Hawaiian", "Maori", "Samoan"]
+};
 
 export default { navbar, landing, value, vision, CV, available };

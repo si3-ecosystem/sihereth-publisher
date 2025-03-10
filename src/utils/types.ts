@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image";
+
 export interface LinkTypes {
   type: string;
   title: string;
@@ -29,38 +31,20 @@ export interface LandingTypes {
 }
 
 export interface ValueTypes {
-  title: string;
-  description: string;
-  TVName: string;
-  video: VideoTypes;
-  links: LinkTypes[];
-  button: {
-    text: string;
-    link: string;
-  };
+  experience: string;
+  values: string;
 }
 
-export interface VisionTypes {
+export interface LiveTypes {
   title: string;
-  description: string;
+  heading: string;
+  body: string;
 }
 
-export interface CVTypes {
-  present: {
-    title: string;
-    highlights: string[];
-  };
-  past: {
-    title: string;
-    highlights: {
-      year: string;
-      text: string;
-    }[];
-  };
-  future: {
-    title: string;
-    text: string;
-  };
+export interface TimelineTypes {
+  title: string;
+  to: string;
+  from: string;
 }
 
 export interface AvailableTypes {
@@ -76,8 +60,9 @@ export interface ContentState {
   navbar: NavbarTypes;
   landing: LandingTypes;
   value: ValueTypes;
-  vision: VisionTypes;
-  CV: CVTypes;
+  live: LiveTypes[];
+  organizations: string[] | StaticImageData[];
+  timeline: TimelineTypes[];
   available: AvailableTypes;
   isNewWebpage: boolean;
   slider: string[];

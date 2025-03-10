@@ -5,40 +5,37 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
 import { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SliderFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
   const sliderData: string[] = useSelector((state: RootState) => state.content.slider) || [];
   const [localData, setLocalData] = useState<string[]>(sliderData);
 
-  // Handle input change
+  useEffect(() => {
+    dispatch(updateContent({ section: "slider", data: localData }));
+  }, [localData, dispatch]);
+
   const handleInputChange = (index: number, value: string) => {
     const updatedArray = [...localData];
     updatedArray[index] = value;
     setLocalData(updatedArray);
-    dispatch(updateContent({ section: "slider", data: updatedArray }));
   };
 
-  // Add new slide
   const addToArray = () => {
-    const updatedArray = [...localData, "New Slide"];
-    setLocalData(updatedArray);
-    dispatch(updateContent({ section: "slider", data: updatedArray }));
+    setLocalData([...localData, "New Item"]);
   };
 
-  // Remove slide
   const removeFromArray = (index: number) => {
-    if (localData.length <= 1) return; // Prevent empty state
+    if (localData.length <= 1) return;
     const updatedArray = localData.filter((_, i) => i !== index);
     setLocalData(updatedArray);
-    dispatch(updateContent({ section: "slider", data: updatedArray }));
   };
 
   return (
     <>
       <DrawerHeader label="Slider Section" toggleDrawer={toggleDrawer} />
-      <div className="w-full font-dm-sans font-medium text-lg text-gray-800 mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
+      <div className="w-full font-dm-sans font-medium text-lg mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
         <section className="p-4 xl:p-6">
           <label htmlFor="slider">Slider Items</label>
           {localData.map((item: string, index: number) => (
@@ -59,8 +56,8 @@ const SliderFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
             </div>
           ))}
           <div className="flex gap-2 items-center mt-6 cursor-pointer" onClick={addToArray}>
-            <FaCirclePlus className="text-[#a020f0] text-lg" />
-            <p className="text-sm text-gray-600">Add Slide</p>
+            <FaCirclePlus className="text-[#a020f0] text-lg ml-1" />
+            <p className="text-sm text-gray-600">Add Item</p>
           </div>
         </section>
       </div>

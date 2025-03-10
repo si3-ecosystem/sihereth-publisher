@@ -1,16 +1,14 @@
-import Navbar from "./Navbar";
 import Landing from "./_Landing";
 import MyValue from "./Value";
-import Cv from "./Cv";
 import Available from "./Available";
 import Live from "./Live";
 import Slider from "./_Slider";
+import TimeLine from "./_Timeline";
+import Orgs from "./_Orgs";
 
 const DynamicComponent = ({ toggleDrawer, editPage }: { toggleDrawer: () => void; editPage: string }) => {
   const renderComponent = () => {
     switch (editPage) {
-      case "navbar":
-        return <Navbar toggleDrawer={toggleDrawer} />;
       case "landing":
         return <Landing toggleDrawer={toggleDrawer} />;
       case "slider":
@@ -19,8 +17,10 @@ const DynamicComponent = ({ toggleDrawer, editPage }: { toggleDrawer: () => void
         return <MyValue toggleDrawer={toggleDrawer} />;
       case "live":
         return <Live toggleDrawer={toggleDrawer} />;
-      case "CV":
-        return <Cv toggleDrawer={toggleDrawer} />;
+      case "timeline":
+        return <TimeLine toggleDrawer={toggleDrawer} />;
+      case "orgs":
+        return <Orgs toggleDrawer={toggleDrawer} />;
       case "available":
         return <Available toggleDrawer={toggleDrawer} />;
 
