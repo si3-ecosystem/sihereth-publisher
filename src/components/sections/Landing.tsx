@@ -52,9 +52,6 @@ const Landing = () => {
       <div className="w-1/2 pl-20 space-y-6 flex flex-col justify-center items-start">
         <AnimationHome />
         {/* Hashtags */}
-        <p className="tracking-wider text-2xl leading-4 font-medium text-blue-primary">
-          {data.brandPilars.toUpperCase()}
-        </p>
         <section className="flex flex-wrap gap-6">
           {data.hashTags.map((hashtag) => (
             <div

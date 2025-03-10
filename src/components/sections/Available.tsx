@@ -1,22 +1,12 @@
-import { useState } from "react";
 import Image from "next/image";
 import availableBorder from "@/assets/images/group.png";
 import availableImg from "@/assets/images/avatar.png";
 import background from "@/assets/images/donut.png";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
-const Available: React.FC = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const handleMouseEnter = (index: number) => {
-    setHoveredIndex(index);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredIndex(null);
-  };
-
-  const items = ["COLLABORATION", "ADVISING", "SPEAKING"];
-  const SI = "SI<3>";
+const Available = () => {
+  const data = useSelector((state: RootState) => state.content.available ?? []);
 
   return (
     <>
@@ -48,7 +38,7 @@ const Available: React.FC = () => {
           </div>
 
           <div className="w-[200px] py-[13px] px-4 rounded-[162.5px] bg-[#3E21F31A] border border-[#3E21F3] text-center z-3 lg:w-[55%] xxl:mt-28">
-            <span className="font-segoe-ui text-xl font-semibold leading-7 text-[#3E21F3]">Join {SI}</span>
+            <span className="font-segoe-ui text-xl font-semibold leading-7 text-[#3E21F3]">Join SI&lt;3&gt;</span>
           </div>
         </section>
         {/* Text */}
@@ -57,16 +47,15 @@ const Available: React.FC = () => {
             AVAILABLE FOR
           </p>
           <div className="flex flex-col gap-6 text-3xl justify-center items-center">
-            {items.map((item, index) => (
-              <div
-                key={index}
-                className="transform transition-all duration-300 hover:text-[#3E21F3] hover:text-4xl hover:font-semibold"
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={handleMouseLeave}
-              >
-                {item}
-              </div>
-            ))}
+            {data.length > 0 &&
+              data.map((item, index) => (
+                <div
+                  key={`${item}-${index}`}
+                  className="transform transition-all duration-300 hover:text-[#3E21F3] hover:text-4xl hover:font-semibold uppercase hover:tracking-widest"
+                >
+                  {item}
+                </div>
+              ))}
           </div>
         </section>
       </div>
@@ -81,11 +70,11 @@ const Available: React.FC = () => {
         </p>
 
         <p className="text-base font-medium leading-6 text-center text-[#1E1E1E] uppercase lg:w-[65%] mx-auto xxl:text-[21px] xxl:leading-[25.2px] xxl:w-full">
-          This site has been built by {SI} in support of the decentralized and democratized web.
+          This site has been built by SI&lt;3&gt; in support of the decentralized and democratized web.
         </p>
 
         <p className="hidden lg:block font-fira-mono text-base font-medium leading-6 text-center text-[#1E1E1E] uppercase lg:w-[65%] mx-auto xxl:text-[21px] xxl:leading-[25.2px] xxl:w-full">
-          Claim your free membership NFT and begin to discover the {SI} ecosystem.
+          Claim your free membership NFT and begin to discover the SI&lt;3&gt; ecosystem.
         </p>
       </div>
     </>

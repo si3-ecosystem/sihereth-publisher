@@ -12,7 +12,7 @@ import Footer from "./Footer";
 const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => void; openDrawer: () => void }) => {
   return (
     <div className="px-4">
-      <Navbar />
+      {/* <Navbar /> */}
       {/* Landing section */}
       <section
         id="landing"
@@ -21,7 +21,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
           openDrawer();
         }}
       >
-        <Landing />
+        {/* <Landing /> */}
       </section>
       {/* Slider section */}
       <section
@@ -32,15 +32,27 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
         }}
         className="cursor-default"
       >
-        <Slider />
+        {/* <Slider /> */}
       </section>
       {/* Value section */}
-      <section id="value" onClick={() => setEditPage("value")}>
-        <Value />
+      <section
+        id="value"
+        onClick={() => {
+          setEditPage("value");
+          openDrawer();
+        }}
+      >
+        {/* <Value /> */}
       </section>
       {/* Live section */}
-      <section id="live" onClick={() => setEditPage("live")}>
-        <Live />
+      <section
+        id="live"
+        onClick={() => {
+          setEditPage("live");
+          openDrawer();
+        }}
+      >
+        {/* <Live /> */}
       </section>
       {/* Orgs section */}
       <section
@@ -50,23 +62,33 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
           openDrawer();
         }}
       >
-        <Orgs />
+        {/* <Orgs /> */}
       </section>
       {/* Timeline section */}
-      <section id="timeline" onClick={() => setEditPage("CV")}>
-        <TimeLine />
+      <section
+        id="timeline"
+        onClick={() => {
+          setEditPage("timeline");
+          openDrawer();
+        }}
+      >
+        {/* <TimeLine /> */}
       </section>
       {/* People section */}
-      <section id="people">
-        <People />
-      </section>
+      <section id="people">{/* <People /> */}</section>
       {/* Available section */}
-      <section id="available" onClick={() => setEditPage("available")}>
+      <section
+        id="available"
+        onClick={() => {
+          setEditPage("available");
+          openDrawer();
+        }}
+      >
         <Available />
       </section>
       {/* Footer section */}
       <section id="footer" onClick={() => setEditPage("footer")}>
-        <Footer />
+        {/* <Footer /> */}
       </section>
     </div>
   );

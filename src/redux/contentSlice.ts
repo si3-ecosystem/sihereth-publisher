@@ -12,7 +12,6 @@ const initialState: ContentState = {
   landing: {
     title: "Kara",
     headline: "& I create equitable platforms for the new economy.",
-    brandPilars: "What I stand for",
     hashTags: ["collaboration", "equity", "impact", "decentralization", "education"],
     region: "Latin America",
     organizationAffiliations: ["Si<3>"],
@@ -89,16 +88,7 @@ const initialState: ContentState = {
       from: "2002"
     }
   ],
-  available: {
-    title: "",
-    marque: [],
-    socialChannels: [
-      {
-        text: "linkedin",
-        url: "www.linkedin.com"
-      }
-    ]
-  },
+  available: ["collaboration", "advising", "speaking"],
   isNewWebpage: true
 };
 

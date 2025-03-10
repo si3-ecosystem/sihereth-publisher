@@ -68,17 +68,6 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
             rows={4}
           />
         </section>
-        {/* Brand Pillars */}
-        <section className="p-4 xl:p-6">
-          <label htmlFor="brandPillars">Brand Pillars</label>
-          <input
-            type="text"
-            id="brandPillars"
-            className={inputStyles}
-            value={data?.brandPilars}
-            onChange={(e) => handleInputChange("brandPilars", e.target.value)}
-          />
-        </section>
         {/* Tags */}
         <section className="p-4 xl:p-6">
           <label htmlFor="tags">Tags</label>

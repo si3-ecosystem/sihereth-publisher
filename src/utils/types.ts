@@ -6,11 +6,6 @@ export interface LinkTypes {
   link: string;
 }
 
-export interface VideoTypes {
-  path: string;
-  id: number | null;
-}
-
 export interface NavbarTypes {
   websiteName: string;
   links: LinkTypes[];
@@ -19,7 +14,6 @@ export interface NavbarTypes {
 export interface LandingTypes {
   title: string;
   headline: string;
-  brandPilars: string;
   hashTags: string[];
   region: string;
   organizationAffiliations: string[];
@@ -47,15 +41,6 @@ export interface TimelineTypes {
   from: string;
 }
 
-export interface AvailableTypes {
-  title: string;
-  marque: string[];
-  socialChannels: {
-    text: string;
-    url: string;
-  }[];
-}
-
 export interface ContentState {
   navbar: NavbarTypes;
   landing: LandingTypes;
@@ -63,7 +48,7 @@ export interface ContentState {
   live: LiveTypes[];
   organizations: string[] | StaticImageData[];
   timeline: TimelineTypes[];
-  available: AvailableTypes;
+  available: string[];
   isNewWebpage: boolean;
   slider: string[];
 }

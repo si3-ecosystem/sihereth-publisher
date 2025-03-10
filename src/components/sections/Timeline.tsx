@@ -1,6 +1,5 @@
 import Image from "next/image";
 import TimeLineLogo from "@/assets/images/runes1.png";
-import TimeLineCard from "./TimelineCard";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
@@ -16,8 +15,20 @@ const TimeLine = () => {
         </p>
         <Image src={TimeLineLogo} alt="" width={100} />
       </div>
-      {data.map((item) => (
-        <TimeLineCard key={item.title} {...item} />
+
+      {data.map((item, index) => (
+        <div
+          key={item.title}
+          className={`w-full py-5 flex gap-6 font-bold tracking-wide ${
+            index !== data.length - 1 ? "border-b border-gray-300" : ""
+          }`}
+        >
+          <p className="font-dm-sans text-[#3E21F3] flex items-center text-3xl uppercase">
+            {item.from}
+            {item.to ? ` - ${item.to}` : ""}
+          </p>
+          <span className="font-clash-display text-4xl font-medium">{item.title}</span>
+        </div>
       ))}
     </div>
   );

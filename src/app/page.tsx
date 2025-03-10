@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import Header from "@/components/main/Header";
@@ -18,9 +18,6 @@ function Home() {
   const openDrawer = () => setIsOpen(true);
   const handleToggleView = useCallback((viewSize: string) => setScreenWidth(viewSize), []);
 
-  useEffect(() => {
-    console.log(editPage);
-  }, [editPage]);
   return (
     <div className="h-screen text-gray-800">
       {/* Header */}
