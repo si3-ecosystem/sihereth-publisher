@@ -58,11 +58,11 @@ function Footer() {
       </div>
 
       {/* Languages Section */}
-      <div className="grid md:grid-cols-6 lg:grid-cols-16 pr-3 lg:grid">
+      <div className="pr-3 font-dm-sans font-medium tracking-wide flex justify-between gap-10">
         {Object.entries(languagesByRegion).map(([region, langs]) => (
-          <div key={region} className="mt-4">
-            <h3 className="font-bold text-xs text-white">{region}</h3>
-            <div className="grid grid-cols-2 gap-1">
+          <div key={region} className="mt-4 space-y-2">
+            <p className="text-xs text-white font-semibold">{region}</p>
+            <div className="grid grid-cols-3 gap-y-1 gap-x-6">
               {langs.map((language, index) => (
                 <span
                   key={index}

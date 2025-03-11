@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { IoIosAddCircle } from "react-icons/io";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCirclePlus } from "react-icons/fa6";
@@ -8,28 +9,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
 import { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
+import { debounce } from "lodash";
+import dynamic from "next/dynamic";
 
-const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
+// Move debounceDispatch outside the component to avoid re-creation on every render
+const debounceDispatch = debounce((dispatch, field, updatedArray, localData) => {
+  dispatch(updateContent({ section: "landing", data: { ...localData, [field]: updatedArray } }));
+}, 300);
+
+const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
-  const data: LandingTypes = useSelector((state: RootState) => state.content.landing);
+  const reduxData: LandingTypes = useSelector((state: RootState) => state.content.landing);
+  const [localData, setLocalData] = useState<LandingTypes>(reduxData);
+
+  useEffect(() => {
+    setLocalData(reduxData);
+  }, [reduxData]);
 
   const handleInputChange = (field: keyof LandingTypes, value: any) => {
-    dispatch(updateContent({ section: "landing", data: { [field]: value } }));
+    const updatedData = { ...localData, [field]: value };
+    setLocalData(updatedData);
+    dispatch(updateContent({ section: "landing", data: updatedData }));
   };
 
   const handleArrayChange = (field: keyof LandingTypes, index: number, value: string) => {
-    const updatedArray = [...(data[field] as string[])];
+    const updatedArray = [...(localData[field] as string[])];
     updatedArray[index] = value;
-    handleInputChange(field, updatedArray);
+    setLocalData({ ...localData, [field]: updatedArray });
+    debounceDispatch(dispatch, field, updatedArray, localData);
   };
 
   const addToArray = (field: keyof LandingTypes, placeholder: string) => {
-    const updatedArray = [...(data[field] as string[]), placeholder];
+    const updatedArray = [...(localData[field] as string[]), placeholder];
     handleInputChange(field, updatedArray);
   };
 
   const removeFromArray = (field: keyof LandingTypes, index: number) => {
-    const updatedArray = (data[field] as string[]).filter((_, i) => i !== index);
+    const updatedArray = (localData[field] as string[]).filter((_, i) => i !== index);
     handleInputChange(field, updatedArray);
   };
 
@@ -53,7 +69,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
             type="text"
             id="title"
             className={inputStyles}
-            value={data?.title}
+            value={localData?.title}
             onChange={(e) => handleInputChange("title", e.target.value)}
           />
         </section>
@@ -63,7 +79,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
           <textarea
             id="headline"
             className={inputStyles}
-            value={data?.headline}
+            value={localData?.headline}
             onChange={(e) => handleInputChange("headline", e.target.value)}
             rows={4}
           />
@@ -71,7 +87,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         {/* Tags */}
         <section className="p-4 xl:p-6">
           <label htmlFor="tags">Tags</label>
-          {data?.hashTags?.map((item, index) => (
+          {localData?.hashTags?.map((item, index) => (
             <div className="flex gap-4 items-center w-full" key={`${item}-${index}`}>
               <input
                 type="text"
@@ -98,7 +114,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         <section className="p-4 xl:p-6">
           <label htmlFor="region">Region</label>
           <select
-            value={data?.region}
+            value={localData?.region}
             className={inputStyles}
             id="region"
             onChange={(e) => handleInputChange("region", e.target.value)}
@@ -113,7 +129,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         {/* Organization Affiliations */}
         <section className="p-4 xl:p-6">
           <label htmlFor="organizationAffiliations">Organization Affiliations</label>
-          {data?.organizationAffiliations?.map((item, index) => (
+          {localData?.organizationAffiliations?.map((item, index) => (
             <div className="flex gap-4 items-center w-full" key={`${item}-${index}`}>
               <input
                 type="text"
@@ -138,7 +154,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         {/* Community Affiliations */}
         <section className="p-4 xl:p-6">
           <label htmlFor="communityAffiliations">Community Affiliations</label>
-          {data?.communityAffiliations?.map((item, index) => (
+          {localData?.communityAffiliations?.map((item, index) => (
             <div className="flex gap-4 items-center w-full" key={`${item}-${index}`}>
               <input
                 type="text"
@@ -163,7 +179,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         {/* Super Powers */}
         <section className="p-4 xl:p-6">
           <label htmlFor="superPowers">Super Powers</label>
-          {data?.superPowers?.map((item, index) => (
+          {localData?.superPowers?.map((item, index) => (
             <div className="flex gap-4 items-center w-full" key={`${item}-${index}`}>
               <input
                 type="text"
@@ -202,7 +218,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
             type="text"
             id="name"
             className={inputStyles}
-            value={data?.name}
+            value={localData?.name}
             onChange={(e) => handleInputChange("name", e.target.value)}
           />
         </section>
@@ -213,7 +229,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
             type="text"
             id="pronoun"
             className={inputStyles}
-            value={data?.pronoun}
+            value={localData?.pronoun}
             onChange={(e) => handleInputChange("pronoun", e.target.value)}
           />
         </section>
@@ -221,5 +237,7 @@ const LandingFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     </>
   );
 };
+
+const LandingFields = dynamic(() => Promise.resolve(LandingFieldsComponent), { ssr: false });
 
 export default LandingFields;

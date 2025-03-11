@@ -1,6 +1,6 @@
 import { LiveTypes } from "@/utils/types";
 
-const Cards = ({ title, heading, body }: LiveTypes) => {
+const Cards = ({ title, heading, body }: LiveTypes["details"][0]) => {
   return (
     <div className="bg-white space-y-4 p-8 w-[30rem] rounded-2xl border border-light-purple flex flex-col items-center group text-center shadow-md hover:shadow-lg">
       {/* Title */}

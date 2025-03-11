@@ -2,8 +2,8 @@ import Livepeer from "@/assets/images/livepeer.png";
 // import border from "@/assets/images/graphic.png";
 import border1 from "@/assets/images/graphic1.png";
 // import liveImg from "@/assets/images/liveImg.png";
-import liveImg1 from "@/assets/images/liveImg1.png";
 import liveLogo from "@/assets/images/courage.png";
+import huddle from "@/assets/images/huddle1.png";
 import Cards from "./LiveCards";
 import Image from "next/image";
 import { RootState } from "@/redux/store";
@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { LiveTypes } from "@/utils/types";
 
 const Live = () => {
-  const data: LiveTypes[] = useSelector((state: RootState) => state.content.live);
+  const data: LiveTypes = useSelector((state: RootState) => state.content.live);
 
   return (
     <div className="bg-primary p-8">
@@ -21,7 +21,10 @@ const Live = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center gap-5">
           <span className="font-clash-display text-4xl font-medium">Si Her TV</span>
           <span className="font-dm-sans text-xl">powered by</span>
-          <Image src={Livepeer} width={150} alt="" />
+          <span className="flex gap-10">
+            <Image src={Livepeer} width={150} alt="" />
+            <Image src={huddle} width={140} alt="" />
+          </span>
         </div>
       </section>
       {/* Live video */}
@@ -38,11 +41,11 @@ const Live = () => {
           <div className="w-full absolute top-0 px-12 py-20">
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
               <div className="w-full aspect-video bg-[#06b4d5] rounded-xl">
-                <Image src={liveImg1} alt="" className="w-full h-full object-cover rounded-xl" />
+                <Image src={data.image} alt="" className="w-full h-full object-cover rounded-xl" />
               </div>
               <div className="w-full aspect-video">
                 <video
-                  src="/videos/vid.mp4"
+                  src={data.video}
                   className="w-full h-full object-cover rounded-xl"
                   playsInline
                   muted
@@ -71,7 +74,7 @@ const Live = () => {
       </div>
       {/* Live Cards */}
       <div className="relative grid grid-cols-1 md:grid-cols-3 w-[80%] mx-auto min-h-[180px] mt-10">
-        {data.map((item: LiveTypes) => (
+        {data.details.map((item) => (
           <div key={item.title} className="mx-auto">
             <Cards {...item} />
           </div>

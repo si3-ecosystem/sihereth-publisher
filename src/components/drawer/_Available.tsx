@@ -10,11 +10,14 @@ import toast from "react-hot-toast";
 
 const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
-  const data: string[] = useSelector((state: RootState) => state.content.available) ?? [];
-  const [tags, setTags] = useState<string[]>(data);
+  const availableData = useSelector((state: RootState) => state.content.available) ?? [];
+  const [tags, setTags] = useState<string[]>(availableData);
 
   useEffect(() => {
-    dispatch(updateContent({ section: "available", data: tags }));
+    const handler = setTimeout(() => {
+      dispatch(updateContent({ section: "available", data: tags }));
+    }, 300);
+    return () => clearTimeout(handler);
   }, [tags]);
 
   const handleInputChange = (index: number, value: string) => {
@@ -35,9 +38,7 @@ const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
 
   const removeFromArray = (index: number) => {
     if (tags.length <= 1) return;
-    const updatedArray = tags.filter((_, i) => i !== index);
-    setTags(updatedArray);
-    dispatch(updateContent({ section: "available", data: updatedArray }));
+    setTags((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -47,7 +48,7 @@ const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         <section className="p-4 xl:p-6">
           <label htmlFor="tags">Available For</label>
           {tags.map((item, index) => (
-            <div className="flex gap-4 items-center w-full" key={`${item}-${index}`}>
+            <div className="flex gap-4 items-center w-full" key={index}>
               <input
                 type="text"
                 id={`tag-${index}`}

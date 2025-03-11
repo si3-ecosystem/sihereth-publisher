@@ -30,9 +30,13 @@ export interface ValueTypes {
 }
 
 export interface LiveTypes {
-  title: string;
-  heading: string;
-  body: string;
+  image: string | StaticImageData;
+  video: string;
+  details: {
+    title: string;
+    heading: string;
+    body: string;
+  }[];
 }
 
 export interface TimelineTypes {
@@ -45,7 +49,7 @@ export interface ContentState {
   navbar: NavbarTypes;
   landing: LandingTypes;
   value: ValueTypes;
-  live: LiveTypes[];
+  live: LiveTypes;
   organizations: string[] | StaticImageData[];
   timeline: TimelineTypes[];
   available: string[];

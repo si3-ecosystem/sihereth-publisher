@@ -12,7 +12,7 @@ import Footer from "./Footer";
 const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => void; openDrawer: () => void }) => {
   return (
     <div className="px-4">
-      {/* <Navbar /> */}
+      <Navbar />
       {/* Landing section */}
       <section
         id="landing"
@@ -21,7 +21,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
           openDrawer();
         }}
       >
-        {/* <Landing /> */}
+        <Landing />
       </section>
       {/* Slider section */}
       <section
@@ -32,7 +32,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
         }}
         className="cursor-default"
       >
-        {/* <Slider /> */}
+        <Slider />
       </section>
       {/* Value section */}
       <section
@@ -42,7 +42,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
           openDrawer();
         }}
       >
-        {/* <Value /> */}
+        <Value />
       </section>
       {/* Live section */}
       <section
@@ -52,7 +52,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
           openDrawer();
         }}
       >
-        {/* <Live /> */}
+        <Live />
       </section>
       {/* Orgs section */}
       <section
@@ -62,7 +62,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
           openDrawer();
         }}
       >
-        {/* <Orgs /> */}
+        <Orgs />
       </section>
       {/* Timeline section */}
       <section
@@ -72,10 +72,12 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
           openDrawer();
         }}
       >
-        {/* <TimeLine /> */}
+        <TimeLine />
       </section>
-      {/* People section */}
-      <section id="people">{/* <People /> */}</section>
+      People section
+      <section id="people">
+        <People />
+      </section>
       {/* Available section */}
       <section
         id="available"
@@ -88,7 +90,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       </section>
       {/* Footer section */}
       <section id="footer" onClick={() => setEditPage("footer")}>
-        {/* <Footer /> */}
+        <Footer />
       </section>
     </div>
   );

@@ -4,6 +4,7 @@ import Slider from "./_Slider";
 import TimeLine from "./_Timeline";
 import Orgs from "./_Orgs";
 import Available from "./_Available";
+import Live from "./_Live";
 
 const DynamicComponent = ({ toggleDrawer, editPage }: { toggleDrawer: () => void; editPage: string }) => {
   const renderComponent = () => {
@@ -20,6 +21,8 @@ const DynamicComponent = ({ toggleDrawer, editPage }: { toggleDrawer: () => void
         return <Orgs toggleDrawer={toggleDrawer} />;
       case "available":
         return <Available toggleDrawer={toggleDrawer} />;
+      case "live":
+        return <Live toggleDrawer={toggleDrawer} />;
       default:
         return null;
     }

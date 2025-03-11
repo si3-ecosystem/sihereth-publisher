@@ -3,6 +3,7 @@ import { ContentState } from "@/utils/types";
 import base from "@/assets/images/base.png";
 import solana from "@/assets/images/solana.png";
 import lukso from "@/assets/images/lukso.png";
+import liveImg1 from "@/assets/images/liveImg1.png";
 
 const initialState: ContentState = {
   navbar: {
@@ -33,23 +34,27 @@ const initialState: ContentState = {
     values:
       " I experienced shared value when I SI women & non-binary creators grow. My value lies in my ability to understand collaboration models at an ecosystemic level, and focus my energy towards my intentions."
   },
-  live: [
-    {
-      title: "website",
-      heading: "SI<3> and the Si Her Co-Active",
-      body: "A community focused on building the next era of Web3."
-    },
-    {
-      title: "youtube",
-      heading: "Unlocking NFT's For Meta Impact",
-      body: "My participation at NFT NYC in 2023."
-    },
-    {
-      title: "podcast",
-      heading: "Diversity in the New Economy",
-      body: "My participation in W3B Talks where I talk about diversity."
-    }
-  ],
+  live: {
+    image: liveImg1,
+    video: "/videos/vid.mp4",
+    details: [
+      {
+        title: "website",
+        heading: "SI<3> and the Si Her Co-Active",
+        body: "A community focused on building the next era of Web3."
+      },
+      {
+        title: "youtube",
+        heading: "Unlocking NFT's For Meta Impact",
+        body: "My participation at NFT NYC in 2023."
+      },
+      {
+        title: "podcast",
+        heading: "Diversity in the New Economy",
+        body: "My participation in W3B Talks where I talk about diversity."
+      }
+    ]
+  },
   organizations: [base, solana, lukso],
   timeline: [
     {
