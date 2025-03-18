@@ -14,39 +14,47 @@ const Live = () => {
   const data: LiveTypes = useSelector((state: RootState) => state.content.live);
 
   return (
-    <div className="bg-primary p-8">
+    <div className="bg-primary p-4 sm:p-6 lg:p-8">
       {/* Logo and title */}
-      <section className="relative">
-        <Image src={liveLogo} alt="live-logo" width={90} />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center gap-5">
-          <span className="font-clash-display text-4xl font-medium">Si Her TV</span>
-          <span className="font-dm-sans text-xl">powered by</span>
-          <span className="flex gap-10">
-            <Image src={Livepeer} width={150} alt="" />
-            <Image src={huddle} width={140} alt="" />
+      <section className="relative py-6 md:py-10">
+        <div className="hidden md:block">
+          <Image src={liveLogo} alt="live-logo" width={90} />
+        </div>
+        <div className="md:absolute md:top-0 md:left-1/2 md:-translate-x-1/2 flex flex-col items-center justify-center gap-3 md:gap-5">
+          <span className="font-clash-display text-2xl sm:text-3xl md:text-4xl font-medium">Si Her TV</span>
+          <span className="font-dm-sans text-base sm:text-lg md:text-xl">powered by</span>
+          <span className="flex gap-4 sm:gap-6 md:gap-10">
+            <Image src={Livepeer} width={100} height={40} className="w-24 sm:w-32 md:w-[150px]" alt="Livepeer logo" />
+            <Image src={huddle} width={90} height={40} className="w-20 sm:w-28 md:w-[140px]" alt="Huddle logo" />
           </span>
         </div>
       </section>
       {/* Live video */}
-      <div className="bg-white rounded-2xl m-10 p-10">
+      <div className="bg-white rounded-lg sm:rounded-xl md:rounded-2xl mx-2 sm:mx-5 md:mx-10 p-4 sm:p-6">
         <section className="relative">
           {/* <Image src={border} alt="border" className="block lg:hidden w-full sm:h-[50%] mx-auto" /> */}
-          <Image src={border1} alt="" className="mx-auto w-full" />
+          <Image src={border1} alt="Border graphic" className="absolute top-0 left-0 mx-auto w-full" />
           {/* <Image
             src={liveImg}
             alt=""
             className="lg:hidden w-[304px] h-[280px] py-4 px-2 mx-auto absolute -top-[96] sm:h-[330px] sm:top-[-120%]"
           /> */}
           {/* Live image and video */}
-          <div className="w-full absolute top-0 px-12 py-20">
-            <section className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
-              <div className="w-full aspect-video bg-[#06b4d5] rounded-xl">
-                <Image src={data.image} alt="" className="w-full h-full object-cover rounded-xl" />
+          <div className="w-full top-0 px-2 sm:px-6 md:px-12 py-4 sm:py-8 md:py-20">
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+              <div className="w-full aspect-video bg-[#06b4d5] rounded-md sm:rounded-lg md:rounded-xl">
+                <Image
+                  src={data.image}
+                  alt="Live stream image"
+                  className="w-full h-full object-cover rounded-md sm:rounded-lg md:rounded-xl"
+                  width={500}
+                  height={280}
+                />
               </div>
-              <div className="w-full aspect-video">
+              <div className="w-full aspect-video mt-3 md:mt-0">
                 <video
                   src={data.video}
-                  className="w-full h-full object-cover rounded-xl"
+                  className="w-full h-full object-cover rounded-md sm:rounded-lg md:rounded-xl"
                   playsInline
                   muted
                   autoPlay
@@ -60,20 +68,16 @@ const Live = () => {
         </section>
       </div>
       {/* Buttons */}
-      <div className="flex w-full justify-center gap-6 mt-10 md:mt-20 xl:mt-28 2xl:mt-32">
-        <span className="flex justify-end w-full">
-          <button className="bg-light-purple text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white text-lg font-fira-mono font-medium tracking-wide px-5 py-3 whitespace-nowrap hover:shadow-md cursor-pointer">
-            BUY CRYPTO
-          </button>
-        </span>
-        <span className="flex justify-start w-full">
-          <button className="bg-light-purple text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white text-lg font-fira-mono font-medium tracking-wide px-5 py-3 whitespace-nowrap hover:shadow-md cursor-pointer">
-            TIP KARA IN CRYPTO
-          </button>
-        </span>
+      <div className="flex flex-col sm:flex-row w-full justify-center gap-3 sm:gap-6 mt-8">
+        <button className="bg-light-purple text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white text-sm sm:text-base md:text-lg font-fira-mono font-medium tracking-wide px-4 py-2 sm:px-5 sm:py-3 hover:shadow-md cursor-pointer mx-auto sm:mx-0">
+          BUY CRYPTO
+        </button>
+        <button className="bg-light-purple text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white text-sm sm:text-base md:text-lg font-fira-mono font-medium tracking-wide px-4 py-2 sm:px-5 sm:py-3 hover:shadow-md cursor-pointer mx-auto sm:mx-0">
+          TIP KARA IN CRYPTO
+        </button>
       </div>
       {/* Live Cards */}
-      <div className="relative grid grid-cols-1 md:grid-cols-3 w-[80%] mx-auto min-h-[180px] mt-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-8 sm:mt-10 gap-4">
         {data.details.map((item) => (
           <div key={item.title} className="mx-auto">
             <Cards {...item} />

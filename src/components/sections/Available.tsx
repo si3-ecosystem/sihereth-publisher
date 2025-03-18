@@ -10,43 +10,13 @@ const Available = () => {
 
   return (
     <>
-      <div className="available p-10 flex">
-        {/* Image */}
-        <section className="flex flex-col gap-6 items-center w-full">
-          <div className="relative w-[347px] h-[345px]">
-            <Image
-              src={availableBorder}
-              alt="border"
-              layout="fill"
-              objectFit="cover"
-              className="absolute top-0 right-0 z-0 xxl:w-[425.38px] xxl:h-[458.89px]"
-            />
-            <Image
-              src={background}
-              alt="background"
-              layout="fill"
-              objectFit="cover"
-              className="absolute right-2 z-1 xxl:w-[400px] xxl:h-[400px] xxl:bottom-[-90px]"
-            />
-            <Image
-              src={availableImg}
-              alt="girl"
-              layout="fill"
-              objectFit="cover"
-              className="p-2 z-2 absolute right-2 xxl:w-[406px] xxl:h-[406px]"
-            />
-          </div>
-
-          <div className="w-[200px] py-[13px] px-4 rounded-[162.5px] bg-[#3E21F31A] border border-[#3E21F3] text-center z-3 lg:w-[55%] xxl:mt-28">
-            <span className="font-segoe-ui text-xl font-semibold leading-7 text-[#3E21F3]">Join SI&lt;3&gt;</span>
-          </div>
-        </section>
-        {/* Text */}
-        <section className="flex flex-col justify-center items-center space-y-8 lg:space-y-10 xxl:space-y-12 w-full">
-          <p className="text-center py-3 px-4 whitespace-nowrap w-fit rounded-2xl border border-light-purple bg-primary text-lg font-medium tracking-wide">
+      <div className="p-2 md:p-10 grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+        {/* Reverse Order on Mobile: Text First, Image Below */}
+        <section className="flex flex-col justify-center items-center order-1 lg:order-2 space-y-8 lg:space-y-10 xxl:space-y-12 w-full">
+          <p className="py-3 md:py-4 px-5 bg-primary border border-light-purple rounded-xl text-md md:text-lg xl:text-xl font-fira-mono font-medium tracking-widest w-fit flex items-center justify-center">
             AVAILABLE FOR
           </p>
-          <div className="flex flex-col gap-6 text-3xl justify-center items-center">
+          <div className="flex flex-col gap-6 text-xl md:text-2xl xl:text-3xl justify-center items-center">
             {data.length > 0 &&
               data.map((item, index) => (
                 <div
@@ -58,13 +28,33 @@ const Available = () => {
               ))}
           </div>
         </section>
+
+        {/* Image Section */}
+        <section className="flex flex-col gap-6 items-center w-full order-2 lg:order-1">
+          <div className="relative w-[80%] max-w-[350px] md:max-w-[400px] lg:max-w-[450px] xl:max-w-[500px] aspect-square">
+            <Image
+              src={availableBorder}
+              alt="border"
+              layout="fill"
+              objectFit="cover"
+              className="absolute top-0 right-0 z-0"
+            />
+            <Image src={background} alt="background" layout="fill" objectFit="cover" className="absolute right-2 z-1" />
+            <Image src={availableImg} alt="girl" layout="fill" objectFit="cover" className="p-2 z-2 absolute right-2" />
+          </div>
+
+          <span className="font-segoe-ui rounded-xl text-sm md:text-base lg:text-lg border border-[#3E21F3] bg-[#3E21F31A] xl:text-xl font-semibold text-[#3E21F3] px-4 py-2 lg:px-6 lg:py-3">
+            Join SI&lt;3&gt;
+          </span>
+        </section>
       </div>
-      {/* Text */}
+
+      {/* Text Section */}
       <div className="bg-primary p-10 space-y-6">
-        <p className="font-dm-sans text-base font-normal leading-6 text-center text-[#1E1E1E] lg:w-[75%] mx-auto xxl:text-[18px] xxl:leading-25.5px ">
+        <p className="font-dm-sans text-base font-normal leading-6 text-center text-[#1E1E1E] lg:w-[75%] mx-auto xxl:text-[18px] xxl:leading-25.5px">
           You are viewing an ENS domain, which is a distributed and open naming system based on the Ethereum blockchain.
           This website is hosted with Pinata on the IPFS, or InterPlanetary File System, which is a peer-to-peer file
-          sharing network. The .limo domain extension is a privacy-preserving ENS gateway for resolving/accessing ENS
+          sharing network. The .link domain extension is a privacy-preserving ENS gateway for resolving/accessing ENS
           records/domains & IPFS/internet 3.0 content. For a complete web3 experience, we recommend viewing this site
           with a Metamask extension or Brave browser.
         </p>

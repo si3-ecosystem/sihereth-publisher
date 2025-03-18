@@ -55,7 +55,7 @@ const Domain = () => {
   };
 
   return (
-    <div className="flex justify-center items-center py-4 mx-auto w-full font-serif text-lg tracking-wider border-b border-gray-300 bg-gray-100 shadow-md">
+    <div className="flex justify-center items-center mx-auto w-full font-serif tracking-wider border-b border-gray-300 bg-gray-100 shadow-md text-xs sm:text-sm md:text-base lg:text-lg py-1 lg:py-3 px-2">
       {isSubDomain ? (
         <>
           <p>Web page url: </p>
@@ -66,25 +66,24 @@ const Domain = () => {
           >{`https://${isSubDomain}.${process.env.NEXT_PUBLIC_SIHER_DOMAIN}`}</Link>
         </>
       ) : (
-        <section className="items-center w-[40%] relative text-lg flex border text-gray-500 hover:text-gray-700 border-gray-300 rounded-lg hover:border-gray-500 justify-between">
-          <div className="flex justify-center items-center w-full">
-            <GrDomain className="mx-4 size-8" />
+        <section className="items-center relative flex border text-gray-500 hover:text-gray-700 border-gray-300 rounded-lg hover:border-gray-500 justify-between w-full lg:w-[40%]">
+          <div className="flex justify-center items-center">
+            <GrDomain className="mx-2 lg:mx-4 size-6 lg:size-8" />
             <input
               type="text"
-              className="w-full leading-4 text-gray-900 bg-transparent border-none outline-none focus:ring-0"
-              placeholder="Type your siher.eth domain:"
+              className="w-full leading-4 bg-transparent border-none outline-none focus:ring-0"
+              placeholder="Type your siher.eth domain"
               value={subDomain}
               onChange={handleChange}
             />
           </div>
           <div className="flex justify-center items-center">
-            <p className="mr-4 text-gray-500">.siher.eth</p>
             <button
               disabled={domainLoading || !!errorMessage}
               onClick={AssignDomain}
-              className="flex gap-3 justify-center items-center px-3 py-1 w-max text-white bg-black rounded-lg border border-black disabled:opacity-80 hover:bg-opacity-80 focus:outline-none focus:ring-none hover:shadow-md"
+              className="flex gap-2 sm:gap-4 items-center px-2 md:px-3 lg:px-5 h-9 sm:h-11 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md text-xs w-max sm:text-sm md:text-base lg:text-lg"
             >
-              {domainLoading && <RiLoaderFill className="animate-spin size-5" />}
+              {domainLoading && <RiLoaderFill className="animate-spin size-4" />}
               {domainLoading ? "Loading..." : "Publish your domain"}
             </button>
           </div>

@@ -94,6 +94,20 @@ const initialState: ContentState = {
     }
   ],
   available: ["collaboration", "advising", "speaking"],
+  socialChannels: [
+    {
+      text: "linkedin",
+      url: ""
+    },
+    {
+      text: "instagram",
+      url: ""
+    },
+    {
+      text: "twitter",
+      url: ""
+    }
+  ],
   isNewWebpage: true
 };
 

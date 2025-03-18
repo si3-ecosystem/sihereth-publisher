@@ -1,10 +1,10 @@
 "use client";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import { RiLoaderFill } from "react-icons/ri";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import eyeLogo from "@/assets/images/eye_logo.png";
+import si3 from "@/assets/images/si3.svg";
 
 interface LoginFormState {
   email: string;
@@ -25,7 +25,7 @@ interface InputFieldProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ label, type, name, value, error, onChange }) => (
+const InputField = ({ label, type, name, value, error, onChange }: InputFieldProps) => (
   <div>
     <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900">
       {label}
@@ -45,44 +45,11 @@ const InputField: React.FC<InputFieldProps> = ({ label, type, name, value, error
 );
 
 function Login() {
-  const [formData, setFormData] = useState<LoginFormState>({ email: "", password: "" });
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
-  // ✅ Handle input changes
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // ✅ Custom validation function
-  const validateForm = (): Errors => {
-    let errors: Errors = {};
-
-    if (!formData.email) {
-      errors.email = "Email is required";
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      errors.email = "Invalid email format";
-    }
-
-    if (!formData.password) {
-      errors.password = "Password is required";
-    }
-
-    return errors;
-  };
-
-  // ✅ Handle form submission
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const validationErrors = validateForm();
-    setErrors(validationErrors);
-
-    if (Object.keys(validationErrors).length > 0) return;
-
-    // Directly navigate to the desired page
-    router.push("/");
-  };
 
   return (
     <section className="flex justify-center items-center min-h-screen bg-gray-50">

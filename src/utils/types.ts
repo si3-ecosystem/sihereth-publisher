@@ -45,6 +45,11 @@ export interface TimelineTypes {
   from: string;
 }
 
+export interface SocialChannelTypes {
+  text: string;
+  url: string;
+}
+
 export interface ContentState {
   navbar: NavbarTypes;
   landing: LandingTypes;
@@ -54,5 +59,6 @@ export interface ContentState {
   timeline: TimelineTypes[];
   available: string[];
   isNewWebpage: boolean;
+  socialChannels: SocialChannelTypes[];
   slider: string[];
 }

@@ -31,7 +31,10 @@ const AnimationHome = () => {
   }, []); // Run only on first render
 
   return (
-    <div ref={containerRef} className="font-clash-display text-7xl font-semibold leading-[6rem] tracking-wider ml1">
+    <div
+      ref={containerRef}
+      className="font-clash-display text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-semibold leading-10 md:leading-[5rem] lg:leading-[5.5rem] 2xl:leading-[6rem] tracking-wider ml1"
+    >
       <span className="letter">I'm </span>
       <span className="text-blue-primary letter">{title ?? ""}</span>
       <span className="letter">,</span>

@@ -1,73 +1,70 @@
 import { useState } from "react";
 import { IoMenu, IoClose } from "react-icons/io5";
-import eyeLogo from "@/assets/images/si3.svg";
 import Image from "next/image";
 
 const Navbar = () => {
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState<boolean>(false);
-  const [hasPadding, setHasPadding] = useState<boolean>(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   const toggleMobileNav = () => {
-    setIsMobileNavOpen(!isMobileNavOpen);
-    setHasPadding(!hasPadding);
+    setIsMobileNavOpen((prev) => !prev);
   };
 
   return (
-    <nav className="flex justify-between items-center border-b border-gray-800 relative p-6">
+    <nav className="flex justify-between items-center border-b border-gray-800 p-4 md:p-6 relative">
       {/* Logo */}
-      <Image src={eyeLogo} alt="logo" className="w-64" />
-      {/* Nav List */}
-      <div className="md:flex justify-between gap-28 items-center hidden xl:gap-[96px]">
-        <div className="flex items-center space-x-4 lg:space-x-6 xl:space-x-8">
-          <a href="#value" className="text-lg font-medium font-clash-display lg:text-2xl lg:leading-9">
-            Value
+      <Image src="/images/si3.svg" width={100} height={100} alt="logo" className="w-32 sm:w-48 md:w-64" />
+      {/* Desktop Navigation */}
+      <div className="hidden md:flex items-center gap-8 lg:gap-12">
+        {["Value", "Live", "Timeline", "Connect"].map((item) => (
+          <a
+            key={item}
+            href={`#${item.toLowerCase()}`}
+            className="text-lg font-medium font-clash-display transition-all duration-300 hover:text-light-purple"
+          >
+            {item}
           </a>
-          <a href="#live" className="text-lg font-medium font-clash-display lg:text-2xl lg:leading-9">
-            Live
-          </a>
-          <a href="#timeline" className="text-lg font-medium font-clash-display lg:text-2xl lg:leading-9">
-            Timeline
-          </a>
-          <a href="#connect" className="text-lg font-medium font-clash-display lg:text-2xl lg:leading-9">
-            Connect
-          </a>
-        </div>
+        ))}
       </div>
-      {/* Subscribe Button */}
-      <button className="h-16 bg-light-purple text-blue-primary rounded-xl transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white text-[1.35rem] font-fira-mono font-medium tracking-widest px-5">
+      {/* Connect Wallet Button */}
+      <button className="hidden sm:block h-12 md:h-16 bg-light-purple text-blue-primary rounded-xl px-4 md:px-6 text-lg md:text-xl font-fira-mono font-medium tracking-widest transition-all duration-300 hover:bg-[#7E5BFF] hover:text-white">
         CONNECT WALLET
       </button>
-
-      {/* Responsive Navbar */}
-      <button className="absolute left-0 w-full sm:hidden" onClick={toggleMobileNav}>
-        {isMobileNavOpen ? (
-          <div id="mobile-nav" className="p-4 w-full duration-500 ease-in-out text-gray bg-black/30 backdrop-blur-mf">
-            <span
-              id="close"
-              onClick={toggleMobileNav}
-              className="top-12 text-2xl hover:rotate-90"
-            >
-              <IoClose className="text-2xl duration-500 hover:rotate-90" />
-            </span>
-            <div className="flex flex-col gap-6 justify-center items-center mob-nav">
-              <a href="#value" className="w-full font-semibold text-center nav">
-                Value
-              </a>
-              <a href="#live" className="w-full font-semibold text-center nav">
-                Live
-              </a>
-              <a href="#timeline" className="w-full font-semibold text-center nav">
-                Timeline
-              </a>
-              <a href="#connect" className="w-full font-semibold text-center nav">
-                Connect
-              </a>
-            </div>
-          </div>
-        ) : (
-          <IoMenu className="text-2xl" />
-        )}
+      {/* Mobile Menu Button */}
+      <button
+        onClick={toggleMobileNav}
+        className="md:hidden text-2xl focus:outline-none z-50 relative"
+        aria-label="Toggle menu"
+      >
+        {isMobileNavOpen ? <IoClose /> : <IoMenu />}
       </button>
+      {/* Mobile Navigation */}
+      <div
+        className={`fixed inset-0 bg-black/80 backdrop-blur-md transform ${
+          isMobileNavOpen ? "translate-x-0" : "translate-x-full"
+        } transition-transform duration-300 ease-in-out md:hidden flex flex-col items-center justify-center space-y-6 z-40`}
+      >
+        <button
+          onClick={toggleMobileNav}
+          className="absolute top-10 right-10 text-white md:hidden text-2xl focus:outline-none z-50"
+          aria-label="Toggle menu"
+        >
+          {isMobileNavOpen ? <IoClose /> : <IoMenu />}
+        </button>
+        {["Value", "Live", "Timeline", "Connect"].map((item) => (
+          <a
+            key={item}
+            href={`#${item.toLowerCase()}`}
+            className="text-2xl font-semibold text-white transition-all hover:text-light-purple"
+            onClick={toggleMobileNav}
+          >
+            {item}
+          </a>
+        ))}
+        {/* Mobile Connect Wallet Button */}
+        <button className="h-12 bg-light-purple text-blue-primary rounded-lg px-6 text-lg font-medium tracking-widest transition-all duration-300 hover:bg-[#7E5BFF] hover:text-white">
+          CONNECT WALLET
+        </button>
+      </div>
     </nav>
   );
 };

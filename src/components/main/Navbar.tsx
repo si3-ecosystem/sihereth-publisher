@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
 import { GrHomeRounded } from "react-icons/gr";
-import { IoPlayOutline } from "react-icons/io5";
 import Link from "next/link";
 import { RiLoaderFill } from "react-icons/ri";
 import { IoIosLogOut } from "react-icons/io";
-import { FaDesktop, FaTabletAlt, FaMobileAlt } from "react-icons/fa";
+import { FaDesktop, FaTabletAlt, FaMobileAlt, FaPlay } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 
 type ViewMode = "mobile" | "tablet" | "desktop";
 
 interface NavbarProps {
-  handleToggleView: (viewSize: string) => void;
   navigate: (path: string) => void;
   viewMode: ViewMode;
   setViewMode: (viewMode: ViewMode) => void;
+  setDrawerWidth: (drawerWidth: string) => void;
 }
 
-const Navbar = ({ handleToggleView, navigate, viewMode, setViewMode }: NavbarProps) => {
+const Navbar = ({ navigate, viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -25,13 +24,13 @@ const Navbar = ({ handleToggleView, navigate, viewMode, setViewMode }: NavbarPro
     setIsSmallScreen(width <= 768);
     if (width <= 768) {
       setViewMode("mobile");
-      handleToggleView("40%");
+      setDrawerWidth("100%");
     } else if (width <= 1024) {
       setViewMode("tablet");
-      handleToggleView("70%");
+      setDrawerWidth("70%");
     } else {
       setViewMode("desktop");
-      handleToggleView("100%");
+      setDrawerWidth("25%");
     }
   };
 
@@ -65,55 +64,49 @@ const Navbar = ({ handleToggleView, navigate, viewMode, setViewMode }: NavbarPro
   };
 
   return (
-    <nav className="flex relative justify-between items-center px-2 w-full h-16 border-b border-gray-300 sm:px-6 lg:px-8 bg-gray-100">
+    <nav className="flex relative font-dm-sans justify-between items-center px-2 w-full p-1 lg:p-3 border-b border-gray-300 sm:px-6 lg:px-8 bg-gray-100">
       {/* Logo Section */}
-      <div className="flex gap-4 items-center">
-        <GrHomeRounded className="text-2xl" />
-        <div>
-          <p className="text-lg font-semibold">Si Her Publisher</p>
-          <p className="text-sm text-gray-600">Home</p>
-        </div>
+      <div className="flex gap-2 sm:gap-4 items-center">
+        <GrHomeRounded className="size-6" />
+        <p className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold">Si Her Publisher</p>
       </div>
       {/* View Mode */}
       {!isSmallScreen && (
-        <div className="flex flex-1 justify-center items-center gap-6">
+        <div className="hidden sm:flex flex-1 justify-center items-center gap-6">
           <FaDesktop
             onClick={() => {
               setViewMode("desktop");
-              handleToggleView("100%");
             }}
             className={`size-7 cursor-pointer transition-colors ${viewMode === "desktop" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
           />
           <FaTabletAlt
             onClick={() => {
               setViewMode("tablet");
-              handleToggleView("70%");
             }}
             className={`size-7 cursor-pointer transition-colors ${viewMode === "tablet" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
           />
           <FaMobileAlt
             onClick={() => {
               setViewMode("mobile");
-              handleToggleView("40%");
             }}
             className={`size-7 cursor-pointer transition-colors ${viewMode === "mobile" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
           />
         </div>
       )}
       {/* Right Section */}
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-2 sm:gap-4 items-center">
         {/* Preview Button */}
         <Link
           href="/preview"
-          className="flex gap-2 items-center px-5 py-2 font-medium bg-transparent rounded-lg hover:bg-gray-200 hover:shadow-md transition"
+          className="flex gap-2 sm:gap-4 items-center px-2 md:px-3 lg:px-5 h-9 sm:h-11 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md text-xs sm:text-sm md:text-base lg:text-lg"
         >
-          <IoPlayOutline className="text-black" />
+          <FaPlay className="size-3" />
           Preview
         </Link>
         {/* Publish Button */}
         <button
           onClick={handlePublish}
-          className="flex gap-4 items-center px-5 py-2 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 hover:shadow-md border transition"
+          className="flex gap-2 sm:gap-4 items-center px-2 md:px-3 lg:px-5 h-9 sm:h-11 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md text-xs sm:text-sm md:text-base lg:text-lg"
         >
           <div className="bg-green-500 size-2 rounded-full"></div>Publish
           {loading && <RiLoaderFill className="animate-spin size-5" />}
@@ -123,7 +116,7 @@ const Navbar = ({ handleToggleView, navigate, viewMode, setViewMode }: NavbarPro
           onClick={() => {
             navigate("/auth/login");
           }}
-          className="flex gap-3 items-center px-5 py-2 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 hover:shadow-md border transition"
+          className="flex gap-2 sm:gap-4 items-center px-2 md:px-3 lg:px-5 h-9 sm:h-11 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md text-xs sm:text-sm md:text-base lg:text-lg"
         >
           <p>Logout</p>
           <IoIosLogOut className="size-5" />

@@ -47,39 +47,43 @@ const Marquee = ({ items }: { items: string[] }) => {
 const Landing = () => {
   const data: LandingTypes = useSelector((state: RootState) => state.content.landing);
   return (
-    <div className="flex flex-col p-6 w-full lg:flex-row text-lg font-fira-mono">
+    <div className="grid grid-cols-1 lg:grid-cols-2 p-6 w-full text-sm md:text-base lg:text-lg gap-4">
       {/* Left side  */}
-      <div className="w-1/2 pl-20 space-y-6 flex flex-col justify-center items-start">
+      <div className="w-full lg:pl-20 space-y-6 flex flex-col justify-center items-start">
         <AnimationHome />
         {/* Hashtags */}
-        <section className="flex flex-wrap gap-6">
+        <section className="flex flex-wrap gap-2 md:gap-4 lg:gap-6">
           {data.hashTags.map((hashtag) => (
             <div
               key={hashtag}
-              className="bg-primary tracking-wider whitespace-nowrap py-3 px-4 rounded-lg hover:text-gray-200 hover:bg-gray-800 transition-all ease-out duration-500 cursor-default hover:shadow-md"
+              className="bg-primary tracking-wider whitespace-nowrap text-xs md:text-sm lg:text-base py-2 px-3 md:py-3 md:px-4 rounded-2xl hover:text-gray-200 hover:bg-gray-800 transition-all ease-out duration-500 cursor-default hover:shadow-md"
             >
               #{hashtag.toUpperCase()}
             </div>
           ))}
         </section>
         {/* Information */}
-        <section className="p-5 space-y-4 bg-gray-100 border border-gray-200 w-full rounded-lg">
+        <section className="p-3 md:p-5 space-y-3 md:space-y-4 bg-gray-100 border border-gray-200 w-full rounded-lg">
           <div className="flex gap-6 font-medium">
-            <p className="text-blue-primary tracking-wide font-medium w-80 whitespace-nowrap">Title:</p>
+            <p className="text-blue-primary tracking-tight sm:tracking-wide font-medium w-56 md:w-80 whitespace-nowrap">
+              Title:
+            </p>
             <p className="hover:text-blue-primary cursor-default">{"Si<3> Founder"}</p>
           </div>
           <div className="flex gap-6 font-medium">
-            <p className="text-blue-primary tracking-wide font-medium w-80 whitespace-nowrap">Based in:</p>
+            <p className="text-blue-primary tracking-tight sm:tracking-wide font-medium w-56 md:w-80 whitespace-nowrap">
+              Based in:
+            </p>
             <p className="hover:text-blue-primary cursor-default">{data.region}</p>
           </div>
           <div className="flex gap-6 font-medium overflow-hidden">
-            <p className="text-blue-primary tracking-wide font-medium w-80 whitespace-nowrap">
+            <p className="text-blue-primary tracking-tight sm:tracking-wide font-medium w-56 md:w-80 bg-slate-400 whitespace-nowrap">
               Organization Affiliations:
             </p>
             <Marquee items={data.organizationAffiliations} />
           </div>
           <div className="flex gap-6 font-medium overflow-hidden">
-            <p className="text-blue-primary tracking-wide font-medium w-80 whitespace-nowrap">
+            <p className="text-blue-primary tracking-tight sm:tracking-wide font-medium w-56 md:w-80 whitespace-nowrap">
               Community Affiliations:
             </p>
             <Marquee items={data.communityAffiliations} />
@@ -91,12 +95,14 @@ const Landing = () => {
         </section>
       </div>
       {/* Profile */}
-      <div className="w-1/2 flex justify-center items-center relative text-2xl">
+      <div className="w-full flex justify-center items-center text-md md:text-lg xl:text-xl">
         <section className="relative">
           <Image className="rounded-2xl" src={profile} alt="profile" width={450} />
-          <div className="rounded-2xl -bottom-10 -right-10 border border-light-purple p-6 flex flex-col justify-center items-center gap-2 bg-primary absolute shadow-md">
+          <div className="rounded-2xl -bottom-4 -right-4 md:-bottom-8 md:-right-8 xl:-bottom-10 xl:-right-10 border border-light-purple p-6 flex flex-col justify-center items-center gap-2 bg-primary absolute shadow-md">
             <span className="font-medium whitespace-nowrap">{data?.name}</span>
-            <span className="font-dm-sans tracking-wider text-xl">{"(" + data?.pronoun.toUpperCase() + ")"}</span>
+            <span className="font-dm-sans tracking-wider text-sm md:text-base xl:text-lg">
+              {"(" + data?.pronoun.toUpperCase() + ")"}
+            </span>
           </div>
         </section>
       </div>

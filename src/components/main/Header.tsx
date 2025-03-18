@@ -61,32 +61,32 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <div className="flex gap-40 items-center w-full h-20 text-gray-900 border-b border-gray-300 bg-gray-100">
+    <div className="flex flex-col lg:flex-row font-dm-sans items-center w-full text-gray-900 border-b border-gray-300 bg-gray-100 p-1 lg:p-3 gap-1">
       {/* Left Section */}
-      <section className="flex relative flex-1 justify-center items-center w-4/5 max-w-4/5">
-        <p className="mx-auto text-lg">Tutorial Videos</p>
+      <section className="flex w-full justify-center items-center gap-1 lg:gap-6">
+        <p className="hidden xl:block text-sm md:text-base font-semibold lg:text-lg">Tutorial Videos</p>
         {buttons.slice(0, 2).map(({ label, key }) => (
           <button
             key={key}
             onClick={() => toggleIframe(key)}
-            className="px-5 mx-2 w-48 h-12 text-sm font-medium rounded-md border border-gray-900 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
+            className="py-[0.3rem] lg:py-3 w-full lg:w-48 text-xs sm:text-sm md:text-base font-light md:font-medium rounded-md border border-gray-600 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
           >
             {label}
           </button>
         ))}
       </section>
       {/* Right Section */}
-      <section className="flex relative flex-1 justify-center items-center h-full">
+      <section className="flex w-full justify-center items-center gap-1 lg:gap-6">
         {buttons.slice(2).map(({ label, key }) => (
           <button
             key={key}
             onClick={() => toggleIframe(key)}
-            className="px-5 mx-2 w-48 h-12 text-sm font-medium rounded-md border border-black hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
+            className="py-[0.3rem] lg:py-3 w-full lg:w-48 text-xs sm:text-sm md:text-base font-light md:font-medium rounded-md border border-gray-600 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
           >
             {label}
           </button>
         ))}
-        <p className="mx-auto text-lg">Si Her Speak</p>
+        <p className="hidden xl:block text-sm md:text-base font-semibold lg:text-lg">Si Her Speak</p>
       </section>
       {/* Modal for Iframe */}
       {visibleIframe && (

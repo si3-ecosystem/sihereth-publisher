@@ -1,27 +1,68 @@
-import { IoIosArrowForward } from "react-icons/io";
+import { useState, useRef, useEffect } from "react";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { FaXTwitter, FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa6";
-import data, { languagesByRegion } from "@/utils/data";
+import { MdEmail } from "react-icons/md";
+import { languagesByRegion } from "@/utils/data";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
-const iconMap: { [key: string]: any } = {
+const iconMap: Record<string, React.ElementType> = {
   linkedin: FaLinkedin,
   instagram: FaInstagram,
   twitter: FaXTwitter,
-  email: FaGithub // You might want to use a mail icon instead
+  email: FaGithub
 };
 
-function Footer() {
-  const socialChannels = data.available.socialChannels;
+const Footer = () => {
+  const socialChannels = useSelector((state: RootState) => state.content.socialChannels);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [dropdownDirection, setDropdownDirection] = useState<"up" | "down">("down");
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+        setSelectedRegion(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (isDropdownOpen && buttonRef.current) {
+      const buttonRect = buttonRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - buttonRect.bottom;
+      const spaceAbove = buttonRect.top;
+
+      if (spaceBelow < 250 && spaceAbove > spaceBelow) {
+        setDropdownDirection("up");
+      } else {
+        setDropdownDirection("down");
+      }
+    }
+  }, [isDropdownOpen]);
 
   return (
-    <div className="footer bg-gray-800 py-16 px-6 space-y-8 lg:px-12 mx-auto">
-      <div className="lg:flex justify-between space-y-8 items-center">
-        <div className="h-[253px] sm:h-fit flex flex-col gap-6 justify-center items-center sm:flex-row lg:gap-12">
-          {socialChannels.map((channel, index) => {
+    <div className="bg-gray-800 px-6 md:px-16 py-8 space-y-6">
+      {/* Social & Controls */}
+      <section className="flex flex-col md:flex-row justify-between items-center gap-6">
+        {/* Social Channels */}
+        <div className="flex justify-center md:justify-start gap-4 sm:gap-6">
+          {socialChannels.map((channel) => {
             const Icon = iconMap[channel.text.toLowerCase()] || FaGithub;
             return (
-              <div key={index} className="bg-[#C8BAFD] rounded-[12px] py-3 px-4 w-fit flex items-center gap-2">
-                <Icon className="text-[#1E1E1E] text-xl" />
-                <span className="font-fira-mono text-base font-medium leading-6 text-[#1E1E1E]">
+              <div key={channel.text} className="bg-[#C8BAFD] rounded-xl py-3 px-4 flex items-center gap-2">
+                <Icon className="text-xl" />
+                <span className="font-fira-mono text-xs sm:text-sm md:text-base font-medium">
                   {channel.text.toUpperCase()}
                 </span>
               </div>
@@ -29,58 +70,84 @@ function Footer() {
           })}
         </div>
 
-        <form className="flex items-first rounded-[12px] overflow-hidden w-[85%] sm:w-[60%] mx-auto lg:mx-0 lg:w-[40%]">
-          <div className="border-0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="gray"
-              className="w-[39px] h-[38px] bg-white p-1"
+        {/* Controls */}
+        <section className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+          {/* Language Dropdown */}
+          <div className="relative bg-[#C8BAFD] rounded-xl w-fit flex items-center gap-2" ref={dropdownRef}>
+            <button
+              ref={buttonRef}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="bg-[#C8BAFD] text-[#1E1E1E] px-4 sm:px-6 py-3 rounded-xl font-medium hover:bg-[#b0a0f5] transition-all text-sm sm:text-base"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 8.25v-.75A2.25 2.25 0 015.25 5.25h13.5A2.25 2.25 0 0121 7.5v9a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 16.5v-.75M3 8.25l9 5.25 9-5.25M3 8.25v7.5m0-7.5L12 13.5m0 0L21 8.25m0 7.5v-.75"
-              />
-            </svg>
+              Select Language
+            </button>
+            {isDropdownOpen && (
+              <div
+                className={`absolute left-1/2 transform -translate-x-1/2 ${
+                  dropdownDirection === "up" ? "bottom-full mb-2" : "top-full mt-2"
+                } w-60 bg-white rounded-lg shadow-lg z-10 p-2`}
+              >
+                {selectedRegion === null ? (
+                  <div className="flex flex-col space-y-1">
+                    {Object.keys(languagesByRegion).map((region) => (
+                      <div
+                        key={region}
+                        onClick={() => setSelectedRegion(region)}
+                        className="cursor-pointer px-4 py-2 hover:bg-gray-200 rounded transition-all text-black text-sm font-medium flex justify-between"
+                      >
+                        {region}
+                        <IoIosArrowForward className="text-gray-500" />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-start space-y-1 max-h-96 overflow-auto">
+                    <button
+                      onClick={() => setSelectedRegion(null)}
+                      className="flex items-center text-sm font-medium px-4 py-2 hover:bg-gray-200 rounded transition-all"
+                    >
+                      <IoIosArrowBack className="mr-2 text-gray-500" />
+                      Back
+                    </button>
+                    {languagesByRegion[selectedRegion as keyof typeof languagesByRegion].map((language: string) => (
+                      <div
+                        key={language}
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          setSelectedRegion(null);
+                        }}
+                        className="cursor-pointer px-4 py-2 hover:bg-gray-200 rounded transition-all text-sm font-medium"
+                      >
+                        {language}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-          <input
-            type="email"
-            placeholder="Subscribe to our newsletter...."
-            className="flex-grow py-2 text-[#1E1E1E] focus:outline-none font-fira-mono text-[11px] sm:text-[14px] font-normal w-[80%]"
-          />
-          <button type="submit" className="w-fit py-2 px-2 bg-[#C8BAFD]">
-            <IoIosArrowForward className="text-[#1E1E1E] h-[22px] w-10" />
-          </button>
-        </form>
-      </div>
 
-      {/* Languages Section */}
-      <div className="pr-3 font-dm-sans font-medium tracking-wide flex justify-between gap-10">
-        {Object.entries(languagesByRegion).map(([region, langs]) => (
-          <div key={region} className="mt-4 space-y-2">
-            <p className="text-xs text-white font-semibold">{region}</p>
-            <div className="grid grid-cols-3 gap-y-1 gap-x-6">
-              {langs.map((language, index) => (
-                <span
-                  key={index}
-                  className="font-mono text-[9px] xxl:text-xs xxl:font-normal xxl:leading-[13.2px] text-[#8674F7] hover:text-white cursor-pointer whitespace-nowrap"
-                >
-                  {language}
-                </span>
-              ))}
-            </div>
+          {/* Newsletter Form */}
+          <div className="flex rounded-xl w-full sm:w-fit items-center bg-white gap-4 h-fit px-3 py-2">
+            <MdEmail className="size-6 sm:size-7 ml-2 sm:ml-4" />
+            <input
+              type="email"
+              placeholder="Subscribe to our newsletter..."
+              className="flex-grow text-sm sm:text-base py-1 sm:py-2 focus:outline-none font-dm-sans w-full"
+            />
+            <button type="submit" className="bg-[#C8BAFD] rounded-xl p-2 sm:p-3">
+              <IoIosArrowForward className="size-5 sm:size-6" />
+            </button>
           </div>
-        ))}
-      </div>
+        </section>
+      </section>
 
-      <div className="font-dm-sans text-base font-normal leading-6 text-center text-[#FFFFFF] sm:w-[60%] lg:w-full mx-auto xxl:text-[16px] ">
+      {/* Footer Text */}
+      <section className="font-dm-sans text-sm sm:text-base font-normal leading-6 text-center text-white max-w-md mx-auto">
         {"@2025, SI<3> is a collaborative Web3 Ecosystem powered by global voices."}
-      </div>
+      </section>
     </div>
   );
-}
+};
 
 export default Footer;

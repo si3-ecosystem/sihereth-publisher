@@ -32,11 +32,11 @@ const People = () => {
   }, []);
 
   return (
-    <div className="relative overflow-hidden h-12 md:h-20 bg-gray-800 py-3 px-4 lg:py-auto flex items-center mt-14">
+    <div className="relative overflow-hidden h-12 md:h-20 bg-gray-800 py-3 px-4 lg:py-auto flex items-center">
       <div className="absolute flex items-center" ref={scrollerRef} style={{ display: "flex", whiteSpace: "nowrap" }}>
         {[...people, ...people].map((person, index) => (
           <div key={`${person.id}-${index}`} className="flex items-center">
-            <div className="text-center flex items-center px-2 lg:px-4 text-white tracking-wider uppercase text-2xl">
+            <div className="text-center flex items-center px-2 lg:px-4 text-white tracking-wider uppercase text-md md:text-xl xl:text-2xl">
               <FaUserAlt className="mr-2" /> {person.name} - {person.domain}
             </div>
             <div className="bg-white size-3 rounded-full mx-4"></div>

@@ -74,7 +74,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       >
         <TimeLine />
       </section>
-      People section
+      {/* People section */}
       <section id="people">
         <People />
       </section>
