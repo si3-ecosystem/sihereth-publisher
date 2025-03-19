@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -5,8 +6,6 @@ import { RootState } from "@/redux/store";
 const Orgs = () => {
   const data = useSelector((state: RootState) => state.content.organizations) || [];
   if (!data?.length) return null;
-
-  console.log("data orgs", data);
 
   return (
     <div className="p-10 bg-gray-100 flex flex-col gap-10 justify-center items-center">

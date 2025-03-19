@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import availableBorder from "@/assets/images/group.png";
 import availableImg from "@/assets/images/avatar.png";

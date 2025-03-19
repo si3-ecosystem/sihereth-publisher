@@ -6,10 +6,6 @@ import lukso from "@/assets/images/lukso.png";
 import liveImg1 from "@/assets/images/liveImg1.png";
 
 const initialState: ContentState = {
-  navbar: {
-    websiteName: "",
-    links: []
-  },
   landing: {
     title: "Kara",
     headline: "& I create equitable platforms for the new economy.",
@@ -18,7 +14,7 @@ const initialState: ContentState = {
     organizationAffiliations: ["Si<3>"],
     communityAffiliations: ["OnChair Dreamers", "Cosmos Cartel", "The Phoenix Guild"],
     superPowers: ["Empathy", "Focus", "Leaps of Faith"],
-    image: "@/assets/images/girl.png",
+    image: "/images/girl.png",
     name: "Kara Howard",
     pronoun: "SHE/HER"
   },

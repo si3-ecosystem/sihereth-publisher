@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { IoMenu, IoClose } from "react-icons/io5";
 import Image from "next/image";
@@ -12,7 +13,7 @@ const Navbar = () => {
   return (
     <nav className="flex justify-between items-center border-b border-gray-800 p-4 md:p-6 relative">
       {/* Logo */}
-      <Image src="/images/si3.svg" width={100} height={100} alt="logo" className="w-32 sm:w-48 md:w-64" />
+      <Image src="/images/si3.svg" width={140} height={80} alt="logo" />
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-8 lg:gap-12">
         {["Value", "Live", "Timeline", "Connect"].map((item) => (

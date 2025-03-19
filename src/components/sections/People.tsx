@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useRef } from "react";
 import { FaUserAlt } from "react-icons/fa";
 

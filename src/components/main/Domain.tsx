@@ -67,11 +67,11 @@ const Domain = () => {
         </>
       ) : (
         <section className="items-center relative flex border text-gray-500 hover:text-gray-700 border-gray-300 rounded-lg hover:border-gray-500 justify-between w-full lg:w-[40%]">
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center w-full">
             <GrDomain className="mx-2 lg:mx-4 size-6 lg:size-8" />
             <input
               type="text"
-              className="w-full leading-4 bg-transparent border-none outline-none focus:ring-0"
+              className="w-full bg-transparent border-none outline-none focus:ring-0"
               placeholder="Type your siher.eth domain"
               value={subDomain}
               onChange={handleChange}

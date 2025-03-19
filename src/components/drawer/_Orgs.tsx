@@ -1,3 +1,4 @@
+"use client";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCirclePlus, FaUpload } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
@@ -74,7 +75,7 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
           {localData.map((item, index) => (
             <div key={index} className={`${inputStyles} flex gap-4 justify-between items-center w-full mb-4`}>
               {item ? (
-                <Image src={item} alt={`Organization ${index}`} width={70} className="object-cover" />
+                <Image src={item} alt={`Organization ${index}`} width={70} height={70} className="object-cover" />
               ) : (
                 <div className="text-xs text-gray-500">No image</div>
               )}

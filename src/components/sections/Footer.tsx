@@ -1,3 +1,4 @@
+"use client";
 import { useState, useRef, useEffect } from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { FaXTwitter, FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa6";

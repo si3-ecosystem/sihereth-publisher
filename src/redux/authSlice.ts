@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface User {
   id: string;
-  name: string;
+  name?: string;
   email: string;
   domain?: string;
   token: string;

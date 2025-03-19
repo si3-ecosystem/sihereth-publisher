@@ -5,19 +5,23 @@ import { RiLoaderFill } from "react-icons/ri";
 import { IoIosLogOut } from "react-icons/io";
 import { FaDesktop, FaTabletAlt, FaMobileAlt, FaPlay } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { logout } from "@/redux/authSlice";
 
 type ViewMode = "mobile" | "tablet" | "desktop";
 
 interface NavbarProps {
-  navigate: (path: string) => void;
   viewMode: ViewMode;
   setViewMode: (viewMode: ViewMode) => void;
   setDrawerWidth: (drawerWidth: string) => void;
 }
 
-const Navbar = ({ navigate, viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
+const Navbar = ({ viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const updateViewMode = () => {
     const width = window.innerWidth;
@@ -68,7 +72,7 @@ const Navbar = ({ navigate, viewMode, setViewMode, setDrawerWidth }: NavbarProps
       {/* Logo Section */}
       <div className="flex gap-2 sm:gap-4 items-center">
         <GrHomeRounded className="size-6" />
-        <p className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold">Si Her Publisher</p>
+        <p className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold mt-1">Si Her Publisher</p>
       </div>
       {/* View Mode */}
       {!isSmallScreen && (
@@ -114,7 +118,8 @@ const Navbar = ({ navigate, viewMode, setViewMode, setDrawerWidth }: NavbarProps
         {/* Logout Button */}
         <button
           onClick={() => {
-            navigate("/auth/login");
+            dispatch(logout());
+            router.replace("/login");
           }}
           className="flex gap-2 sm:gap-4 items-center px-2 md:px-3 lg:px-5 h-9 sm:h-11 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md text-xs sm:text-sm md:text-base lg:text-lg"
         >

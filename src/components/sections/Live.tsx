@@ -1,3 +1,4 @@
+"use client";
 import Livepeer from "@/assets/images/livepeer.png";
 // import border from "@/assets/images/graphic.png";
 import border1 from "@/assets/images/graphic1.png";
@@ -12,6 +13,7 @@ import { LiveTypes } from "@/utils/types";
 
 const Live = () => {
   const data: LiveTypes = useSelector((state: RootState) => state.content.live);
+  const name = useSelector((state: RootState) => state.content.landing.title);
 
   return (
     <div className="bg-primary p-4 sm:p-6 lg:p-8">
@@ -42,26 +44,30 @@ const Live = () => {
           {/* Live image and video */}
           <div className="w-full top-0 px-2 sm:px-6 md:px-12 py-4 sm:py-8 md:py-20">
             <section className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-              <div className="w-full aspect-video bg-[#06b4d5] rounded-md sm:rounded-lg md:rounded-xl">
-                <Image
-                  src={data.image}
-                  alt="Live stream image"
-                  className="w-full h-full object-cover rounded-md sm:rounded-lg md:rounded-xl"
-                  width={500}
-                  height={280}
-                />
-              </div>
+              {data?.image && (
+                <div className="w-full aspect-video bg-[#06b4d5] rounded-md sm:rounded-lg md:rounded-xl">
+                  <Image
+                    src={data.image}
+                    alt="Live stream image"
+                    className="w-full h-full object-cover rounded-md sm:rounded-lg md:rounded-xl"
+                    width={500}
+                    height={280}
+                  />
+                </div>
+              )}
               <div className="w-full aspect-video mt-3 md:mt-0">
-                <video
-                  src={data.video}
-                  className="w-full h-full object-cover rounded-md sm:rounded-lg md:rounded-xl"
-                  playsInline
-                  muted
-                  autoPlay
-                  loop
-                >
-                  <track kind="captions" src="" label="English" srcLang="en" default />
-                </video>
+                {data?.video && (
+                  <video
+                    src={data.video}
+                    className="w-full h-full object-cover rounded-md sm:rounded-lg md:rounded-xl"
+                    playsInline
+                    muted
+                    autoPlay
+                    loop
+                  >
+                    {/* <track kind="captions" src="" label="English" srcLang="en" default /> */}
+                  </video>
+                )}
               </div>
             </section>
           </div>
@@ -70,10 +76,10 @@ const Live = () => {
       {/* Buttons */}
       <div className="flex flex-col sm:flex-row w-full justify-center gap-3 sm:gap-6 mt-8">
         <button className="bg-light-purple text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white text-sm sm:text-base md:text-lg font-fira-mono font-medium tracking-wide px-4 py-2 sm:px-5 sm:py-3 hover:shadow-md cursor-pointer mx-auto sm:mx-0">
-          BUY CRYPTO
+          CREATE YOUR ZERION WALLET
         </button>
-        <button className="bg-light-purple text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white text-sm sm:text-base md:text-lg font-fira-mono font-medium tracking-wide px-4 py-2 sm:px-5 sm:py-3 hover:shadow-md cursor-pointer mx-auto sm:mx-0">
-          TIP KARA IN CRYPTO
+        <button className="bg-light-purple text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white text-sm sm:text-base md:text-lg font-fira-mono font-medium tracking-wide px-4 py-2 sm:px-5 sm:py-3 hover:shadow-md cursor-pointer mx-auto sm:mx-0 uppercase">
+          TIP {name ?? "KARA"} IN CRYPTO
         </button>
       </div>
       {/* Live Cards */}

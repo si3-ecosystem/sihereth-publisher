@@ -6,11 +6,6 @@ export interface LinkTypes {
   link: string;
 }
 
-export interface NavbarTypes {
-  websiteName: string;
-  links: LinkTypes[];
-}
-
 export interface LandingTypes {
   title: string;
   headline: string;
@@ -51,7 +46,6 @@ export interface SocialChannelTypes {
 }
 
 export interface ContentState {
-  navbar: NavbarTypes;
   landing: LandingTypes;
   value: ValueTypes;
   live: LiveTypes;

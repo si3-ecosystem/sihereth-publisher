@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import TimeLineLogo from "@/assets/images/runes1.png";
 import { useSelector } from "react-redux";

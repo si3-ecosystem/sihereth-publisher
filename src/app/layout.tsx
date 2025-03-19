@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Poppins } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-import { ReactScan } from "@/utils/reactScan";
+
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
@@ -28,7 +28,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${dmSans.variable} ${poppins.variable} antialiased`}>
-        <ReactScan />
         <Providers>{children}</Providers>
       </body>
     </html>
