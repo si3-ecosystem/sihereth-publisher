@@ -53,100 +53,99 @@ const Footer = () => {
   }, [isDropdownOpen]);
 
   return (
-    <div className="bg-gray-800 px-6 md:px-16 py-8 space-y-6">
-      {/* Social & Controls */}
-      <section className="flex flex-col md:flex-row justify-between items-center gap-6">
-        {/* Social Channels */}
-        <div className="flex justify-center md:justify-start gap-4 sm:gap-6">
-          {socialChannels.map((channel) => {
-            const Icon = iconMap[channel.text.toLowerCase()] || FaGithub;
-            return (
-              <div key={channel.text} className="bg-[#C8BAFD] rounded-xl py-3 px-4 flex items-center gap-2">
-                <Icon className="text-xl" />
-                <span className="font-fira-mono text-xs sm:text-sm md:text-base font-medium">
-                  {channel.text.toUpperCase()}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+    <div className="bg-gray-800 p-4 text-xs">
+      <div className="max-w-[90rem] mx-auto space-y-2">
+        {/* Social & Controls */}
+        <section className="flex flex-col md:flex-row justify-between items-center gap-2">
+          {/* Social Channels */}
+          <div className="flex justify-between w-full md:justify-start gap-4">
+            {socialChannels.map((channel) => {
+              const Icon = iconMap[channel.text.toLowerCase()] || FaGithub;
+              return (
+                <div key={channel.text} className="bg-[#C8BAFD] rounded-xl py-3 px-4 flex items-center gap-2">
+                  <Icon className="" />
+                  <span className="font-fira-mono font-medium">{channel.text.toUpperCase()}</span>
+                </div>
+              );
+            })}
+          </div>
 
-        {/* Controls */}
-        <section className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-          {/* Language Dropdown */}
-          <div className="relative bg-[#C8BAFD] rounded-xl w-fit flex items-center gap-2" ref={dropdownRef}>
-            <button
-              ref={buttonRef}
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="bg-[#C8BAFD] text-[#1E1E1E] px-4 sm:px-6 py-3 rounded-xl font-medium hover:bg-[#b0a0f5] transition-all text-sm sm:text-base"
-            >
-              Select Language
-            </button>
-            {isDropdownOpen && (
-              <div
-                className={`absolute left-1/2 transform -translate-x-1/2 ${
-                  dropdownDirection === "up" ? "bottom-full mb-2" : "top-full mt-2"
-                } w-60 bg-white rounded-lg shadow-lg z-10 p-2`}
+          {/* Controls */}
+          <section className="flex items-center justify-between md:justify-end w-full gap-4">
+            {/* Language Dropdown */}
+            <div className="relative bg-[#C8BAFD] rounded-xl w-fit flex items-center gap-2" ref={dropdownRef}>
+              <button
+                ref={buttonRef}
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="bg-[#C8BAFD] text-[#1E1E1E] px-3 py-3 rounded-xl hover:bg-[#b0a0f5] whitespace-nowrap focus:outline-none"
               >
-                {selectedRegion === null ? (
-                  <div className="flex flex-col space-y-1">
-                    {Object.keys(languagesByRegion).map((region) => (
-                      <div
-                        key={region}
-                        onClick={() => setSelectedRegion(region)}
-                        className="cursor-pointer px-4 py-2 hover:bg-gray-200 rounded transition-all text-black text-sm font-medium flex justify-between"
+                Select Language
+              </button>
+              {isDropdownOpen && (
+                <div
+                  className={`absolute left-0 border bg-gray-100 border-gray-300 ${
+                    dropdownDirection === "up" ? "bottom-full mb-2" : "top-full mt-2"
+                  } w-60 bg-white rounded-lg shadow-lg z-10 p-2`}
+                >
+                  {selectedRegion === null ? (
+                    <div className="flex flex-col space-y-1">
+                      {Object.keys(languagesByRegion).map((region) => (
+                        <div
+                          key={region}
+                          onClick={() => setSelectedRegion(region)}
+                          className="cursor-pointer px-3 py-2 hover:bg-gray-200 rounded transition-all font-medium flex justify-between"
+                        >
+                          {region}
+                          <IoIosArrowForward className="text-gray-500" />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-start space-y-1 max-h-96 overflow-auto">
+                      <button
+                        onClick={() => setSelectedRegion(null)}
+                        className="flex items-center font-medium px-4 py-2 hover:bg-gray-200 rounded transition-all"
                       >
-                        {region}
-                        <IoIosArrowForward className="text-gray-500" />
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-start space-y-1 max-h-96 overflow-auto">
-                    <button
-                      onClick={() => setSelectedRegion(null)}
-                      className="flex items-center text-sm font-medium px-4 py-2 hover:bg-gray-200 rounded transition-all"
-                    >
-                      <IoIosArrowBack className="mr-2 text-gray-500" />
-                      Back
-                    </button>
-                    {languagesByRegion[selectedRegion as keyof typeof languagesByRegion].map((language: string) => (
-                      <div
-                        key={language}
-                        onClick={() => {
-                          setIsDropdownOpen(false);
-                          setSelectedRegion(null);
-                        }}
-                        className="cursor-pointer px-4 py-2 hover:bg-gray-200 rounded transition-all text-sm font-medium"
-                      >
-                        {language}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Newsletter Form */}
-          <div className="flex rounded-xl w-full sm:w-fit items-center bg-white gap-4 h-fit px-3 py-2">
-            <MdEmail className="size-6 sm:size-7 ml-2 sm:ml-4" />
-            <input
-              type="email"
-              placeholder="Subscribe to our newsletter..."
-              className="flex-grow text-sm sm:text-base py-1 sm:py-2 focus:outline-none font-dm-sans w-full"
-            />
-            <button type="submit" className="bg-[#C8BAFD] rounded-xl p-2 sm:p-3">
-              <IoIosArrowForward className="size-5 sm:size-6" />
-            </button>
-          </div>
+                        <IoIosArrowBack className="mr-2 text-gray-500" />
+                        Back
+                      </button>
+                      {languagesByRegion[selectedRegion as keyof typeof languagesByRegion].map((language: string) => (
+                        <div
+                          key={language}
+                          onClick={() => {
+                            setIsDropdownOpen(false);
+                            setSelectedRegion(null);
+                          }}
+                          className="cursor-pointer px-4 py-2 hover:bg-gray-200 rounded transition-all font-medium"
+                        >
+                          {language}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            {/* Newsletter Form */}
+            <div className="flex rounded-xl w-full sm:w-fit items-center bg-white gap-4 h-fit pl-3">
+              <MdEmail className="size-6" />
+              <input
+                type="email"
+                placeholder="Subscribe to our newsletter..."
+                className="flex-grow leading-4 py-1 sm:py-2 focus:outline-none font-dm-sans w-full"
+              />
+              <button type="submit" className="bg-[#C8BAFD] rounded-xl p-2">
+                <IoIosArrowForward className="size-5" />
+              </button>
+            </div>
+          </section>
         </section>
-      </section>
 
-      {/* Footer Text */}
-      <section className="font-dm-sans text-sm sm:text-base font-normal leading-6 text-center text-white max-w-md mx-auto">
-        {"@2025, SI<3> is a collaborative Web3 Ecosystem powered by global voices."}
-      </section>
+        {/* Footer Text */}
+        <section className="font-dm-sans font-normal leading-6 text-center text-white max-w-md mx-auto">
+          {"@2025, SI<3> is a collaborative Web3 Ecosystem powered by global voices."}
+        </section>
+      </div>
     </div>
   );
 };

@@ -55,40 +55,42 @@ const Domain = () => {
   };
 
   return (
-    <div className="flex justify-center items-center mx-auto w-full font-serif tracking-wider border-b border-gray-300 bg-gray-100 shadow-md text-xs sm:text-sm md:text-base lg:text-lg py-1 lg:py-3 px-2">
-      {isSubDomain ? (
-        <>
-          <p>Web page url: </p>
-          <Link
-            href={`https://${isSubDomain}.${process.env.NEXT_PUBLIC_SIHER_DOMAIN}`}
-            target="_blank"
-            className="ml-2 font-serif text-blue-600 hover:underline underline-offset-2"
-          >{`https://${isSubDomain}.${process.env.NEXT_PUBLIC_SIHER_DOMAIN}`}</Link>
-        </>
-      ) : (
-        <section className="items-center relative flex border text-gray-500 hover:text-gray-700 border-gray-300 rounded-lg hover:border-gray-500 justify-between w-full lg:w-[40%]">
-          <div className="flex justify-center items-center w-full">
-            <GrDomain className="mx-2 lg:mx-4 size-6 lg:size-8" />
-            <input
-              type="text"
-              className="w-full bg-transparent border-none outline-none focus:ring-0"
-              placeholder="Type your siher.eth domain"
-              value={subDomain}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="flex justify-center items-center">
-            <button
-              disabled={domainLoading || !!errorMessage}
-              onClick={AssignDomain}
-              className="flex gap-2 sm:gap-4 items-center px-2 md:px-3 lg:px-5 h-9 sm:h-11 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md text-xs w-max sm:text-sm md:text-base lg:text-lg"
-            >
-              {domainLoading && <RiLoaderFill className="animate-spin size-4" />}
-              {domainLoading ? "Loading..." : "Publish your domain"}
-            </button>
-          </div>
-        </section>
-      )}
+    <div className="tracking-wider border-b border-gray-300 bg-gray-100 shadow-md text-xs py-1 lg:py-2 px-2">
+      <div className="flex justify-center items-center mx-auto">
+        {isSubDomain ? (
+          <>
+            <p>Web page url: </p>
+            <Link
+              href={`https://${isSubDomain}.${process.env.NEXT_PUBLIC_SIHER_DOMAIN}`}
+              target="_blank"
+              className="ml-2 font-serif text-blue-600 hover:underline underline-offset-2"
+            >{`https://${isSubDomain}.${process.env.NEXT_PUBLIC_SIHER_DOMAIN}`}</Link>
+          </>
+        ) : (
+          <section className="items-center relative flex border text-gray-500 hover:text-gray-700 border-gray-300 rounded-lg hover:border-gray-500 justify-between w-full lg:w-[30%]">
+            <div className="flex justify-center items-center w-full">
+              <GrDomain className="mx-2 size-4" />
+              <input
+                type="text"
+                className="w-full bg-transparent border-none outline-none focus:ring-0"
+                placeholder="Create your siher.eth domain"
+                value={subDomain}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex justify-center items-center">
+              <button
+                disabled={domainLoading || !!errorMessage}
+                onClick={AssignDomain}
+                className="flex gap-2 sm:gap-4 items-center px-4 h-8 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md whitespace-nowrap"
+              >
+                {domainLoading && <RiLoaderFill className="animate-spin size-4" />}
+                {domainLoading ? "Loading..." : "Publish your domain"}
+              </button>
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 };

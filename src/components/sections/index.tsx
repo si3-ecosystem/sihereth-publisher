@@ -8,10 +8,11 @@ import TimeLine from "./Timeline";
 import People from "./People";
 import Available from "./Available";
 import Footer from "./Footer";
+import Text from "./Text";
 
 const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => void; openDrawer: () => void }) => {
   return (
-    <div className="px-4">
+    <>
       <Navbar />
       {/* Landing section */}
       <section
@@ -88,11 +89,13 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       >
         <Available />
       </section>
+      {/* Text section */}
+      <Text />
       {/* Footer section */}
       <section id="footer" onClick={() => setEditPage("footer")}>
         <Footer />
       </section>
-    </div>
+    </>
   );
 };
 

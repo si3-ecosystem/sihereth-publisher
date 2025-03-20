@@ -1,9 +1,5 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  images: {
-    domains: ["s3-alpha-sig.figma.com"]
-  }
-};
+const nextConfig: NextConfig = {};
 
 export default nextConfig;

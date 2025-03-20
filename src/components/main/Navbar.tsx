@@ -68,64 +68,66 @@ const Navbar = ({ viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
   };
 
   return (
-    <nav className="flex relative font-dm-sans justify-between items-center px-2 w-full p-1 lg:p-3 border-b border-gray-300 sm:px-6 lg:px-8 bg-gray-100">
-      {/* Logo Section */}
-      <div className="flex gap-2 sm:gap-4 items-center">
-        <GrHomeRounded className="size-6" />
-        <p className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold mt-1">Si Her Publisher</p>
-      </div>
-      {/* View Mode */}
-      {!isSmallScreen && (
-        <div className="hidden sm:flex flex-1 justify-center items-center gap-6">
-          <FaDesktop
-            onClick={() => {
-              setViewMode("desktop");
-            }}
-            className={`size-7 cursor-pointer transition-colors ${viewMode === "desktop" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
-          />
-          <FaTabletAlt
-            onClick={() => {
-              setViewMode("tablet");
-            }}
-            className={`size-7 cursor-pointer transition-colors ${viewMode === "tablet" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
-          />
-          <FaMobileAlt
-            onClick={() => {
-              setViewMode("mobile");
-            }}
-            className={`size-7 cursor-pointer transition-colors ${viewMode === "mobile" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
-          />
+    <nav className="font-dm-sans border-b border-gray-300 sm:px-6 lg:px-8 bg-gray-100">
+      <div className="flex relative justify-between items-center px-2 w-full p-1 lg:p-2 max-w-[90rem] mx-auto text-xs">
+        {/* Logo Section */}
+        <div className="flex gap-2 sm:gap-4 items-center">
+          <GrHomeRounded className="size-5" />
+          <p className="font-semibold mt-1">Si Her Publisher</p>
         </div>
-      )}
-      {/* Right Section */}
-      <div className="flex gap-2 sm:gap-4 items-center">
-        {/* Preview Button */}
-        <Link
-          href="/preview"
-          className="flex gap-2 sm:gap-4 items-center px-2 md:px-3 lg:px-5 h-9 sm:h-11 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md text-xs sm:text-sm md:text-base lg:text-lg"
-        >
-          <FaPlay className="size-3" />
-          Preview
-        </Link>
-        {/* Publish Button */}
-        <button
-          onClick={handlePublish}
-          className="flex gap-2 sm:gap-4 items-center px-2 md:px-3 lg:px-5 h-9 sm:h-11 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md text-xs sm:text-sm md:text-base lg:text-lg"
-        >
-          <div className="bg-green-500 size-2 rounded-full"></div>Publish
-          {loading && <RiLoaderFill className="animate-spin size-5" />}
-        </button>
-        {/* Logout Button */}
-        <button
-          onClick={() => {
-            dispatch(logout());
-            router.replace("/login");
-          }}
-          className="flex gap-2 sm:gap-4 items-center px-2 md:px-3 lg:px-5 h-9 sm:h-11 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md text-xs sm:text-sm md:text-base lg:text-lg"
-        >
-          <p>Logout</p>
-          <IoIosLogOut className="size-5" />
-        </button>
+        {/* View Mode */}
+        {!isSmallScreen && (
+          <div className="hidden sm:flex flex-1 justify-center items-center gap-2">
+            <FaDesktop
+              onClick={() => {
+                setViewMode("desktop");
+              }}
+              className={`size-5 cursor-pointer transition-colors ${viewMode === "desktop" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
+            />
+            <FaTabletAlt
+              onClick={() => {
+                setViewMode("tablet");
+              }}
+              className={`size-5 cursor-pointer transition-colors ${viewMode === "tablet" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
+            />
+            <FaMobileAlt
+              onClick={() => {
+                setViewMode("mobile");
+              }}
+              className={`size-5 cursor-pointer transition-colors ${viewMode === "mobile" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
+            />
+          </div>
+        )}
+        {/* Right Section */}
+        <div className="flex gap-2 sm:gap-4 items-center">
+          {/* Preview Button */}
+          <Link
+            href="/preview"
+            className="flex gap-2 items-center px-4 h-8 text-white bg-gray-900 rounded-lg hover:shadow-md"
+          >
+            <FaPlay className="size-3" />
+            Preview
+          </Link>
+          {/* Publish Button */}
+          <button
+            onClick={handlePublish}
+            className="flex gap-2 items-center px-4 h-8 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md"
+          >
+            <div className="bg-emerald-400 size-2 rounded-full"></div>Publish
+            {loading && <RiLoaderFill className="animate-spin size-5" />}
+          </button>
+          {/* Logout Button */}
+          <button
+            onClick={() => {
+              dispatch(logout());
+              router.replace("/login");
+            }}
+            className="flex gap-2 items-center px-4 h-8 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md"
+          >
+            <p>Logout</p>
+            <IoIosLogOut className="size-5" />
+          </button>
+        </div>
       </div>
     </nav>
   );

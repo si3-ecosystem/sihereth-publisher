@@ -61,33 +61,35 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row font-dm-sans items-center w-full text-gray-900 border-b border-gray-300 bg-gray-100 p-1 lg:p-3 gap-1">
-      {/* Left Section */}
-      <section className="flex w-full justify-center items-center gap-1 lg:gap-6">
-        <p className="hidden xl:block text-sm md:text-base font-semibold lg:text-lg">Tutorial Videos</p>
-        {buttons.slice(0, 2).map(({ label, key }) => (
-          <button
-            key={key}
-            onClick={() => toggleIframe(key)}
-            className="py-[0.3rem] lg:py-3 w-full lg:w-48 text-xs sm:text-sm md:text-base font-light md:font-medium rounded-md border border-gray-600 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
-          >
-            {label}
-          </button>
-        ))}
-      </section>
-      {/* Right Section */}
-      <section className="flex w-full justify-center items-center gap-1 lg:gap-6">
-        {buttons.slice(2).map(({ label, key }) => (
-          <button
-            key={key}
-            onClick={() => toggleIframe(key)}
-            className="py-[0.3rem] lg:py-3 w-full lg:w-48 text-xs sm:text-sm md:text-base font-light md:font-medium rounded-md border border-gray-600 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
-          >
-            {label}
-          </button>
-        ))}
-        <p className="hidden xl:block text-sm md:text-base font-semibold lg:text-lg">Si Her Speak</p>
-      </section>
+    <div className="bg-gray-100 border-b border-gray-300">
+      <div className="max-w-[90rem] mx-auto flex flex-col lg:flex-row font-dm-sans items-center w-full text-gray-900  gap-1 text-xs p-1 lg:p-2">
+        {/* Left Section */}
+        <section className="flex w-full justify-center items-center gap-1 lg:gap-3">
+          <p className="hidden xl:block font-semibold">Tutorial Videos</p>
+          {buttons.slice(0, 2).map(({ label, key }) => (
+            <button
+              key={key}
+              onClick={() => toggleIframe(key)}
+              className="py-1 lg:py-2 w-full lg:w-32 font-light md:font-medium rounded-md border border-gray-600 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
+            >
+              {label}
+            </button>
+          ))}
+        </section>
+        {/* Right Section */}
+        <section className="flex w-full justify-center items-center gap-1 lg:gap-3">
+          {buttons.slice(2).map(({ label, key }) => (
+            <button
+              key={key}
+              onClick={() => toggleIframe(key)}
+              className="py-1 lg:py-2 w-full lg:w-32 font-light md:font-medium rounded-md border border-gray-600 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
+            >
+              {label}
+            </button>
+          ))}
+          <p className="hidden xl:block font-semibold">Si Her Speak</p>
+        </section>
+      </div>
       {/* Modal for Iframe */}
       {visibleIframe && (
         <div
