@@ -1,13 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ContentState } from "@/utils/types";
-import base from "@/assets/images/base.png";
-import solana from "@/assets/images/solana.png";
-import lukso from "@/assets/images/lukso.png";
-import liveImg1 from "@/assets/images/liveImg1.png";
 
 const initialState: ContentState = {
   landing: {
-    title: "Kara",
+    name: "Kara",
+    title: "SI<3> Founder",
     headline: "& I create equitable platforms for the new economy.",
     hashTags: ["collaboration", "equity", "impact", "decentralization", "education"],
     region: "Latin America",
@@ -15,7 +12,7 @@ const initialState: ContentState = {
     communityAffiliations: ["OnChair Dreamers", "Cosmos Cartel", "The Phoenix Guild"],
     superPowers: ["Empathy", "Focus", "Leaps of Faith"],
     image: "/images/girl.png",
-    name: "Kara Howard",
+    fullName: "Kara Howard",
     pronoun: "SHE/HER"
   },
   slider: [
@@ -26,12 +23,12 @@ const initialState: ContentState = {
   ],
   value: {
     experience:
-      "My career began as an Equity Research analyst on Wall St. I started the MBA program at NYU in the Fall of 2008, right as the market crashed, with Occupy Wall St. protests happening outside our campus doors. As often happens, times of crises create opportunity and I shifted my career focus from finance to marketing & entrepreneurship. I began my entrepreneurial journey with ups and downs and great learning - most importantly, discovering my passion and purpose in supporting women in elevating their voices and professional and personal success.",
+      "My career began as an Equity Research analyst on Wall St. I started the MBA program at NYU in the Fall of 2008, right as the market crashed, with Occupy Wall St. protests happening outside our campus doors. As often happens, times of crises create opportunity and I shifted my career focus from finance to marketing & entrepreneurship.",
     values:
       " I experienced shared value when I SI women & non-binary creators grow. My value lies in my ability to understand collaboration models at an ecosystemic level, and focus my energy towards my intentions."
   },
   live: {
-    image: liveImg1,
+    image: "/images/live.png",
     video: "/videos/vid.mp4",
     details: [
       {
@@ -51,7 +48,7 @@ const initialState: ContentState = {
       }
     ]
   },
-  organizations: [base, solana, lukso],
+  organizations: ["/images/base.png", "/images/solana.png", "/images/lukso.png"],
   timeline: [
     {
       title: "Co-Creating SI<3>",

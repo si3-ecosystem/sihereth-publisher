@@ -31,13 +31,17 @@ const store = configureStore({
     user: persistedUserReducer,
     content: contentReducer
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
+  middleware: (getDefaultMiddleware) => {
+    const middlewares = getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
       }
-    }).concat(logger),
-  devTools: process.env.NODE_ENV !== "production"
+    });
+    if (process.env.NODE_ENV === "development") {
+      middlewares.push(logger);
+    }
+    return middlewares;
+  }
 });
 
 export const persistor = persistStore(store);

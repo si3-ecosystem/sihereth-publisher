@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
 const AnimationHome = () => {
-  const title = useSelector((state: RootState) => state.content.landing.title) || "";
-  const headline = useSelector((state: RootState) => state.content.landing.headline) || "\u00A0";
+  const { name, headline } = useSelector((state: RootState) => state.content.landing);
   const containerRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
 
@@ -28,15 +27,15 @@ const AnimationHome = () => {
       duration: 100,
       delay: (_el, i) => 50 * (i + 1)
     });
-  }, []); // Run only on first render
+  }, []);
 
   return (
     <div
       ref={containerRef}
-      className="font-clash-display text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-semibold leading-10 md:leading-[5rem] lg:leading-[5.5rem] 2xl:leading-[6rem] tracking-wider ml1"
+      className="font-clash-display text-[2.8rem] sm:text-[3.3rem] lg:text-[3.8rem] leading-[3.2rem] sm:leading-[3.8rem] lg:leading-[4.5rem] font-semibold tracking-wider"
     >
       <span className="letter">I'm </span>
-      <span className="text-blue-primary letter">{title ?? ""}</span>
+      <span className="text-blue-primary letter">{name ?? ""}</span>
       <span className="letter">,</span>
       <span className="letter"> </span>
       <span className="letter">{headline ?? ""}</span>

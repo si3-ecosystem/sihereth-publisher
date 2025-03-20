@@ -7,9 +7,9 @@ import Navbar from "@/components/main/Navbar";
 import Domain from "@/components/main/Domain";
 import DynamicComponent from "@/components/drawer";
 import EditablePage from "@/components/sections";
-// import { useSelector } from "react-redux";
-// import { RootState } from "@/redux/store";
-// import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
   const [drawerWidth, setDrawerWidth] = useState<string>("25%");
@@ -17,14 +17,14 @@ const Home = () => {
   const [editPage, setEditPage] = useState<string>("");
   const [viewMode, setViewMode] = useState<"mobile" | "tablet" | "desktop">("desktop");
   const openDrawer = () => setIsOpen(true);
-  // const router = useRouter();
-  // const user = useSelector((state: RootState) => state.user);
+  const router = useRouter();
+  const user = useSelector((state: RootState) => state.user);
 
-  // useEffect(() => {
-  //   if (!user?.id && !user?.token) {
-  //     router.replace("/login");
-  //   }
-  // }, [user?.id, user?.token, router]);
+  useEffect(() => {
+    if (!user?.id && !user?.token) {
+      router.replace("/login");
+    }
+  }, [user?.id, user?.token, router]);
 
   return (
     <div className="h-screen text-gray-800">
@@ -35,7 +35,7 @@ const Home = () => {
       {/* Domain section */}
       <Domain />
       {/* Page View */}
-      <div className={`transition-width flex justify-center duration-500 h-[calc(100vh-13.7rem)] overflow-auto`}>
+      <div className={`flex justify-center h-[calc(100vh-9.4rem)] overflow-auto`}>
         <section className="w-full">
           <EditablePage setEditPage={setEditPage} openDrawer={openDrawer} />
         </section>

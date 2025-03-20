@@ -16,6 +16,7 @@ export interface LandingTypes {
   superPowers: string[];
   image: string;
   name: string;
+  fullName: string;
   pronoun: string;
 }
 
