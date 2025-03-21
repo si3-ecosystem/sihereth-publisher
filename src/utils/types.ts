@@ -46,13 +46,18 @@ export interface SocialChannelTypes {
   url: string;
 }
 
+export interface AvailableTypes {
+  avatar: string;
+  availableFor: string[];
+}
+
 export interface ContentState {
   landing: LandingTypes;
   value: ValueTypes;
   live: LiveTypes;
   organizations: string[] | StaticImageData[];
   timeline: TimelineTypes[];
-  available: string[];
+  available: AvailableTypes;
   isNewWebpage: boolean;
   socialChannels: SocialChannelTypes[];
   slider: string[];

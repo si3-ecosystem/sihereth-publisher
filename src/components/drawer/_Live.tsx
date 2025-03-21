@@ -48,13 +48,13 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   return (
     <>
       <DrawerHeader label="Live Section" toggleDrawer={toggleDrawer} />
-      <div className="w-full font-dm-sans font-medium text-lg mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
+      <div className="w-full font-dm-sans font-medium text-xs mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
         {/* Image */}
         <section className="p-4 xl:p-6">
           <label htmlFor="image">Image</label>
           {live.image ? (
             <div className="relative w-40 h-40 mt-3">
-              <Image src={live.image} alt="Live" className="w-full h-full object-cover rounded-lg" />
+              <Image src={live.image} alt="Live" width={80} height={80} className="w-full h-full object-cover rounded-lg" />
               <button
                 className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
                 onClick={() => dispatch(updateContent({ section: "live", data: { image: "" } }))}
@@ -70,9 +70,9 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                 className="flex justify-center items-center pt-5 pb-6 border border-dashed border-gray-300 rounded-lg cursor-pointer h-24 mt-3 w-full hover:bg-[#fceed966] hover:border-[#F6D4A0]"
               >
                 <IoIosAddCircle className="text-gray-500" />
-                <p className="text-xs text-gray-500 ms-1">ADD AN IMAGE</p>
+                <p className="text-gray-500 ms-1">ADD AN IMAGE</p>
               </label>
-              <span className="mt-2 text-xs text-red-500">* Image must be .jpg, .jpeg, .png</span>
+              <span className="mt-2 text-red-500">* Image must be .jpg, .jpeg, .png</span>
             </div>
           )}
         </section>
@@ -138,13 +138,13 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                 className="text-red-500 text-lg mt-2"
                 onClick={() => removeDetail(index)}
               >
-                <RiDeleteBinLine className="inline-block mr-1" />
+                <RiDeleteBinLine className="inline-block mr-1 size-4" />
               </button>
             </div>
           ))}
           <div className="flex gap-2 items-center mt-6 cursor-pointer" onClick={addDetail}>
-            <FaCirclePlus className="text-[#a020f0] text-lg ml-1" />
-            <p className="text-sm text-gray-600">Add Detail</p>
+            <FaCirclePlus className="text-[#a020f0] ml-1 size-3" />
+            <p className="text-gray-600 text-xs">Add Detail</p>
           </div>
         </section>
       </div>

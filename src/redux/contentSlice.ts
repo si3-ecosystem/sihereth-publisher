@@ -86,7 +86,10 @@ const initialState: ContentState = {
       from: "2002"
     }
   ],
-  available: ["collaboration", "advising", "speaking"],
+  available: {
+    avatar: "/images/avatar.png",
+    availableFor: ["collaboration", "advising", "speaking"]
+  },
   socialChannels: [
     {
       text: "linkedin",

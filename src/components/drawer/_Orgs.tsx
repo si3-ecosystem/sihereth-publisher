@@ -67,7 +67,7 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   return (
     <>
       <DrawerHeader label="Organizations Section" toggleDrawer={toggleDrawer} />
-      <div className="w-full font-dm-sans font-medium text-lg mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
+      <div className="w-full font-dm-sans font-medium text-xs mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
         <section className="p-4 xl:p-6">
           <label htmlFor="slider" className="block mb-4">
             Organizations I Support
@@ -77,7 +77,7 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
               {item ? (
                 <Image src={item} alt={`Organization ${index}`} width={70} height={70} className="object-cover" />
               ) : (
-                <div className="text-xs text-gray-500">No image</div>
+                <div className="text-gray-500">No image</div>
               )}
               <section className="flex gap-4 items-center">
                 <input
@@ -89,14 +89,14 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                 />
                 <label htmlFor={`upload-${index}`} className="cursor-pointer text-blue-500">
                   {item ? (
-                    <FaRegEdit className="text-lg text-blue-500" />
+                    <FaRegEdit className="size-4 text-blue-500" />
                   ) : (
-                    <FaUpload className="text-lg text-blue-500" />
+                    <FaUpload className="size-4 text-blue-500" />
                   )}
                 </label>
                 {localData.length > 1 && (
                   <RiDeleteBinLine
-                    className="size-5 text-red-500 cursor-pointer"
+                    className="size-4 text-red-500 cursor-pointer"
                     onClick={() => removeFromArray(index)}
                   />
                 )}
@@ -105,8 +105,8 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
           ))}
 
           <div className="flex gap-2 items-center mt-6 cursor-pointer" onClick={addToArray}>
-            <FaCirclePlus className="text-[#a020f0] text-lg ml-1" />
-            <p className="text-sm text-gray-600">Add Organization</p>
+            <FaCirclePlus className="text-[#a020f0] size-3 ml-1" />
+            <p className="text-gray-600">Add Organization</p>
           </div>
         </section>
       </div>

@@ -28,14 +28,12 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     }
   }, [reduxData]);
 
-  // Debounced dispatcher to prevent excessive Redux updates
   const debounceDispatch = useRef(
     debounce((field: keyof LandingTypes, updatedArray: string[]) => {
       dispatch(updateContent({ section: "landing", data: { ...latestLocalData.current, [field]: updatedArray } }));
     }, 300)
   ).current;
 
-  // Update single-value fields
   const handleInputChange = useCallback(
     (field: keyof LandingTypes, value: any) => {
       const updatedData = { ...localData, [field]: value };
@@ -45,7 +43,6 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     [dispatch, localData]
   );
 
-  // Update array fields with debounce
   const handleArrayChange = useCallback(
     (field: keyof LandingTypes, index: number, value: string) => {
       const updatedArray = [...(localData[field] as string[])];
@@ -95,10 +92,12 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
   return (
     <>
       <DrawerHeader label="Headline Section" toggleDrawer={toggleDrawer} />
-      <div className="w-full font-dm-sans font-medium text-lg mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
+      <div className="w-full font-dm-sans font-medium text-sm mb-28 overflow-y-auto max-h-[calc(100vh-4rem)]">
         {/* Title */}
-        <section className="p-4 xl:p-6">
-          <label htmlFor="title">Title</label>
+        <section className="px-4 py-2">
+          <label htmlFor="title" className="text-xs">
+            Title
+          </label>
           <input
             type="text"
             id="title"
@@ -109,8 +108,10 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
         </section>
 
         {/* Headline */}
-        <section className="p-4 xl:p-6">
-          <label htmlFor="headline">Impact Headline</label>
+        <section className="px-4 py-2">
+          <label htmlFor="headline" className="text-xs">
+            Impact Headline
+          </label>
           <textarea
             id="headline"
             className={inputStyles}
@@ -127,10 +128,12 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
           { label: "Community Affiliations", field: "communityAffiliations", placeholder: "New Community" },
           { label: "Super Powers", field: "superPowers", placeholder: "New Super Power" }
         ].map(({ label, field, placeholder }) => (
-          <section key={field} className="p-4 xl:p-6">
-            <label htmlFor={field}>{label}</label>
+          <section key={field} className="px-4 py-2">
+            <label htmlFor={field} className="text-xs">
+              {label}
+            </label>
             {(localData[field as keyof LandingTypes] as string[])?.map((item, index) => (
-              <div className="flex gap-4 items-center w-full" key={`${item}-${index}`}>
+              <div className="flex gap-2 items-center w-full" key={`${item}-${index}`}>
                 <input
                   type="text"
                   className={inputStyles}
@@ -138,27 +141,29 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
                   onChange={(e) => handleArrayChange(field as keyof LandingTypes, index, e.target.value)}
                 />
                 <RiDeleteBinLine
-                  className="mt-2 size-5 text-red-500 cursor-pointer"
+                  className="mt-2 size-4 text-red-500 cursor-pointer"
                   onClick={() => removeFromArray(field as keyof LandingTypes, index)}
                 />
               </div>
             ))}
             <div
-              className="flex gap-2 items-center mt-6 cursor-pointer"
+              className="flex gap-1 items-center mt-3 cursor-pointer text-xs w-max"
               onClick={() => addToArray(field as keyof LandingTypes, placeholder)}
             >
               <FaCirclePlus
-                className="text-[#a020f0] text-lg ml-1 cursor-pointer"
+                className="text-[#a020f0] size-3 cursor-pointer"
                 onClick={() => fileInputRef.current?.click()}
               />
-              <p className="text-sm text-gray-600">Add {label}</p>
+              <p className="text-gray-600">Add {label}</p>
             </div>
           </section>
         ))}
 
         {/* Region Selection */}
-        <section className="p-4 xl:p-6">
-          <label htmlFor="region">Region</label>
+        <section className="px-4 py-2">
+          <label htmlFor="region" className="text-xs">
+            Region
+          </label>
           <select
             value={localData?.region}
             className={inputStyles}
@@ -174,8 +179,10 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
         </section>
 
         {/* Image Upload */}
-        <section className="p-4 xl:p-6">
-          <label htmlFor="image">Image</label>
+        <section className="px-4 py-2">
+          <label htmlFor="image" className="text-xs">
+            Image
+          </label>
           {localData?.image ? (
             <div className="mt-3">
               <Image src={localData?.image} alt="Uploaded" width={100} height={100} className="rounded-lg" />
@@ -194,7 +201,7 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
                 onClick={() => fileInputRef.current?.click()}
               >
                 <IoIosAddCircle className="text-gray-500" />
-                <p className="text-xs text-gray-500 ms-1">ADD AN IMAGE</p>
+                <p className="text-gray-500 ms-1">ADD AN IMAGE</p>
               </div>
             </>
           )}
