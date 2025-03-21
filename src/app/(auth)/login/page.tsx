@@ -31,15 +31,15 @@ const Login = () => {
   );
 
   return (
-    <section className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
-      <div className="p-8 w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-lg space-y-6">
+    <section className="flex justify-center items-center min-h-screen bg-gray-50 px-4 text-sm">
+      <div className="p-6 w-full max-w-sm bg-white border border-gray-200 rounded-xl shadow-lg space-y-6">
         {/* Logo and Title */}
-        <div className="flex flex-col items-center space-y-2">
-          <Image src="/images/si3.svg" alt="Logo" width={120} height={120} className="mb-2 w-auto h-10" />
-          <h1 className="text-xl font-bold text-gray-900 lg:text-[1.3rem]">Sign in to your account</h1>
+        <div className="flex flex-col items-center space-y-3">
+          <Image src="/images/si3.svg" alt="Logo" width={100} height={90} />
+          <h1 className="font-bold text-gray-900">Sign in to your account</h1>
         </div>
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 font-dm-sans tracking-wide">
           <InputField
             label="Your Email"
             type="email"
@@ -58,11 +58,11 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="flex items-center justify-center gap-2 w-full px-5 py-2.5 text-sm font-medium text-white rounded-lg bg-gradient-to-b from-[#8969ff] to-[#592bff] hover:opacity-90 disabled:opacity-80"
+            className="flex items-center justify-center gap-2 w-full px-5 py-2.5 font-medium text-white rounded-lg bg-gradient-to-b from-[#8969ff] to-[#592bff] hover:opacity-90 disabled:opacity-80"
           >
             {loading ? (
               <>
-                <RiLoaderFill className="text-lg animate-spin size-5" />
+                <RiLoaderFill className="animate-spin size-5" />
                 <span>Signing in...</span>
               </>
             ) : (
@@ -71,7 +71,7 @@ const Login = () => {
           </button>
 
           {/* Forgot Password */}
-          <div className="flex justify-end text-[#592bff] hover:underline">Forgot password?</div>
+          <div className="flex justify-end text-xs text-[#592bff] hover:underline">Forgot password?</div>
         </form>
       </div>
     </section>

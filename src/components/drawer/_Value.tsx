@@ -19,7 +19,7 @@ const ValueFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     <>
       {/* Header */}
       <DrawerHeader label="Value Section" toggleDrawer={toggleDrawer} />
-      <div className="w-full font-dm-sans font-medium text-lg mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
+      <div className="w-full font-dm-sans font-medium text-xs mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
         {/* Experience */}
         <section className="p-4 xl:p-6">
           <label htmlFor="experience">Experience</label>

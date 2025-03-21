@@ -1,24 +1,45 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { FaUserAlt } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import apiClient from "@/utils/interceptor";
+import Image from "next/image";
 
-const people = [
-  { id: 1, name: "Sarah Chen", domain: "Web3 Developer" },
-  { id: 2, name: "Marcus Rodriguez", domain: "Blockchain Architect" },
-  { id: 3, name: "Emma Thompson", domain: "DeFi Specialist" },
-  { id: 4, name: "Alex Kumar", domain: "Smart Contract Dev" },
-  { id: 5, name: "Lisa Wang", domain: "NFT Artist" }
-];
+interface User {
+  _id: number;
+  name?: string;
+  image?: string;
+  domain?: string;
+  firstName?: string;
+  lastName?: string;
+}
 
 const People = () => {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await apiClient.get("/users");
+        const formattedUsers = response.data.map((user: User) => ({
+          _id: user._id,
+          name: user.name ?? (`${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() || "No Name"),
+          image: user.image ?? "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png",
+          domain: user.domain ?? ""
+        }));
+        setUsers(formattedUsers);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
     let animationFrame: number;
     let scrollAmount = 0;
-    const scrollSpeed = 1;
+    const scrollSpeed = 0.3;
     const animate = () => {
       if (!scroller) return;
       scrollAmount -= scrollSpeed;
@@ -30,19 +51,31 @@ const People = () => {
     };
     animate();
     return () => cancelAnimationFrame(animationFrame);
-  }, []);
+  }, [users]);
 
   return (
-    <div className="relative overflow-hidden h-12 md:h-20 bg-gray-800 py-3 px-4 lg:py-auto flex items-center">
-      <div className="absolute flex items-center" ref={scrollerRef} style={{ display: "flex", whiteSpace: "nowrap" }}>
-        {[...people, ...people].map((person, index) => (
-          <div key={`${person.id}-${index}`} className="flex items-center">
-            <div className="text-center flex items-center px-2 lg:px-4 text-white tracking-wider uppercase text-md md:text-xl xl:text-2xl">
-              <FaUserAlt className="mr-2" /> {person.name} - {person.domain}
+    <div className="relative overflow-hidden bg-gray-800 py-6 px-4 flex items-center">
+      <div className="absolute flex items-center" ref={scrollerRef} style={{ whiteSpace: "nowrap" }}>
+        {users.length > 0 &&
+          [...users, ...users].map((user, index) => (
+            <div key={`${user._id}-${index}`} className="flex items-center">
+              <div className="text-center flex items-center px-3 text-white tracking-wider uppercase">
+                <Image
+                  src={
+                    user.image ?? "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png"
+                  }
+                  alt=""
+                  width={25}
+                  height={25}
+                  className="rounded-full"
+                />
+                <span className="ml-2 mr-4">
+                  {user.name}
+                </span>
+              </div>
+              <div className="bg-white size-3 rounded-full mx-4"></div>
             </div>
-            <div className="bg-white size-3 rounded-full mx-4"></div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
