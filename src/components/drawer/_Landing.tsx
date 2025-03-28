@@ -19,27 +19,18 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
   const reduxData = useSelector((state: RootState) => state.content.landing);
   const [localData, setLocalData] = useState<LandingTypes>(reduxData);
 
-  const latestLocalData = useRef(localData);
-  latestLocalData.current = localData;
-
   useEffect(() => {
     if (JSON.stringify(reduxData) !== JSON.stringify(localData)) {
       setLocalData(reduxData);
     }
   }, [reduxData]);
 
-  const debounceDispatch = useRef(
-    debounce((field: keyof LandingTypes, updatedArray: string[]) => {
-      dispatch(updateContent({ section: "landing", data: { ...latestLocalData.current, [field]: updatedArray } }));
-    }, 300)
-  ).current;
-
   const handleInputChange = useCallback(
-    (field: keyof LandingTypes, value: any) => {
+    debounce((field: keyof LandingTypes, value: any) => {
       const updatedData = { ...localData, [field]: value };
       setLocalData(updatedData);
       dispatch(updateContent({ section: "landing", data: updatedData }));
-    },
+    }, 100),
     [dispatch, localData]
   );
 
@@ -47,42 +38,42 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     (field: keyof LandingTypes, index: number, value: string) => {
       const updatedArray = [...(localData[field] as string[])];
       updatedArray[index] = value;
-      setLocalData({ ...localData, [field]: updatedArray });
-      debounceDispatch(field, updatedArray);
+      setLocalData((prev) => ({ ...prev, [field]: updatedArray }));
+      debounce(() => {
+        dispatch(updateContent({ section: "landing", data: { ...localData, [field]: updatedArray } }));
+      }, 100)();
     },
-    [localData]
+    [dispatch, localData]
   );
 
-  // Add new entry to an array
   const addToArray = useCallback(
     (field: keyof LandingTypes, placeholder: string) => {
       const updatedArray = [...(localData[field] as string[]), placeholder];
-      handleInputChange(field, updatedArray);
+      const updatedData = { ...localData, [field]: updatedArray };
+      setLocalData(updatedData);
+      dispatch(updateContent({ section: "landing", data: updatedData }));
     },
-    [handleInputChange, localData]
+    [dispatch, localData]
   );
 
-  // Remove an entry from an array
   const removeFromArray = useCallback(
     (field: keyof LandingTypes, index: number) => {
       const updatedArray = (localData[field] as string[]).filter((_, i) => i !== index);
-      handleInputChange(field, updatedArray);
+      const updatedData = { ...localData, [field]: updatedArray };
+      setLocalData(updatedData);
+      dispatch(updateContent({ section: "landing", data: updatedData }));
     },
-    [handleInputChange, localData]
+    [dispatch, localData]
   );
 
-  // Create a ref for the file input
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Image upload handling
   const handleImageUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.files?.[0]) {
         const file = event.target.files[0];
         const imageUrl = URL.createObjectURL(file);
         handleInputChange("image", imageUrl);
-
-        // Cleanup URL.createObjectURL to prevent memory leaks
         setTimeout(() => URL.revokeObjectURL(imageUrl), 5000);
       }
     },
@@ -102,8 +93,11 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
             type="text"
             id="title"
             className={inputStyles}
-            value={localData?.title}
-            onChange={(e) => handleInputChange("title", e.target.value)}
+            value={localData?.title || ""}
+            onChange={(e) => {
+              setLocalData((prev) => ({ ...prev, title: e.target.value }));
+              handleInputChange("title", e.target.value);
+            }}
           />
         </section>
 
@@ -115,25 +109,28 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
           <textarea
             id="headline"
             className={inputStyles}
-            value={localData?.headline}
-            onChange={(e) => handleInputChange("headline", e.target.value)}
+            value={localData?.headline || ""}
+            onChange={(e) => {
+              setLocalData((prev) => ({ ...prev, headline: e.target.value }));
+              handleInputChange("headline", e.target.value);
+            }}
             rows={4}
           />
         </section>
 
         {/* Reusable Array Field Component */}
         {[
-          { label: "Tags", field: "hashTags", placeholder: "New Tag" },
-          { label: "Organization Affiliations", field: "organizationAffiliations", placeholder: "New Organization" },
-          { label: "Community Affiliations", field: "communityAffiliations", placeholder: "New Community" },
-          { label: "Super Powers", field: "superPowers", placeholder: "New Super Power" }
+          { label: "Tags", field: "hashTags", placeholder: "" },
+          { label: "Organization Affiliations", field: "organizationAffiliations", placeholder: "" },
+          { label: "Community Affiliations", field: "communityAffiliations", placeholder: "" },
+          { label: "Super Powers", field: "superPowers", placeholder: "" }
         ].map(({ label, field, placeholder }) => (
           <section key={field} className="px-4 py-2">
             <label htmlFor={field} className="text-xs">
               {label}
             </label>
             {(localData[field as keyof LandingTypes] as string[])?.map((item, index) => (
-              <div className="flex gap-2 items-center w-full" key={`${item}-${index}`}>
+              <div className="flex gap-2 items-center w-full" key={`${field}-${index}`}>
                 <input
                   type="text"
                   className={inputStyles}
@@ -150,10 +147,7 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
               className="flex gap-1 items-center mt-3 cursor-pointer text-xs w-max"
               onClick={() => addToArray(field as keyof LandingTypes, placeholder)}
             >
-              <FaCirclePlus
-                className="text-[#a020f0] size-3 cursor-pointer"
-                onClick={() => fileInputRef.current?.click()}
-              />
+              <FaCirclePlus className="text-[#a020f0] size-3 cursor-pointer" />
               <p className="text-gray-600">Add {label}</p>
             </div>
           </section>
@@ -165,10 +159,13 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
             Region
           </label>
           <select
-            value={localData?.region}
+            value={localData?.region || ""}
             className={inputStyles}
             id="region"
-            onChange={(e) => handleInputChange("region", e.target.value)}
+            onChange={(e) => {
+              setLocalData((prev) => ({ ...prev, region: e.target.value }));
+              handleInputChange("region", e.target.value);
+            }}
           >
             {countries.map((option) => (
               <option key={option.value} value={option.value}>
