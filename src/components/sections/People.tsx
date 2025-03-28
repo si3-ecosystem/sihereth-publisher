@@ -54,24 +54,22 @@ const People = () => {
   }, [users]);
 
   return (
-    <div className="relative overflow-hidden bg-gray-800 py-6 px-4 flex items-center">
-      <div className="absolute flex items-center" ref={scrollerRef} style={{ whiteSpace: "nowrap" }}>
+    <div className="overflow-hidden bg-gray-800 py-3 px-4 flex items-center">
+      <div className="flex items-center gap-4" ref={scrollerRef} style={{ whiteSpace: "nowrap" }}>
         {users.length > 0 &&
           [...users, ...users].map((user, index) => (
             <div key={`${user._id}-${index}`} className="flex items-center">
-              <div className="text-center flex items-center px-3 text-white tracking-wider uppercase">
+              <div className="text-center flex w-max items-center px-3 text-white tracking-wider uppercase">
                 <Image
                   src={
                     user.image ?? "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png"
                   }
                   alt=""
-                  width={25}
-                  height={25}
+                  width={30}
+                  height={30}
                   className="rounded-full"
                 />
-                <span className="ml-2 mr-4">
-                  {user.name}
-                </span>
+                <span className="ml-2 mr-4">{user.name}</span>
               </div>
               <div className="bg-white size-3 rounded-full mx-4"></div>
             </div>

@@ -13,18 +13,13 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const data: TimelineTypes[] = useSelector((state: RootState) => state.content.timeline);
   const [localData, setLocalData] = useState<TimelineTypes[]>(data);
 
-  // Sync with Redux state when it changes
   useEffect(() => {
     setLocalData(data);
   }, [data]);
 
-  // Function to handle input changes
   const handleInputChange = (index: number, field: keyof TimelineTypes, value: string) => {
     let updatedValue = value.toUpperCase();
-
-    // Validate "From" field: must be "PRESENT" or a 4-digit year
     if (field === "from") {
-      // Allow typing "PRESENT" letter by letter
       if (
         updatedValue !== "PRESENT" &&
         !updatedValue.startsWith("P") &&
@@ -34,58 +29,25 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         !updatedValue.startsWith("PRESE") &&
         !updatedValue.startsWith("PRESEN")
       ) {
-        // For numeric values, ensure it's only digits and max 4 characters
-        if (!/^\d{0,5}$/.test(updatedValue)) {
+        if (!/^\d*$/.test(updatedValue)) {
           return;
-        }
-
-        // If it's a complete 4-digit year, verify it's a reasonable year
-        if (updatedValue.length === 4) {
-          const year = parseInt(updatedValue, 10);
-          if (year < 1900 || year > new Date().getFullYear() + 10) {
-            return;
-          }
         }
       }
     }
-
-    // Validate "To" field: must be a 4-digit year only
     if (field === "to") {
-      // Must be digits only and max 4 characters
-      if (!/^\d{0,4}$/.test(updatedValue)) {
+      if (!/^\d*$/.test(updatedValue)) {
         return;
       }
-
-      // If it's a complete 4-digit year, verify it's reasonable and later than from (if from is a year)
-      if (updatedValue.length === 4) {
-        const year = parseInt(updatedValue, 10);
-        const fromYear =
-          localData[index].from && /^\d{4}$/.test(localData[index].from) ? parseInt(localData[index].from, 10) : null;
-
-        if (year < 1900 || year > new Date().getFullYear() + 10) {
-          return;
-        }
-
-        if (fromYear && year < fromYear) {
-          alert("'To' year must be equal to or later than 'From' year");
-          return;
-        }
-      }
     }
-
     const updatedData = [...localData];
     updatedData[index] = { ...updatedData[index], [field]: updatedValue };
-
-    // If "From" is set to "PRESENT", clear "To" and disable it
     if (field === "from" && updatedValue === "PRESENT") {
       updatedData[index].to = "";
     }
-
     setLocalData(updatedData);
     dispatch(updateContent({ section: "timeline", data: updatedData }));
   };
 
-  // Function to add a new timeline entry
   const addTimelineEntry = () => {
     const newEntry: TimelineTypes = { title: "", from: "", to: "" };
     const updatedData = [...localData, newEntry];
@@ -93,7 +55,6 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     dispatch(updateContent({ section: "timeline", data: updatedData }));
   };
 
-  // Function to remove a timeline entry
   const removeTimelineEntry = (index: number) => {
     if (localData.length <= 1) {
       alert("You must have at least one timeline entry.");
@@ -129,6 +90,7 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                     value={item.from}
                     onChange={(e) => handleInputChange(index, "from", e.target.value)}
                     placeholder="YYYY or PRESENT"
+                    maxLength={7}
                   />
                 </section>
                 <section className="flex-1">
@@ -143,6 +105,7 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                     onChange={(e) => handleInputChange(index, "to", e.target.value)}
                     placeholder="YYYY"
                     disabled={item.from === "PRESENT"}
+                    maxLength={4}
                   />
                 </section>
               </div>

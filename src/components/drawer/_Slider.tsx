@@ -5,25 +5,41 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
 import { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { debounce } from "lodash";
 
 const SliderFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
   const sliderData: string[] = useSelector((state: RootState) => state.content.slider) || [];
   const [localData, setLocalData] = useState<string[]>(sliderData);
 
+  // Debounced Redux update
+  const debouncedUpdate = useCallback(
+    debounce((data: string[]) => {
+      dispatch(updateContent({ section: "slider", data }));
+    }, 100),
+    [dispatch]
+  );
+
+  // Sync localData with Redux (initial load)
   useEffect(() => {
-    dispatch(updateContent({ section: "slider", data: localData }));
-  }, [localData, dispatch]);
+    setLocalData(sliderData);
+  }, [sliderData]);
+
+  // Update Redux when localData changes (debounced)
+  useEffect(() => {
+    debouncedUpdate(localData);
+    return () => debouncedUpdate.cancel(); // Cleanup
+  }, [localData, debouncedUpdate]);
 
   const handleInputChange = (index: number, value: string) => {
     const updatedArray = [...localData];
     updatedArray[index] = value;
-    setLocalData(updatedArray);
+    setLocalData(updatedArray); // Immediate local update
   };
 
   const addToArray = () => {
-    setLocalData([...localData, "New Item"]);
+    setLocalData([...localData, ""]);
   };
 
   const removeFromArray = (index: number) => {
@@ -35,11 +51,11 @@ const SliderFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   return (
     <>
       <DrawerHeader label="Slider Section" toggleDrawer={toggleDrawer} />
-      <div className="w-full font-dm-sans font-medium text-lg mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
+      <div className="w-full font-dm-sans font-medium text-xs mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
         <section className="p-4 xl:p-6">
           <label htmlFor="slider">Slider Items</label>
           {localData.map((item: string, index: number) => (
-            <div key={`${item}-${index}`} className="flex gap-4 items-center w-full">
+            <div key={`slider-${index}`} className="flex gap-4 items-center w-full">
               <input
                 type="text"
                 id={`slider-${index}`}
@@ -49,15 +65,15 @@ const SliderFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
               />
               {localData.length > 1 && (
                 <RiDeleteBinLine
-                  className="mt-2 size-5 text-red-500 cursor-pointer"
+                  className="mt-2 size-4 text-red-500 cursor-pointer"
                   onClick={() => removeFromArray(index)}
                 />
               )}
             </div>
           ))}
           <div className="flex gap-2 items-center mt-6 cursor-pointer" onClick={addToArray}>
-            <FaCirclePlus className="text-[#a020f0] text-lg ml-1" />
-            <p className="text-sm text-gray-600">Add Item</p>
+            <FaCirclePlus className="text-[#a020f0] size-4 ml-1" />
+            <p className="text-gray-600">Add Item</p>
           </div>
         </section>
       </div>

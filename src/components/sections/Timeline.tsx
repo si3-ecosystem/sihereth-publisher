@@ -26,7 +26,9 @@ const TimeLine = () => {
               {item.from}
               {item.to ? ` - ${item.to}` : ""}
             </p>
-            <span className="w-72 md:w-full text-xl md:text-2xl leading-6 font-clash-display font-medium">{item.title}</span>
+            <span className="w-72 md:w-full uppercase text-xl md:text-2xl leading-6 font-clash-display font-medium">
+              {item.title}
+            </span>
           </div>
         ))}
       </section>
