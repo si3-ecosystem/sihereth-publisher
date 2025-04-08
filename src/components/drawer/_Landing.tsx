@@ -8,7 +8,7 @@ import DrawerHeader from "./DrawerHeader";
 import { LandingTypes } from "@/utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
 import { debounce } from "lodash";
 import dynamic from "next/dynamic";
@@ -84,6 +84,22 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     <>
       <DrawerHeader label="Headline Section" toggleDrawer={toggleDrawer} />
       <div className="w-full font-dm-sans font-medium text-sm mb-28 overflow-y-auto max-h-[calc(100vh-4rem)]">
+        {/* Name */}
+        <section className="px-4 py-2">
+          <label htmlFor="name" className="text-xs">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            className={inputStyles}
+            value={localData?.name || ""}
+            onChange={(e) => {
+              setLocalData((prev) => ({ ...prev, name: e.target.value }));
+              handleInputChange("name", e.target.value);
+            }}
+          />
+        </section>
         {/* Title */}
         <section className="px-4 py-2">
           <label htmlFor="title" className="text-xs">

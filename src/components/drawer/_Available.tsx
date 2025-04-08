@@ -3,7 +3,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import DrawerHeader from "./DrawerHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
 import { useState, useEffect, useCallback } from "react";
 import { debounce } from "lodash";
@@ -15,7 +15,6 @@ const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const [localTags, setLocalTags] = useState<string[]>(availableFor ?? []);
   const [inputValues, setInputValues] = useState<string[]>(availableFor ?? []);
 
-  // Debounced Redux update
   const debouncedUpdate = useCallback(
     debounce((tags: string[]) => {
       dispatch(updateContent({ section: "available", data: { availableFor: tags } }));
@@ -23,13 +22,11 @@ const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     [dispatch]
   );
 
-  // Sync with Redux on mount
   useEffect(() => {
     setLocalTags(availableFor ?? []);
     setInputValues(availableFor ?? []);
   }, [availableFor]);
 
-  // Update Redux when localTags change
   useEffect(() => {
     debouncedUpdate(localTags);
     return () => debouncedUpdate.cancel();
@@ -42,7 +39,6 @@ const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       return newValues;
     });
 
-    // Update localTags only when input is complete (on blur or debounced)
     debounce(() => {
       setLocalTags((prev) => {
         const newTags = [...prev];
@@ -78,7 +74,7 @@ const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         <section className="p-4">
           <label htmlFor="tags">Available For</label>
           {inputValues.map((item, index) => (
-            <div className="flex gap-4 items-center w-full" key={`available-${index}`}>
+            <div className="flex gap-4 items-center w-full" key={`${item}-${index}`}>
               <input
                 type="text"
                 id={`tag-${index}`}

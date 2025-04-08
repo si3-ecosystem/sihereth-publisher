@@ -8,7 +8,7 @@ import Domain from "@/components/main/Domain";
 import DynamicComponent from "@/components/drawer";
 import EditablePage from "@/components/sections";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
 
 const Home = () => {

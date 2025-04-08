@@ -5,7 +5,7 @@ import { FaXTwitter, FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { languagesByRegion } from "@/utils/data";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 
 const iconMap: Record<string, React.ElementType> = {
   linkedin: FaLinkedin,

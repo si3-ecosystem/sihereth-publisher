@@ -4,7 +4,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import DrawerHeader from "./DrawerHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { ChangeEvent } from "react";
 import { inputStyles } from "@/utils/customStyles";
 import Image from "next/image";
@@ -54,7 +54,13 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
           <label htmlFor="image">Image</label>
           {live.image ? (
             <div className="relative w-40 h-40 mt-3">
-              <Image src={live.image} alt="Live" width={80} height={80} className="w-full h-full object-cover rounded-lg" />
+              <Image
+                src={live.image}
+                alt="Live"
+                width={80}
+                height={80}
+                className="w-full h-full object-cover rounded-lg"
+              />
               <button
                 className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
                 onClick={() => dispatch(updateContent({ section: "live", data: { image: "" } }))}
@@ -98,9 +104,9 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
 
         {/* Details */}
         <section className="p-4 xl:p-6">
-          <label>Details</label>
+          <label htmlFor="details">Details</label>
           {live.details.map((detail, index) => (
-            <div key={index} className="border p-3 rounded-md mt-3">
+            <div key={`${detail.title}-${index}`} className="border p-3 rounded-md mt-3">
               <label htmlFor={`title-${index}`}>Title</label>
               <input
                 type="text"
@@ -134,10 +140,7 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                 className={inputStyles}
               />
 
-              <button
-                className="text-red-500 text-lg mt-2"
-                onClick={() => removeDetail(index)}
-              >
+              <button className="text-red-500 text-lg mt-2" onClick={() => removeDetail(index)}>
                 <RiDeleteBinLine className="inline-block mr-1 size-4" />
               </button>
             </div>

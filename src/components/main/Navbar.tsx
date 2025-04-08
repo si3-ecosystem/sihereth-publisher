@@ -6,8 +6,10 @@ import { IoIosLogOut } from "react-icons/io";
 import { FaDesktop, FaTabletAlt, FaMobileAlt, FaPlay } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/redux/authSlice";
+import type { RootState } from "@/redux/store";
+import apiClient from "@/utils/interceptor";
 
 type ViewMode = "mobile" | "tablet" | "desktop";
 
@@ -18,7 +20,9 @@ interface NavbarProps {
 }
 
 const Navbar = ({ viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
+  const data = useSelector((state: RootState) => state.content ?? []);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  console.log("user data in redux", data);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -56,9 +60,8 @@ const Navbar = ({ viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
   const handlePublish = async () => {
     try {
       setLoading(true);
-      // const response = isNewWebpage
-      //   ? await apiClient.post(`/api/webpage`, websiteData)
-      //   : await apiClient.put(`/api/webpage`, websiteData);
+      const response = await apiClient.post(`/api/webpage`, data);
+      console.log(response);
       setLoading(false);
     } catch (error: any) {
       console.log(error);

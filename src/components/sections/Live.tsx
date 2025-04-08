@@ -2,7 +2,7 @@
 import liveLogo from "@/assets/images/courage.png";
 import Cards from "./LiveCards";
 import Image from "next/image";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { LiveTypes } from "@/utils/types";
 

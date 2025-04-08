@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import anime from "animejs";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 
 const AnimationHome = () => {
   const { name, headline } = useSelector((state: RootState) => state.content.landing);

@@ -3,7 +3,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import DrawerHeader from "./DrawerHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
 import { useState, useEffect, useCallback } from "react";
 import { debounce } from "lodash";
@@ -55,7 +55,7 @@ const SliderFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         <section className="p-4 xl:p-6">
           <label htmlFor="slider">Slider Items</label>
           {localData.map((item: string, index: number) => (
-            <div key={`slider-${index}`} className="flex gap-4 items-center w-full">
+            <div key={`${item}-${index}`} className="flex gap-4 items-center w-full">
               <input
                 type="text"
                 id={`slider-${index}`}

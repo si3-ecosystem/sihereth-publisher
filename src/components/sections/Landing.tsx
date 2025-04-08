@@ -3,7 +3,7 @@ import Image from "next/image";
 import AnimationHome from "./LandingAnim";
 import { LandingTypes } from "@/utils/types";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { useEffect, useRef } from "react";
 
 const Marquee = ({ items = [] }: { items?: string[] }) => {

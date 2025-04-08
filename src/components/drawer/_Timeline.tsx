@@ -4,7 +4,7 @@ import DrawerHeader from "./DrawerHeader";
 import { TimelineTypes } from "@/utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { TimelineStyles } from "@/utils/customStyles";
 import { useState, useEffect } from "react";
 
@@ -75,7 +75,7 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         <section className="p-4 xl:p-6 space-y-4">
           {localData.map((item, index) => (
             <div
-              key={index}
+              key={`${item.title}-${index}`}
               className="w-full py-5 tracking-wide border rounded-lg border-gray-300 p-3 relative space-y-4"
             >
               <div className="flex gap-6">
