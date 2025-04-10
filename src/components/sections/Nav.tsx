@@ -28,9 +28,9 @@ const Navbar = () => {
           ))}
         </div>
         {/* Connect Wallet Button */}
-        <button className="hidden sm:block h-12 bg-light-purple text-blue-primary rounded-xl px-4 font-medium transition-all duration-300 hover:bg-[#7E5BFF] hover:text-white text-sm">
+        {/* <button className="hidden sm:block h-12 bg-light-purple text-blue-primary rounded-xl px-4 font-medium transition-all duration-300 hover:bg-[#7E5BFF] hover:text-white text-sm">
           CONNECT WALLET
-        </button>
+        </button> */}
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMobileNav}
@@ -63,9 +63,9 @@ const Navbar = () => {
             </a>
           ))}
           {/* Mobile Connect Wallet Button */}
-          <button className="h-12 bg-light-purple text-blue-primary rounded-lg px-6 font-medium tracking-widest transition-all duration-300 hover:bg-[#7E5BFF] hover:text-white">
+          {/* <button className="h-12 bg-light-purple text-blue-primary rounded-lg px-6 font-medium tracking-widest transition-all duration-300 hover:bg-[#7E5BFF] hover:text-white">
             CONNECT WALLET
-          </button>
+          </button> */}
         </div>
       </div>
     </section>
