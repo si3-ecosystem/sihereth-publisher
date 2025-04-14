@@ -5,25 +5,63 @@ import DrawerHeader from "./DrawerHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
 import type { RootState } from "@/redux/store";
-import { ChangeEvent } from "react";
+import { type ChangeEvent, useRef } from "react";
 import { inputStyles } from "@/utils/customStyles";
 import Image from "next/image";
 
 const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
   const live = useSelector((state: RootState) => state.content.live);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const videoInputRef = useRef<HTMLInputElement>(null);
 
-  // Handle file upload for image
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = URL.createObjectURL(e.target.files[0]); // Temporary preview
-      dispatch(updateContent({ section: "live", data: { image: file } }));
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
+      const imageFile = new File([file], file.name, {
+        type: file.type,
+        lastModified: file.lastModified
+      });
+      dispatch(
+        updateContent({
+          section: "live",
+          data: {
+            ...live,
+            image: {
+              file: imageFile,
+              fieldName: "live_image"
+            }
+          }
+        })
+      );
     }
   };
 
-  // Handle video URL input
   const handleVideoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(updateContent({ section: "live", data: { video: e.target.value } }));
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
+      const videoFile = new File([file], file.name, {
+        type: file.type,
+        lastModified: file.lastModified
+      });
+      dispatch(
+        updateContent({
+          section: "live",
+          data: {
+            ...live,
+            video: {
+              file: videoFile,
+              fieldName: "live_video"
+            }
+          }
+        })
+      );
+    }
+  };
+
+  const getMediaSrc = (media: string | { file: File; fieldName: string }) => {
+    if (typeof media === "string") return media;
+    return URL.createObjectURL(media.file);
   };
 
   // Handle details update
@@ -55,29 +93,46 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
           {live.image ? (
             <div className="relative w-40 h-40 mt-3">
               <Image
-                src={live.image}
+                src={getMediaSrc(live.image)}
                 alt="Live"
                 width={80}
                 height={80}
                 className="w-full h-full object-cover rounded-lg"
+                onLoad={(e) => {
+                  if (typeof live.image !== "string") {
+                    const imgElement = e.target as HTMLImageElement;
+                    URL.revokeObjectURL(imgElement.src);
+                  }
+                }}
               />
               <button
+                type="button"
                 className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
-                onClick={() => dispatch(updateContent({ section: "live", data: { image: "" } }))}
+                onClick={() => dispatch(updateContent({ section: "live", data: { ...live, image: "" } }))}
               >
                 <RiDeleteBinLine />
               </button>
             </div>
           ) : (
             <div className="flex flex-col items-center">
-              <input type="file" id="image" className="hidden" onChange={handleImageChange} />
-              <label
-                htmlFor="image"
+              <input
+                type="file"
+                id="image"
+                ref={imageInputRef}
+                className="hidden"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+              <div
                 className="flex justify-center items-center pt-5 pb-6 border border-dashed border-gray-300 rounded-lg cursor-pointer h-24 mt-3 w-full hover:bg-[#fceed966] hover:border-[#F6D4A0]"
+                onClick={() => imageInputRef.current?.click()}
+                onKeyDown={(e) => e.key === "Enter" && imageInputRef.current?.click()}
+                role="button"
+                tabIndex={0}
               >
                 <IoIosAddCircle className="text-gray-500" />
                 <p className="text-gray-500 ms-1">ADD AN IMAGE</p>
-              </label>
+              </div>
               <span className="mt-2 text-red-500">* Image must be .jpg, .jpeg, .png</span>
             </div>
           )}
@@ -86,19 +141,39 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         {/* Video */}
         <section className="p-4 xl:p-6">
           <label htmlFor="video">Video</label>
-          <input
-            type="text"
-            id="video"
-            value={live.video}
-            onChange={handleVideoChange}
-            placeholder="Enter Video URL or Upload"
-            className={inputStyles}
-          />
-          {live.video && (
-            <video controls className="mt-3 w-full">
-              <source src={live.video} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+          {live.video ? (
+            <div className="mt-3">
+              <video src={getMediaSrc(live.video)} controls className="w-full rounded-lg" />
+              <button
+                type="button"
+                className="mt-2 text-red-500"
+                onClick={() => dispatch(updateContent({ section: "live", data: { ...live, video: "" } }))}
+              >
+                Remove Video
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center">
+              <input
+                type="file"
+                id="video"
+                ref={videoInputRef}
+                className="hidden"
+                accept="video/*"
+                onChange={handleVideoChange}
+              />
+              <div
+                className="flex justify-center items-center pt-5 pb-6 border border-dashed border-gray-300 rounded-lg cursor-pointer h-24 mt-3 w-full hover:bg-[#fceed966] hover:border-[#F6D4A0]"
+                onClick={() => videoInputRef.current?.click()}
+                onKeyDown={(e) => e.key === "Enter" && videoInputRef.current?.click()}
+                role="button"
+                tabIndex={0}
+              >
+                <IoIosAddCircle className="text-gray-500" />
+                <p className="text-gray-500 ms-1">ADD A VIDEO</p>
+              </div>
+              <span className="mt-2 text-red-500">* Video must be .mp4, .webm</span>
+            </div>
           )}
         </section>
 
@@ -140,7 +215,7 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                 className={inputStyles}
               />
 
-              <button className="text-red-500 text-lg mt-2" onClick={() => removeDetail(index)}>
+              <button type="button" className="text-red-500 text-lg mt-2" onClick={() => removeDetail(index)}>
                 <RiDeleteBinLine className="inline-block mr-1 size-4" />
               </button>
             </div>

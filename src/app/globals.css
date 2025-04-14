@@ -4,63 +4,63 @@
 
 @font-face {
   font-family: "clash-display";
-  src: url("../assets/fonts/ClashDisplayVariable.ttf") format("truetype");
+  src: url("../assets/ClashDisplayVariable.ttf") format("truetype");
   font-display: swap;
   font-style: normal;
 }
 
 @font-face {
   font-family: "segoe-ui";
-  src: url("../assets/fonts/SegoeUIBold.ttf") format("truetype");
+  src: url("../assets/SegoeUIBold.ttf") format("truetype");
   font-display: swap;
   font-style: normal;
 }
 
 @font-face {
   font-family: "FiraMono";
-  src: url("../assets/fonts/FiraMono-Regular.ttf") format("truetype");
+  src: url("../assets/FiraMono-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "FiraMono";
-  src: url("../assets/fonts/FiraMono-Medium.ttf") format("truetype");
+  src: url("../assets/FiraMono-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "FiraMono";
-  src: url("../assets/fonts/FiraMono-Bold.ttf") format("truetype");
+  src: url("../assets/FiraMono-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "DMSans";
-  src: url("../assets/fonts/DMSans-Regular.ttf") format("truetype");
+  src: url("../assets/DMSans-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "DMSans";
-  src: url("../assets/fonts/DMSans-Medium.ttf") format("truetype");
+  src: url("../assets/DMSans-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "DMSans";
-  src: url("../assets/fonts/DMSans-Bold.ttf") format("truetype");
+  src: url("../assets/DMSans-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "DMSans";
-  src: url("../assets/fonts/DMSans-SemiBold.ttf") format("truetype");
+  src: url("../assets/DMSans-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
 }

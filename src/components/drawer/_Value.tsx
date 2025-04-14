@@ -1,5 +1,5 @@
 import DrawerHeader from "./DrawerHeader";
-import { ValueTypes } from "@/utils/types";
+import type { ValueTypes } from "@/utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
 import type { RootState } from "@/redux/store";

@@ -30,9 +30,19 @@ const Available = () => {
         {/* Image Section */}
         <section className="flex flex-col gap-6 items-center w-full order-2 lg:order-1">
           <div className="relative">
-            <Image src={"/images/border_available.png"} alt="" width={260} height={100} />
-            <Image src={"/images/donut.png"} alt="" layout="fill" objectFit="cover" />
-            {avatar && <Image src={avatar} alt="" layout="fill" objectFit="cover" className="p-4" />}
+            <Image
+              src={"https://res.cloudinary.com/dq033xs8n/image/upload/v1744345807/border_available_xotm0d.png"}
+              alt=""
+              width={260}
+              height={100}
+            />
+            <Image
+              src={"https://res.cloudinary.com/dq033xs8n/image/upload/v1744345808/donut_opazh4.png"}
+              alt=""
+              fill
+              style={{ objectFit: "cover" }}
+            />
+            {avatar && <Image src={avatar} alt="" fill style={{ objectFit: "cover" }} className="p-4" />}
           </div>
           <Link
             href="https://www.si3.space/"

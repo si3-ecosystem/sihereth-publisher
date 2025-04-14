@@ -5,31 +5,20 @@ import { FaRegEdit } from "react-icons/fa";
 import DrawerHeader from "./DrawerHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { useState, useEffect } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { inputStyles } from "@/utils/customStyles";
 
 const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
-
-  const organizations: Array<string | StaticImageData> =
-    useSelector((state: RootState) => state.content.organizations) || [];
-  const [localData, setLocalData] = useState<Array<string | StaticImageData>>(organizations);
-  const [shouldUpdateRedux, setShouldUpdateRedux] = useState(false);
+  const organizations = useSelector((state: RootState) => state.content.organizations) || [];
+  const [localData, setLocalData] = useState<Array<string | { file: File; fieldName: string }>>(organizations);
 
   useEffect(() => {
     setLocalData(organizations);
   }, [organizations]);
-
-  useEffect(() => {
-    if (shouldUpdateRedux) {
-      const validData = localData.filter((item) => item !== null) as string[];
-      dispatch(updateContent({ section: "organizations", data: validData }));
-      setShouldUpdateRedux(false);
-    }
-  }, [shouldUpdateRedux, localData, dispatch]);
 
   const handleImageUpload = (index: number, file: File) => {
     const validTypes = ["image/png", "image/jpeg", "image/jpg"];
@@ -41,11 +30,24 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       toast.error("File size exceeds 2MB.");
       return;
     }
-    const imageUrl = URL.createObjectURL(file);
+
+    const imageFile = new File([file], file.name, {
+      type: file.type,
+      lastModified: file.lastModified
+    });
+
     const updatedArray = [...localData];
-    updatedArray[index] = imageUrl;
+    updatedArray[index] = {
+      file: imageFile,
+      fieldName: `org_image_${index}`
+    };
     setLocalData(updatedArray);
-    setShouldUpdateRedux(true);
+    dispatch(updateContent({ section: "organizations", data: updatedArray }));
+  };
+
+  const getImageSrc = (item: string | { file: File; fieldName: string }) => {
+    if (typeof item === "string") return item;
+    return URL.createObjectURL(item.file);
   };
 
   const addToArray = () => {
@@ -54,14 +56,13 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       return;
     }
     setLocalData([...localData, ""]);
-    setShouldUpdateRedux(true);
   };
 
   const removeFromArray = (index: number) => {
     if (localData.length <= 1) return;
     const updatedArray = localData.filter((_, i) => i !== index);
     setLocalData(updatedArray);
-    setShouldUpdateRedux(true);
+    dispatch(updateContent({ section: "organizations", data: updatedArray }));
   };
 
   return (
@@ -75,7 +76,19 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
           {localData.map((item, index) => (
             <div key={index} className={`${inputStyles} flex gap-4 justify-between items-center w-full mb-4`}>
               {item ? (
-                <Image src={item} alt={`Organization ${index}`} width={70} height={70} className="object-cover" />
+                <Image
+                  src={getImageSrc(item)}
+                  alt={`Organization ${index}`}
+                  width={70}
+                  height={70}
+                  className="object-cover"
+                  onLoad={(e) => {
+                    if (typeof item !== "string") {
+                      const imgElement = e.target as HTMLImageElement;
+                      URL.revokeObjectURL(imgElement.src);
+                    }
+                  }}
+                />
               ) : (
                 <div className="text-gray-500">No image</div>
               )}
@@ -87,7 +100,13 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                   id={`upload-${index}`}
                   onChange={(e) => e.target.files && handleImageUpload(index, e.target.files[0])}
                 />
-                <label htmlFor={`upload-${index}`} className="cursor-pointer text-blue-500">
+                <label
+                  htmlFor={`upload-${index}`}
+                  className="cursor-pointer text-blue-500"
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === "Enter" && document.getElementById(`upload-${index}`)?.click()}
+                >
                   {item ? (
                     <FaRegEdit className="size-4 text-blue-500" />
                   ) : (
@@ -95,19 +114,23 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                   )}
                 </label>
                 {localData.length > 1 && (
-                  <RiDeleteBinLine
-                    className="size-4 text-red-500 cursor-pointer"
-                    onClick={() => removeFromArray(index)}
-                  />
+                  <button type="button" className="text-red-500 cursor-pointer" onClick={() => removeFromArray(index)}>
+                    <RiDeleteBinLine className="size-4" />
+                  </button>
                 )}
               </section>
             </div>
           ))}
 
-          <div className="flex gap-2 items-center mt-6 cursor-pointer" onClick={addToArray}>
+          <button
+            type="button"
+            className="flex gap-2 items-center mt-6 cursor-pointer"
+            onClick={addToArray}
+            onKeyDown={(e) => e.key === "Enter" && addToArray()}
+          >
             <FaCirclePlus className="text-[#a020f0] size-3 ml-1" />
             <p className="text-gray-600">Add Organization</p>
-          </div>
+          </button>
         </section>
       </div>
     </>

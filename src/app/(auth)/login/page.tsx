@@ -35,7 +35,12 @@ const Login = () => {
       <div className="p-6 w-full max-w-sm bg-white border border-gray-200 rounded-xl shadow-lg space-y-6">
         {/* Logo and Title */}
         <div className="flex flex-col items-center space-y-3">
-          <Image src="/images/si3.svg" alt="Logo" width={100} height={90} />
+          <Image
+            src="https://res.cloudinary.com/dq033xs8n/image/upload/v1744345811/si3_g3ow9r.svg"
+            alt="Logo"
+            width={100}
+            height={90}
+          />
           <h1 className="font-bold text-gray-900">Sign in to your account</h1>
         </div>
         {/* Form */}

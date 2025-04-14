@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ContentState } from "@/utils/types";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { ContentState } from "@/utils/types";
 
 const initialState: ContentState = {
   landing: {
@@ -11,7 +11,7 @@ const initialState: ContentState = {
     organizationAffiliations: ["Si<3>"],
     communityAffiliations: ["OnChair Dreamers", "Cosmos Cartel", "The Phoenix Guild"],
     superPowers: ["Empathy", "Focus", "Leaps of Faith"],
-    image: "/images/girl.png",
+    image: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345809/girl_hhqylb.png",
     fullName: "Kara Howard",
     pronoun: "SHE/HER"
   },
@@ -28,8 +28,8 @@ const initialState: ContentState = {
       " I experienced shared value when I SI women & non-binary creators grow. My value lies in my ability to understand collaboration models at an ecosystemic level, and focus my energy towards my intentions."
   },
   live: {
-    image: "/images/live.png",
-    video: "/videos/vid.mp4",
+    image: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345811/live_muepdq.png",
+    video: "https://res.cloudinary.com/dq033xs8n/video/upload/v1744345277/vid_cy6pec.mp4",
     details: [
       {
         title: "website",
@@ -48,7 +48,11 @@ const initialState: ContentState = {
       }
     ]
   },
-  organizations: ["/images/base.png", "/images/solana.png", "/images/lukso.png"],
+  organizations: [
+    "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345807/base_ad5an0.png",
+    "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345807/solana_lbprwc.png",
+    "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345810/lukso_ytxf1e.png"
+  ],
   timeline: [
     {
       title: "Co-Creating SI<3>",
@@ -87,7 +91,7 @@ const initialState: ContentState = {
     }
   ],
   available: {
-    avatar: "/images/avatar.png",
+    avatar: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345808/avatar_zmxvul.png",
     availableFor: ["collaboration", "advising", "speaking"]
   },
   socialChannels: [

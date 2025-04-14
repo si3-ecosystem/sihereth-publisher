@@ -1,11 +1,3 @@
-import { StaticImageData } from "next/image";
-
-export interface LinkTypes {
-  type: string;
-  title: string;
-  link: string;
-}
-
 export interface LandingTypes {
   title: string;
   headline: string;
@@ -14,7 +6,12 @@ export interface LandingTypes {
   organizationAffiliations: string[];
   communityAffiliations: string[];
   superPowers: string[];
-  image: string;
+  image:
+    | string
+    | {
+        file: File;
+        fieldName: string;
+      };
   name: string;
   fullName: string;
   pronoun: string;
@@ -26,8 +23,8 @@ export interface ValueTypes {
 }
 
 export interface LiveTypes {
-  image: string | StaticImageData;
-  video: string;
+  image: string | { file: File; fieldName: string };
+  video: string | { file: File; fieldName: string };
   details: {
     title: string;
     heading: string;
@@ -41,21 +38,26 @@ export interface TimelineTypes {
   from: string;
 }
 
-export interface SocialChannelTypes {
+interface SocialChannelTypes {
   text: string;
   url: string;
 }
 
-export interface AvailableTypes {
+interface AvailableTypes {
   avatar: string;
   availableFor: string[];
+}
+
+interface OrganizationImage {
+  file: File;
+  fieldName: string;
 }
 
 export interface ContentState {
   landing: LandingTypes;
   value: ValueTypes;
   live: LiveTypes;
-  organizations: string[] | StaticImageData[];
+  organizations: Array<string | OrganizationImage>;
   timeline: TimelineTypes[];
   available: AvailableTypes;
   isNewWebpage: boolean;

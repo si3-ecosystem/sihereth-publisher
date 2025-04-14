@@ -1,4 +1,4 @@
-import { LiveTypes } from "@/utils/types";
+import type { LiveTypes } from "@/utils/types";
 
 const Cards = ({ title, heading, body }: LiveTypes["details"][0]) => {
   return (

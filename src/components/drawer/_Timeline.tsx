@@ -1,7 +1,7 @@
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCirclePlus } from "react-icons/fa6";
 import DrawerHeader from "./DrawerHeader";
-import { TimelineTypes } from "@/utils/types";
+import type { TimelineTypes } from "@/utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
 import type { RootState } from "@/redux/store";

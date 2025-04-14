@@ -1,13 +1,14 @@
 "use client";
 import Image from "next/image";
 import AnimationHome from "./LandingAnim";
-import { LandingTypes } from "@/utils/types";
+import type { LandingTypes } from "@/utils/types";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import { useEffect, useRef } from "react";
 
 const Marquee = ({ items = [] }: { items?: string[] }) => {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     if (!marqueeRef.current || items.length < 3) return;
     const marquee = marqueeRef.current;
@@ -23,7 +24,8 @@ const Marquee = ({ items = [] }: { items?: string[] }) => {
     };
     animate();
     return () => cancelAnimationFrame(animationFrame);
-  }, [items.join(",")]);
+  }, [items.length]);
+
   if (!items.length) return null;
   return (
     <span className="overflow-hidden w-[48rem] whitespace-nowrap">
@@ -31,7 +33,7 @@ const Marquee = ({ items = [] }: { items?: string[] }) => {
         {[...items, ...items, ...items, ...items].map((item, index) => (
           <span key={index} className="mx-2 flex items-center">
             {item}
-            <div className="size-[0.3rem] bg-gray-800 rounded-full ml-4"></div>
+            <div className="size-[0.3rem] bg-gray-800 rounded-full ml-4" />
           </span>
         ))}
       </span>
@@ -115,10 +117,38 @@ const InfoRow = ({ title, value }: { title: string; value: React.ReactNode }) =>
   </div>
 );
 
-const ProfileCard = ({ image, fullName, pronoun }: { image: string; fullName: string; pronoun: string }) => {
+const ProfileCard = ({
+  image,
+  fullName,
+  pronoun
+}: {
+  image: string | { file: File; fieldName: string } | File;
+  fullName: string;
+  pronoun: string;
+}) => {
+  const getImageSrc = (image: string | { file: File; fieldName: string } | File) => {
+    if (typeof image === "string") return image;
+    if ("file" in image) return URL.createObjectURL(image.file);
+    return URL.createObjectURL(image);
+  };
+
   return (
     <section className="relative">
-      {image && <Image className="rounded-2xl" src={image} alt="profile" width={300} height={300} />}
+      {image && (
+        <Image
+          className="rounded-2xl"
+          src={getImageSrc(image)}
+          alt="profile"
+          width={300}
+          height={300}
+          onLoad={(e) => {
+            if (image instanceof File) {
+              const imgElement = e.target as HTMLImageElement;
+              URL.revokeObjectURL(imgElement.src);
+            }
+          }}
+        />
+      )}
       <div className="rounded-2xl -bottom-4 -right-4 md:-bottom-8 md:-right-8 xl:-bottom-10 xl:-right-10 border border-light-purple p-4 flex flex-col justify-center items-center gap-2 bg-primary absolute shadow-md">
         <span className="font-medium whitespace-nowrap">{fullName}</span>
         <span className="font-dm-sans tracking-wider">{pronoun ? `(${pronoun.toUpperCase()})` : ""}</span>

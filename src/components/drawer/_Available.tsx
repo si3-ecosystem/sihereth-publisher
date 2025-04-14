@@ -38,7 +38,6 @@ const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       newValues[index] = value;
       return newValues;
     });
-
     debounce(() => {
       setLocalTags((prev) => {
         const newTags = [...prev];

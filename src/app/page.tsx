@@ -12,7 +12,6 @@ import type { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
 
 const Home = () => {
-  const [drawerWidth, setDrawerWidth] = useState<string>("25%");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [editPage, setEditPage] = useState<string>("");
   const [viewMode, setViewMode] = useState<"mobile" | "tablet" | "desktop">("desktop");
@@ -31,21 +30,15 @@ const Home = () => {
       {/* Header */}
       <Header />
       {/* Navbar */}
-      <Navbar viewMode={viewMode} setViewMode={setViewMode} setDrawerWidth={setDrawerWidth} />
+      <Navbar viewMode={viewMode} setViewMode={setViewMode} />
       {/* Domain section */}
       <Domain />
       {/* Page View */}
-      <div className={`flex justify-center h-[calc(100vh-9.4rem)] overflow-auto`}>
+      <div className={"flex justify-center h-[calc(100vh-9.4rem)] overflow-auto"}>
         <section className="w-full">
           <EditablePage setEditPage={setEditPage} openDrawer={openDrawer} />
         </section>
-        <Drawer
-          open={isOpen}
-          onClose={() => setIsOpen(false)}
-          direction="right"
-          size={drawerWidth}
-          enableOverlay={false}
-        >
+        <Drawer open={isOpen} onClose={() => setIsOpen(false)} direction="right" size={"25%"} enableOverlay={false}>
           <DynamicComponent toggleDrawer={() => setIsOpen(false)} editPage={editPage} />
         </Drawer>
       </div>

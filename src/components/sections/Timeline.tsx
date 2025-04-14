@@ -13,7 +13,12 @@ const TimeLine = () => {
       <section className="max-w-[90rem] mx-auto">
         <div className="flex justify-between items-center">
           <Heading label="TIMELINE" />
-          <Image src={"/images/runes.png"} alt="" width={70} height={70} />
+          <Image
+            src={"https://res.cloudinary.com/dq033xs8n/image/upload/v1744345810/runes_oieejv.png"}
+            alt=""
+            width={70}
+            height={70}
+          />
         </div>
         {data.map((item, index) => (
           <div

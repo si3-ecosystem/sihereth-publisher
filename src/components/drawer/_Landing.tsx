@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { IoIosAddCircle } from "react-icons/io";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCirclePlus } from "react-icons/fa6";
 import { countries } from "@/utils/data";
 import DrawerHeader from "./DrawerHeader";
-import { LandingTypes } from "@/utils/types";
+import type { LandingTypes } from "@/utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
 import type { RootState } from "@/redux/store";
@@ -26,7 +26,7 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
   }, [reduxData]);
 
   const handleInputChange = useCallback(
-    debounce((field: keyof LandingTypes, value: any) => {
+    debounce((field: keyof LandingTypes, value: string | { file: File; fieldName: string }) => {
       const updatedData = { ...localData, [field]: value };
       setLocalData(updatedData);
       dispatch(updateContent({ section: "landing", data: updatedData }));
@@ -72,13 +72,24 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.files?.[0]) {
         const file = event.target.files[0];
-        const imageUrl = URL.createObjectURL(file);
-        handleInputChange("image", imageUrl);
-        setTimeout(() => URL.revokeObjectURL(imageUrl), 5000);
+        const imageFile = new File([file], file.name, {
+          type: file.type,
+          lastModified: file.lastModified
+        });
+        handleInputChange("image", {
+          file: imageFile,
+          fieldName: "landing_profile_image"
+        });
       }
     },
     [handleInputChange]
   );
+
+  const getImageSrc = (image: string | { file: File; fieldName: string }) => {
+    if (typeof image === "string") return image;
+    if ("file" in image) return URL.createObjectURL(image.file);
+    return "";
+  };
 
   return (
     <>
@@ -146,7 +157,7 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
               {label}
             </label>
             {(localData[field as keyof LandingTypes] as string[])?.map((item, index) => (
-              <div className="flex gap-2 items-center w-full" key={`${field}-${index}`}>
+              <div className="flex gap-2 items-center w-full" key={item}>
                 <input
                   type="text"
                   className={inputStyles}
@@ -198,7 +209,19 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
           </label>
           {localData?.image ? (
             <div className="mt-3">
-              <Image src={localData?.image} alt="Uploaded" width={100} height={100} className="rounded-lg" />
+              <Image
+                src={getImageSrc(localData.image)}
+                alt="Uploaded"
+                width={100}
+                height={100}
+                className="rounded-lg"
+                onLoad={(e) => {
+                  if (localData.image instanceof File) {
+                    const imgElement = e.target as HTMLImageElement;
+                    URL.revokeObjectURL(imgElement.src);
+                  }
+                }}
+              />
               <div className="flex gap-2 mt-2">
                 <RiDeleteBinLine
                   className="text-red-500 cursor-pointer"
