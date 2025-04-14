@@ -126,10 +126,15 @@ const ProfileCard = ({
   fullName: string;
   pronoun: string;
 }) => {
-  const getImageSrc = (image: string | { file: File; fieldName: string } | File) => {
+  const getImageSrc = (image: string | { file: File; fieldName: string } | File): string => {
     if (typeof image === "string") return image;
-    if ("file" in image) return URL.createObjectURL(image.file);
-    return URL.createObjectURL(image);
+    if (typeof image === "object" && "file" in image && image.file instanceof File) {
+      return URL.createObjectURL(image.file);
+    }
+    if (image instanceof File) {
+      return URL.createObjectURL(image);
+    }
+    throw new Error("Invalid image type");
   };
 
   return (

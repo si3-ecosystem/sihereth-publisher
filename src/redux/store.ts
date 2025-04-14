@@ -15,21 +15,28 @@ const encryptor = encryptTransform({
   }
 });
 
-// Redux-persist configuration
-const persistConfig = {
-  key: "siher",
+const userPersistConfig = {
+  key: "siheruser",
   storage,
   transforms: [encryptor],
   timeout: 2000
 };
 
-const persistedUserReducer = persistReducer(persistConfig, userReducer);
+const contentPersistConfig = {
+  key: "sihercontent",
+  storage,
+  transforms: [encryptor],
+  timeout: 2000
+};
+
+const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
+const persistedContentReducer = persistReducer(contentPersistConfig, contentReducer);
 
 // Configure the store
 const store = configureStore({
   reducer: {
     user: persistedUserReducer,
-    content: contentReducer
+    content: persistedContentReducer
   },
   middleware: (getDefaultMiddleware) => {
     const middlewares = getDefaultMiddleware({

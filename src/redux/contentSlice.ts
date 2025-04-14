@@ -115,6 +115,9 @@ const contentSlice = createSlice({
   name: "content",
   initialState,
   reducers: {
+    setAllContent: (state, action: PayloadAction<ContentState>) => {
+      return action.payload;
+    },
     updateContent: (state, action: PayloadAction<{ section: keyof ContentState; data: any }>) => {
       const { section, data } = action.payload;
       if (section === "isNewWebpage" && typeof data === "boolean") {
@@ -133,5 +136,5 @@ const contentSlice = createSlice({
   }
 });
 
-export const { updateContent } = contentSlice.actions;
+export const { setAllContent, updateContent } = contentSlice.actions;
 export default contentSlice.reducer;

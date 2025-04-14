@@ -16,7 +16,9 @@ const Orgs = () => {
   return (
     <div className="px-4 py-12 bg-gray-100">
       <div className="max-w-[90rem] mx-auto flex flex-col gap-8 justify-center items-center">
-        <Heading label="ORGANIZATIONS I SUPPORT" />
+        <div className="py-3 leading-4 px-5 bg-primary border border-light-purple rounded-xl font-medium tracking-wide w-fit">
+          ORGANIZATIONS I SUPPORT
+        </div>
         <section className="w-full flex flex-col md:flex-row gap-10 justify-center items-center">
           {data.map((org, index) => {
             if (!org) return null;
