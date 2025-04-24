@@ -93,15 +93,15 @@ const initialState: ContentState = {
   socialChannels: [
     {
       text: "linkedin",
-      url: ""
+      url: "https://www.linkedin.com"
     },
     {
       text: "instagram",
-      url: ""
+      url: "http://instagram.com"
     },
     {
       text: "twitter",
-      url: ""
+      url: "http://twitter.com"
     }
   ],
   isNewWebpage: true
