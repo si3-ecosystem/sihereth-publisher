@@ -6,10 +6,8 @@ import { IoIosLogOut } from "react-icons/io";
 import { FaDesktop, FaTabletAlt, FaMobileAlt, FaPlay } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logout } from "@/redux/authSlice";
-import apiClient from "@/utils/interceptor";
-import { RootState } from "@/redux/store";
 
 type ViewMode = "mobile" | "tablet" | "desktop";
 
@@ -24,8 +22,6 @@ const Navbar = ({ viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const dispatch = useDispatch();
-  const content = useSelector((state: RootState) => state.content);
-  const user = useSelector((state: RootState) => state.user);
 
   const updateViewMode = () => {
     const width = window.innerWidth;
@@ -57,120 +53,15 @@ const Navbar = ({ viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // const handlePublish = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await apiClient.post(`/webpage`, websiteData);
-  //     setLoading(false);
-  //   } catch (error: any) {
-  //     console.log(error);
-  //     setLoading(false);
-  //     toast.error(error.response?.status === 400 ? error.response.data : "Server error. Please try again!");
-  //   }
-  // };
-
   const handlePublish = async () => {
     try {
       setLoading(true);
-
-      // Transform the Redux content to match the createWebpageSchema
-      const transformedWebsiteData = {
-        navbar: {
-          websiteName: "SI HER", // Or some other relevant field
-          links: ["VALUE", "LIVE", "TIMELINE", "CONNECT"] // You'll need to determine where these links come from in your Redux state
-        },
-        landing: {
-          title: content.landing.title || "",
-          subTitle: content.landing.headline || "",
-          hashTagTitle: "WHAT I STAND FOR:", // This might be static or configurable
-          hashTags: content.landing.hashTags || [],
-          categories: {
-            region: content.landing.region || "",
-            superPower: content.landing.superPowers || [],
-            organizationAffiliations: content.landing.organizationAffiliations || [],
-            communityAffiliations: content.landing.communityAffiliations || []
-          },
-          userimg: {
-            path: content.landing.image || "",
-            id: null // You might need to determine how image IDs are handled
-          },
-          name: content.landing.fullName || "",
-          pronoun: content.landing.pronoun || ""
-        },
-        value: {
-          title: "My Core Values", // This might be static or configurable
-          description: content.value.values || "",
-          TVName: "SI HER TV", // This might be static or configurable
-          video: {
-            path: content.live.video || "",
-            id: null // You might need to determine how video IDs are handled
-          },
-          links: content.live.details.map((detail) => ({
-            // Mapping your 'live.details' to the 'links' structure
-            title: detail.heading || "",
-            type: detail.title || "", // You might need to adjust the mapping for 'type'
-            link: "/" // You'll need to determine where the actual links come from
-          })),
-          text: "TIP IN CRYPTO", // Static text
-          button: {
-            text: "Learn More", // This might be configurable
-            link: "/tip" // You'll need to determine where the button link comes from
-          }
-        },
-        vision: {
-          title: "My Journey", // This might be static or configurable
-          description: content.value.experience || "" // You might need to add a 'vision' field to your Redux state
-        },
-        CV: {
-          past: {
-            title: "Past Experiences", // Static
-            highlights: content.timeline
-              .slice()
-              .reverse()
-              .map((item) => ({
-                // Mapping your 'timeline' for past highlights
-                year: item.from || "",
-                text: item.title || ""
-              }))
-          },
-          present: {
-            title: "Current Engagements", // Static
-            highlights: content.timeline.filter((item) => item.to === "PRESENT").map((item) => item.title) || []
-          },
-          future: {
-            title: "Future Aspirations", // Static
-            text: "Future Aspirations" // You might need to add a 'future' field to your Redux state
-          }
-        },
-        available: {
-          title: "Available For", // Static
-          marque: content.slider.map((item) => ({ heading: item })), // Mapping your 'slider' to the 'marque'
-          socialChannels: content.socialChannels.map((channel) => ({
-            text: channel.text || "",
-            url: channel.url || "#"
-          }))
-        }
-      };
-
-      const checkWebpage = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/webpage`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`
-        }
-      });
-
-      if (checkWebpage.status === 404) {
-        await apiClient.post(`/webpage`, { content: transformedWebsiteData, subdomain: user.domain });
-      } else {
-        await apiClient.put(`/webpage`, { content: transformedWebsiteData, subdomain: user.domain });
-      }
-
+      // const response = isNewWebpage
+      //   ? await apiClient.post(`/api/webpage`, websiteData)
+      //   : await apiClient.put(`/api/webpage`, websiteData);
       setLoading(false);
-      // Handle successful response
     } catch (error: any) {
       console.log(error);
-      console.log("HELLOOOO");
       setLoading(false);
       toast.error(error.response?.status === 400 ? error.response.data : "Server error. Please try again!");
     }
