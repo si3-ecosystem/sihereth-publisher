@@ -7,8 +7,6 @@ import { languagesByRegion } from "@/utils/data";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
-import EthermailSubscribe from "../ui/EthermailSubscribe";
-
 const iconMap: Record<string, React.ElementType> = {
   linkedin: FaLinkedin,
   instagram: FaInstagram,
@@ -128,9 +126,8 @@ const Footer = () => {
                 </div>
               )}
             </div>
-            
             {/* Newsletter Form */}
-            {/* <div className="flex rounded-xl w-full sm:w-fit items-center bg-white gap-4 h-fit pl-3">
+            <div className="flex rounded-xl w-full sm:w-fit items-center bg-white gap-4 h-fit pl-3">
               <MdEmail className="size-6" />
               <input
                 type="email"
@@ -140,9 +137,7 @@ const Footer = () => {
               <button type="submit" className="bg-[#C8BAFD] rounded-xl p-2">
                 <IoIosArrowForward className="size-5" />
               </button>
-            </div> */}
-
-            <EthermailSubscribe />
+            </div>
           </section>
         </section>
 
