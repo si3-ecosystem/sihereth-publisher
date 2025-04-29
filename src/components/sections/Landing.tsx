@@ -5,6 +5,7 @@ import type { LandingTypes } from "@/utils/types";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import { useEffect, useRef } from "react";
+type ImageType = string | File | { file: File; fieldName: string };
 
 const Marquee = ({ items = [] }: { items?: string[] }) => {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
@@ -126,15 +127,17 @@ const ProfileCard = ({
   fullName: string;
   pronoun: string;
 }) => {
-  const getImageSrc = (image: string | { file: File; fieldName: string } | File): string => {
-    if (typeof image === "string") return image;
-    if (typeof image === "object" && "file" in image && image.file instanceof File) {
-      return URL.createObjectURL(image.file);
+  const getImageSrc = (image: ImageType): string => {
+    if (typeof image === "string") {
+      return image;
     }
     if (image instanceof File) {
       return URL.createObjectURL(image);
     }
-    throw new Error("Invalid image type");
+    if (typeof image === "object" && image.file instanceof File) {
+      return URL.createObjectURL(image.file);
+    }
+    return "";
   };
 
   return (

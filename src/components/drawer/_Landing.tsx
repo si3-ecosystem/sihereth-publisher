@@ -14,6 +14,8 @@ import { debounce } from "lodash";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
+type ImageField = string | { file: File; fieldName: string };
+
 const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
   const reduxData = useSelector((state: RootState) => state.content.landing);
@@ -85,11 +87,13 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     [handleInputChange]
   );
 
-  const getImageSrc = (image: string | { file: File; fieldName: string }) => {
-    if (typeof image === "string") return image;
-    if ("file" in image) return URL.createObjectURL(image.file);
-    return "";
+  const getImageSrc = (image: ImageField): string | undefined => {
+    if (typeof image === "string" && image.trim()) return image;
+    if (typeof image === "object" && image.file instanceof File) return URL.createObjectURL(image.file);
+    return undefined;
   };
+
+  const imageSrc = getImageSrc(localData.image);
 
   return (
     <>
@@ -207,7 +211,7 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
           <label htmlFor="image" className="text-xs">
             Image
           </label>
-          {localData?.image ? (
+          {imageSrc ? (
             <div className="mt-3">
               <Image
                 src={getImageSrc(localData.image)}
