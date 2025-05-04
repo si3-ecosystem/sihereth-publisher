@@ -18,8 +18,7 @@ export default {
       fontFamily: {
         "dm-sans": ["DMSans", "sans-serif"],
         "fira-mono": ["FiraMono", "monospace"],
-        "clash-display": ["clash-display", "sans-serif"],
-        "segoe-ui": ["segoe-ui", "sans-serif"]
+        sora: ["sora", "sans-serif"]
       },
       fontWeight: {
         regular: "400",

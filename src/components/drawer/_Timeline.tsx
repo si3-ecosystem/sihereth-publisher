@@ -4,7 +4,7 @@ import DrawerHeader from "./DrawerHeader";
 import { TimelineTypes } from "@/utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { TimelineStyles } from "@/utils/customStyles";
 import { useState, useEffect } from "react";
 

@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import apiClient from "@/utils/interceptor";
 import { RiLoaderFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { updateDomain } from "@/redux/authSlice";
 import Link from "next/link";
 

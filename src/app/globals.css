@@ -3,81 +3,74 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "clash-display";
-  src: url("../assets/fonts/ClashDisplayVariable.ttf") format("truetype");
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "segoe-ui";
-  src: url("../assets/fonts/SegoeUIBold.ttf") format("truetype");
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "FiraMono";
-  src: url("../assets/fonts/FiraMono-Regular.ttf") format("truetype");
+  font-family: "sora";
+  src: url("https://res.cloudinary.com/dq033xs8n/raw/upload/v1746245777/Sora-Variable_slftao.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "FiraMono";
-  src: url("../assets/fonts/FiraMono-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "FiraMono";
-  src: url("../assets/fonts/FiraMono-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "DMSans";
-  src: url("../assets/fonts/DMSans-Regular.ttf") format("truetype");
+  src: url("https://res.cloudinary.com/dq033xs8n/raw/upload/v1746245777/FiraMono-Regular_yjmn0v.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "DMSans";
-  src: url("../assets/fonts/DMSans-Medium.ttf") format("truetype");
+  font-family: "FiraMono";
+  src: url("https://res.cloudinary.com/dq033xs8n/raw/upload/v1746245778/FiraMono-Medium_k1luil.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "DMSans";
-  src: url("../assets/fonts/DMSans-Bold.ttf") format("truetype");
+  font-family: "FiraMono";
+  src: url(".https://res.cloudinary.com/dq033xs8n/raw/upload/v1746245777/FiraMono-Bold_vz3m8l.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "DMSans";
-  src: url("../assets/fonts/DMSans-SemiBold.ttf") format("truetype");
+  src: url("https://res.cloudinary.com/dq033xs8n/raw/upload/v1746245777/DMSans-Regular_i4x3u9.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("https://res.cloudinary.com/dq033xs8n/raw/upload/v1746245777/DMSans-Medium_fy54m9.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("https://res.cloudinary.com/dq033xs8n/raw/upload/v1746245777/DMSans-Bold_xjoif9.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("https://res.cloudinary.com/dq033xs8n/raw/upload/v1746245777/DMSans-SemiBold_u3brxh.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
 }
 
 body {
   color: #171717;
   background: #fff;
-  font-family: "FiraMono", monospace;
+  font-family: "FiraMono", monospace, "Courier New", Courier;
   -ms-overflow-style: none;
-}
-
-.font-clash-display {
-  font-family: "clash-display", monospace;
-}
-
-.font-segoe-ui {
-  font-family: "segoe-ui", monospace;
 }
 
 ::-webkit-scrollbar {
@@ -102,4 +95,14 @@ body {
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+.font-sora {
+  font-family: "sora", "DMSans", Arial, Helvetica, sans-serif;
+}
+.font-dmsans {
+  font-family: "DMSans", Arial, Helvetica, sans-serif;
+}
+.font-firamono {
+  font-family: "FiraMono", monospace, "Courier New", Courier;
 }

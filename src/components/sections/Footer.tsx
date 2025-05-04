@@ -5,13 +5,12 @@ import { FaXTwitter, FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { languagesByRegion } from "@/utils/data";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 
-const iconMap: Record<string, React.ElementType> = {
-  linkedin: FaLinkedin,
-  instagram: FaInstagram,
-  twitter: FaXTwitter,
-  email: FaGithub
+const iconMap: Record<string, { icon: React.ElementType; url: string }> = {
+  linkedin: { icon: FaLinkedin, url: "https://www.linkedin.com" },
+  instagram: { icon: FaInstagram, url: "https://www.instagram.com" },
+  twitter: { icon: FaXTwitter, url: "https://twitter.com" }
 };
 
 const Footer = () => {
@@ -60,12 +59,20 @@ const Footer = () => {
           {/* Social Channels */}
           <div className="flex justify-between w-full md:justify-start gap-4">
             {socialChannels.map((channel) => {
-              const Icon = iconMap[channel.text.toLowerCase()] || FaGithub;
+              const key = channel.text.toLowerCase();
+              const IconData = iconMap[key];
+              const Icon = IconData.icon;
+              const url = IconData.url;
               return (
-                <div key={channel.text} className="bg-[#C8BAFD] rounded-xl py-3 px-4 flex items-center gap-2">
-                  <Icon className="" />
-                  <span className="font-fira-mono font-medium">{channel.text.toUpperCase()}</span>
-                </div>
+                <a
+                  key={channel.text}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#C8BAFD] rounded-xl py-2 px-2 flex items-center justify-center"
+                >
+                  <Icon className="size-5 text-black" />
+                </a>
               );
             })}
           </div>
@@ -75,6 +82,7 @@ const Footer = () => {
             {/* Language Dropdown */}
             <div className="relative bg-[#C8BAFD] rounded-xl w-fit flex items-center gap-2" ref={dropdownRef}>
               <button
+                type="button"
                 ref={buttonRef}
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="bg-[#C8BAFD] text-[#1E1E1E] px-3 py-3 rounded-xl hover:bg-[#b0a0f5] whitespace-nowrap focus:outline-none"
@@ -103,6 +111,7 @@ const Footer = () => {
                   ) : (
                     <div className="text-start space-y-1 max-h-96 overflow-auto">
                       <button
+                        type="button"
                         onClick={() => setSelectedRegion(null)}
                         className="flex items-center font-medium px-4 py-2 hover:bg-gray-200 rounded transition-all"
                       >

@@ -1,4 +1,4 @@
-import { LiveTypes } from "@/utils/types";
+import type { LiveTypes } from "@/utils/types";
 
 const Cards = ({ title, heading, body }: LiveTypes["details"][0]) => {
   return (
@@ -8,7 +8,7 @@ const Cards = ({ title, heading, body }: LiveTypes["details"][0]) => {
         {title}
       </div>
       {/* Heading */}
-      <span className="font-clash-display text-xl font-medium">{heading}</span>
+      <span className="font-sora text-xl font-medium">{heading}</span>
       {/* Body */}
       <p className="font-dm-sans opacity-0 text-xs group-hover:opacity-100">{body}</p>
     </div>

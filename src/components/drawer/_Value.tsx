@@ -2,7 +2,7 @@ import DrawerHeader from "./DrawerHeader";
 import { ValueTypes } from "@/utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
 
 const ValueFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {

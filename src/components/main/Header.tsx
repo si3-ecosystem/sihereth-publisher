@@ -7,7 +7,7 @@ interface Button {
   src: string;
 }
 
-const Header: React.FC = () => {
+const Header = () => {
   const [visibleIframe, setVisibleIframe] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -39,11 +39,6 @@ const Header: React.FC = () => {
 
   const buttons: Button[] = [
     {
-      label: "Audiogram Tutorial",
-      key: "livepeer",
-      src: "https://player.vimeo.com/video/929333857?badge=0&autopause=0&player_id=0&app_id=58479"
-    },
-    {
       label: "Aurpay Tutorial",
       key: "aurpay",
       src: "https://player.vimeo.com/video/929334312?badge=0&autopause=0&player_id=0&app_id=58479"
@@ -62,33 +57,17 @@ const Header: React.FC = () => {
 
   return (
     <div className="bg-gray-100 border-b border-gray-300">
-      <div className="max-w-[90rem] mx-auto flex flex-col lg:flex-row font-dm-sans items-center w-full text-gray-900  gap-1 text-xs p-1 lg:p-2">
-        {/* Left Section */}
-        <section className="flex w-full justify-center items-center gap-1 lg:gap-3">
-          <p className="hidden xl:block font-semibold">Tutorial Videos</p>
-          {buttons.slice(0, 2).map(({ label, key }) => (
-            <button
-              key={key}
-              onClick={() => toggleIframe(key)}
-              className="py-1 lg:py-2 w-full lg:w-32 font-light md:font-medium rounded-md border border-gray-600 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
-            >
-              {label}
-            </button>
-          ))}
-        </section>
-        {/* Right Section */}
-        <section className="flex w-full justify-center items-center gap-1 lg:gap-3">
-          {buttons.slice(2).map(({ label, key }) => (
-            <button
-              key={key}
-              onClick={() => toggleIframe(key)}
-              className="py-1 lg:py-2 w-full lg:w-32 font-light md:font-medium rounded-md border border-gray-600 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
-            >
-              {label}
-            </button>
-          ))}
-          <p className="hidden xl:block font-semibold">Si Her Speak</p>
-        </section>
+      <div className="max-w-[90rem] mx-auto flex font-dm-sans justify-center items-center w-full text-gray-900 gap-2 text-xs p-1 lg:p-2">
+        {buttons.map(({ label, key }) => (
+          <button
+            type="button"
+            key={key}
+            onClick={() => toggleIframe(key)}
+            className="py-1 lg:py-2 w-full lg:w-32 font-light md:font-medium rounded-md border border-gray-600 hover:bg-gray-100 focus:outline-none hover:shadow-md whitespace-nowrap"
+          >
+            {label}
+          </button>
+        ))}
       </div>
       {/* Modal for Iframe */}
       {visibleIframe && (
@@ -107,7 +86,7 @@ const Header: React.FC = () => {
             )}
             {loading && (
               <div className="flex justify-center items-center h-96">
-                <div className="w-16 h-16 rounded-full border-t-4 border-blue-500 animate-spin"></div>
+                <div className="w-16 h-16 rounded-full border-t-4 border-blue-500 animate-spin" />
               </div>
             )}
             <iframe
@@ -116,7 +95,7 @@ const Header: React.FC = () => {
               title={visibleIframe}
               className={`w-full h-96 border border-gray-300 ${loading ? "hidden" : "block"}`}
               onLoad={handleIframeLoad}
-            ></iframe>
+            />
           </div>
         </div>
       )}

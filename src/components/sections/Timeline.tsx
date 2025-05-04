@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import Heading from "../ui/Heading";
 
 const TimeLine = () => {
@@ -9,16 +9,21 @@ const TimeLine = () => {
   if (data.length === 0) return null;
 
   return (
-    <div className="p-4">
+    <div className="p-4 py-10">
       <section className="max-w-[90rem] mx-auto">
         <div className="flex justify-between items-center">
           <Heading label="TIMELINE" />
-          <Image src={"/images/runes.png"} alt="" width={70} height={70} />
+          <Image
+            src={"https://res.cloudinary.com/dq033xs8n/image/upload/v1744345810/runes_oieejv.png"}
+            alt=""
+            width={70}
+            height={70}
+          />
         </div>
         {data.map((item, index) => (
           <div
             key={item.title}
-            className={`w-full py-4 flex font-bold justify-between items-start tracking-wide ${
+            className={`w-full py-4 flex font-bold justify-between items-center tracking-wide ${
               index !== data.length - 1 ? "border-b border-gray-300" : ""
             }`}
           >
@@ -26,7 +31,7 @@ const TimeLine = () => {
               {item.from}
               {item.to ? ` - ${item.to}` : ""}
             </p>
-            <span className="w-72 md:w-full uppercase text-xl md:text-2xl leading-6 font-clash-display font-medium">
+            <span className="w-72 md:w-full uppercase text-xl md:text-2xl leading-6 font-sora font-medium">
               {item.title}
             </span>
           </div>

@@ -5,7 +5,7 @@ import { FaRegEdit } from "react-icons/fa";
 import DrawerHeader from "./DrawerHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { useState, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import { toast } from "react-hot-toast";

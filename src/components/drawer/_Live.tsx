@@ -4,7 +4,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import DrawerHeader from "./DrawerHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { ChangeEvent } from "react";
 import { inputStyles } from "@/utils/customStyles";
 import Image from "next/image";

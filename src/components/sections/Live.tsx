@@ -1,31 +1,21 @@
 "use client";
-import liveLogo from "@/assets/images/courage.png";
 import Cards from "./LiveCards";
 import Image from "next/image";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
-import { LiveTypes } from "@/utils/types";
+import type { LiveTypes } from "@/utils/types";
 
 const Live = () => {
   const data: LiveTypes = useSelector((state: RootState) => state.content.live);
-  const name = useSelector((state: RootState) => state.content.landing.name);
+  const name = useSelector((state: RootState) => state.content.landing.fullName.trim().split(" ")[0]);
 
   return (
-    <div className="bg-primary p-4">
+    <div className="bg-primary p-4 py-10">
       <div className="max-w-[90rem] mx-auto space-y-3">
-        {/* Logo and title */}
-        <section className="relative w-full">
-          <Image src={liveLogo} alt="live-logo" width={60} className="absolute top-0 left-0" />
-          <div className="flex flex-col items-center justify-center gap-4">
-            <span className="font-clash-display font-semibold text-xl leading-4">Si Her TV</span>
-            <span className="font-dm-sans text-lg font-medium">Powered By</span>
-            <Image src={"/images/huddle.png"} width={130} height={30} alt="" />
-          </div>
-        </section>
         {/* Live video */}
         <div className="relative bg-white rounded-2xl md:p-4">
           <Image
-            src={"/images/border.png"}
+            src={"https://res.cloudinary.com/dq033xs8n/image/upload/v1744345807/border_cawmkx.png"}
             alt=""
             width={500}
             height={500}

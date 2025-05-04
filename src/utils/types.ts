@@ -15,7 +15,6 @@ export interface LandingTypes {
   communityAffiliations: string[];
   superPowers: string[];
   image: string;
-  name: string;
   fullName: string;
   pronoun: string;
 }

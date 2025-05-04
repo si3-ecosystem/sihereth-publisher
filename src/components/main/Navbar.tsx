@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GrHomeRounded } from "react-icons/gr";
 import Link from "next/link";
 import { RiLoaderFill } from "react-icons/ri";
 import { IoIosLogOut } from "react-icons/io";
-import { FaDesktop, FaTabletAlt, FaMobileAlt, FaPlay } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
@@ -18,40 +18,9 @@ interface NavbarProps {
 }
 
 const Navbar = ({ viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const dispatch = useDispatch();
-
-  const updateViewMode = () => {
-    const width = window.innerWidth;
-    setIsSmallScreen(width <= 768);
-    if (width <= 768) {
-      setViewMode("mobile");
-      setDrawerWidth("100%");
-    } else if (width <= 1024) {
-      setViewMode("tablet");
-      setDrawerWidth("70%");
-    } else {
-      setViewMode("desktop");
-      setDrawerWidth("25%");
-    }
-  };
-
-  const debounce = (fn: () => void, delay: number) => {
-    let timer: NodeJS.Timeout;
-    return () => {
-      clearTimeout(timer);
-      timer = setTimeout(fn, delay);
-    };
-  };
-
-  useEffect(() => {
-    const handleResize = debounce(updateViewMode, 200);
-    updateViewMode();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const handlePublish = async () => {
     try {
@@ -75,29 +44,6 @@ const Navbar = ({ viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
           <GrHomeRounded className="size-5" />
           <p className="font-semibold mt-1">Si Her Publisher</p>
         </div>
-        {/* View Mode */}
-        {!isSmallScreen && (
-          <div className="hidden sm:flex flex-1 justify-center items-center gap-2">
-            <FaDesktop
-              onClick={() => {
-                setViewMode("desktop");
-              }}
-              className={`size-5 cursor-pointer transition-colors ${viewMode === "desktop" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
-            />
-            <FaTabletAlt
-              onClick={() => {
-                setViewMode("tablet");
-              }}
-              className={`size-5 cursor-pointer transition-colors ${viewMode === "tablet" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
-            />
-            <FaMobileAlt
-              onClick={() => {
-                setViewMode("mobile");
-              }}
-              className={`size-5 cursor-pointer transition-colors ${viewMode === "mobile" ? "text-purple-600" : "text-gray-600 hover:text-black"}`}
-            />
-          </div>
-        )}
         {/* Right Section */}
         <div className="flex gap-2 sm:gap-4 items-center">
           {/* Preview Button */}
@@ -110,14 +56,17 @@ const Navbar = ({ viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
           </Link>
           {/* Publish Button */}
           <button
+            type="button"
             onClick={handlePublish}
             className="flex gap-2 items-center px-4 h-8 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md"
           >
-            <div className="bg-emerald-400 size-2 rounded-full"></div>Publish
+            <div className="bg-emerald-400 size-2 rounded-full" />
+            Publish
             {loading && <RiLoaderFill className="animate-spin size-5" />}
           </button>
           {/* Logout Button */}
           <button
+            type="button"
             onClick={() => {
               dispatch(logout());
               router.replace("/login");

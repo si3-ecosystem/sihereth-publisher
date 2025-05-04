@@ -16,6 +16,20 @@ export const countries = [
   { value: "Southern Africa", label: "Southern Africa" }
 ];
 
+export const pronouns = [
+  "he/him",
+  "she/her",
+  "they/them",
+  "he/they",
+  "she/they",
+  "they/she",
+  "they/he",
+  "ze/hir",
+  "xe/xem",
+  "ey/em",
+  "it/its"
+];
+
 export const languagesByRegion = {
   Africa: ["Afrikaans", "Amharic", "Arabic", "Hausa", "Igbo", "Somali", "Swahili", "Xhosa", "Yoruba", "Zulu"],
   Asia: [

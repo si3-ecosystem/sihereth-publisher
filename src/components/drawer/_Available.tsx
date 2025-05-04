@@ -3,7 +3,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import DrawerHeader from "./DrawerHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
 import { useState, useEffect, useCallback } from "react";
 import { debounce } from "lodash";
