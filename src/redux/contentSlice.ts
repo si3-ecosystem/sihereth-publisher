@@ -95,15 +95,15 @@ const initialState: ContentState = {
   },
   socialChannels: [
     {
-      text: "linkedin",
+      icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343758/LinkedIn_w2mz9f.svg",
       url: "https://www.linkedin.com"
     },
     {
-      text: "instagram",
+      icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343757/Instagram_lyhjoi.svg",
       url: "https://www.instagram.com"
     },
     {
-      text: "twitter",
+      icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746344739/Twitter_geucw3.svg",
       url: "https://twitter.com"
     }
   ],

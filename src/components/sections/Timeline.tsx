@@ -6,7 +6,11 @@ import Heading from "../ui/Heading";
 
 const TimeLine = () => {
   const data = useSelector((state: RootState) => state.content.timeline ?? []);
-  if (data.length === 0) return null;
+  // Filter out entries where all fields are empty (adjust as needed)
+  const filteredData = data.filter(
+    (item) => item.title.trim() !== "" || item.from.trim() !== "" || item.to.trim() !== ""
+  );
+  if (filteredData.length === 0) return null;
 
   return (
     <div className="p-4 py-10">
@@ -20,11 +24,11 @@ const TimeLine = () => {
             height={70}
           />
         </div>
-        {data.map((item, index) => (
+        {filteredData.map((item, index) => (
           <div
             key={item.title}
             className={`w-full py-4 flex font-bold justify-between items-center tracking-wide ${
-              index !== data.length - 1 ? "border-b border-gray-300" : ""
+              index !== filteredData.length - 1 ? "border-b border-gray-300" : ""
             }`}
           >
             <p className="font-dm-sans w-44 text-lg md:text-xl font-semibold whitespace-nowrap text-[#3E21F3] flex items-center uppercase">

@@ -58,12 +58,21 @@ const InfoRow = ({ title, value }: { title: string; value: React.ReactNode }) =>
 
 const ProfileCard = ({ image, fullName, pronoun }: { image: string; fullName: string; pronoun: string }) => {
   return (
-    <section className="relative bg-red-400 aspect-[3/4]">
-      {image && <Image className="rounded-2xl" fill src={image} alt="profile" objectFit="cover" priority />}
-      {/* <div className="rounded-2xl -bottom-0 -right-4 md:-bottom-8 md:-right-8 xl:-bottom-10 xl:-right-10 border border-light-purple py-3 px-4 flex flex-col justify-center items-center gap-2 bg-primary absolute shadow-md">
-        <span className="font-medium text-lg whitespace-nowrap">{fullName}</span>
-        <span className="font-dm-sans tracking-wider">{pronoun ? `(${pronoun.toUpperCase()})` : ""}</span>
-      </div> */}
+    <section className="relative aspect-[3/4] w-full max-w-[10rem] sm:max-w-xs md:max-w-sm rounded-2xl flex-shrink-0">
+      {image && (
+        <Image
+          className="rounded-2xl object-cover"
+          fill
+          src={image}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          alt=""
+          priority
+        />
+      )}
+      <div className="rounded-2xl absolute right-0 lg:-right-2 -bottom-4 xl:-right-4 border border-light-purple p-4 flex flex-col justify-center items-center gap-1 md:gap-2 bg-primary shadow-md font-dmsans">
+        <span className="font-medium text-base md:text-lg whitespace-nowrap">{fullName}</span>
+        <span className="tracking-wider text-xs md:text-sm">{pronoun ? `(${pronoun.toLowerCase()})` : ""}</span>
+      </div>
     </section>
   );
 };
@@ -79,8 +88,7 @@ const Landing = () => {
     image = "",
     pronoun = "",
     title = "",
-    fullName = "",
-    headline = ""
+    fullName = ""
   } = useMemo(() => landingData, [landingData]);
 
   const displayName = fullName || "";

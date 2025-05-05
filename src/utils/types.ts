@@ -1,4 +1,4 @@
-import { StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 
 export interface LinkTypes {
   type: string;
@@ -41,7 +41,7 @@ export interface TimelineTypes {
 }
 
 export interface SocialChannelTypes {
-  text: string;
+  icon: string;
   url: string;
 }
 

@@ -15,11 +15,12 @@ const Available = () => {
         <section className="flex flex-col justify-center items-center order-1 lg:order-2 space-y-6 lg:space-y-10 xxl:space-y-12 w-full">
           <Heading label="AVAILABLE FOR" />
           <div className="flex flex-col gap-4 justify-center items-center">
-            {availableFor.length > 0 &&
-              availableFor.map((item) => (
+            {availableFor
+              .filter((item) => item.trim() !== "")
+              .map((item) => (
                 <div
                   key={item}
-                  className="transform transition-all text-[1.4rem] h-8 duration-300 hover:text-[#3E21F3] hover:text-[1.7rem] hover:font-semibold uppercase hover:tracking-wider flex justify-center items-center cursor-default"
+                  className="fade-in-up transform transition-all text-[1.4rem] h-8 duration-300 hover:text-[#3E21F3] hover:text-[1.7rem] hover:font-semibold uppercase hover:tracking-wider flex justify-center items-center cursor-default"
                 >
                   {item}
                 </div>

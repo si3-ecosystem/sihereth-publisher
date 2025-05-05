@@ -28,7 +28,7 @@
 
 @font-face {
   font-family: "FiraMono";
-  src: url(".https://res.cloudinary.com/dq033xs8n/raw/upload/v1746245777/FiraMono-Bold_vz3m8l.ttf") format("truetype");
+  src: url("https://res.cloudinary.com/dq033xs8n/raw/upload/v1746245777/FiraMono-Bold_vz3m8l.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -105,4 +105,18 @@ body::-webkit-scrollbar {
 }
 .font-firamono {
   font-family: "FiraMono", monospace, "Courier New", Courier;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in-up {
+  animation: fadeInUp 0.4s ease;
 }

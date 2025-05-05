@@ -5,7 +5,7 @@ import Image from "next/image";
 
 interface User {
   _id: number;
-  name?: string;
+  fullName?: string;
   image?: string;
   domain?: string;
   firstName?: string;
@@ -20,9 +20,11 @@ const People = () => {
     const fetchData = async () => {
       try {
         const response = await apiClient.get("/users");
+
+        console.log("sssss", response);
         const formattedUsers = response.data.map((user: User) => ({
           _id: user._id,
-          name: user.name ?? (`${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() || "No Name"),
+          fullName: user.fullName,
           image: user.image ?? "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png",
           domain: user.domain ?? ""
         }));
@@ -53,27 +55,40 @@ const People = () => {
     return () => cancelAnimationFrame(animationFrame);
   }, [users]);
 
+  if (users.length === 0) return null;
+
   return (
-    <div className="overflow-hidden bg-gray-800 py-3 px-4 flex items-center">
-      <div className="flex items-center gap-4" ref={scrollerRef} style={{ whiteSpace: "nowrap" }}>
-        {users.length > 0 &&
-          [...users, ...users].map((user, index) => (
-            <div key={`${user._id}-${index}`} className="flex items-center">
-              <div className="text-center flex w-max items-center px-3 text-white tracking-wider uppercase">
+    <div className="overflow-hidden bg-gray-900 py-3 px-4 flex items-center">
+      <div className="flex items-center font-sora gap-4" ref={scrollerRef} style={{ whiteSpace: "nowrap" }}>
+        {[...users, ...users].map((user, index) => (
+          <div key={`${user._id}-${index}`} className="flex items-center">
+            <div className="text-center flex w-max items-center px-3 text-white tracking-wider uppercase">
+              <div className="size-12 relative">
                 <Image
                   src={
                     user.image ?? "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png"
                   }
+                  fill
                   alt=""
-                  width={30}
-                  height={30}
+                  objectFit="cover"
                   className="rounded-full"
                 />
-                <span className="ml-2 mr-4">{user.name}</span>
               </div>
-              <div className="bg-white size-3 rounded-full mx-4"></div>
+              <div className="mx-4 text-left text-sm">
+                <p>{user.fullName ?? ""}</p>
+                <a
+                  href={`https://${user.domain}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="lowercase hover:underline underline-offset-2"
+                >
+                  {user.domain ?? ""}
+                </a>
+              </div>
             </div>
-          ))}
+            <div className="bg-white size-2 rounded-full mx-4" />
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -3,11 +3,13 @@ import { IoIosAddCircle } from "react-icons/io";
 import { FaCirclePlus } from "react-icons/fa6";
 import DrawerHeader from "./DrawerHeader";
 import { useDispatch, useSelector } from "react-redux";
-import { updateContent } from "@/redux/contentSlice";
+import { updateContent, updateArrayItem, addArrayItem, removeArrayItem } from "@/redux/contentSlice";
 import type { RootState } from "@/redux/store";
-import { ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
 import { inputStyles } from "@/utils/customStyles";
 import Image from "next/image";
+
+const MAX_DETAILS = 6;
 
 const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
@@ -26,23 +28,52 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     dispatch(updateContent({ section: "live", data: { video: e.target.value } }));
   };
 
-  // Handle details update
+  // Remove image
+  const removeImage = () => {
+    dispatch(updateContent({ section: "live", data: { image: "" } }));
+  };
+
+  // Handle details update - using updateArrayItem reducer
   const handleDetailChange = (index: number, field: string, value: string) => {
-    const updatedDetails = [...live.details];
-    updatedDetails[index] = { ...updatedDetails[index], [field]: value };
-    dispatch(updateContent({ section: "live", data: { details: updatedDetails } }));
+    const currentDetail = live.details[index];
+    const updatedDetail = { ...currentDetail, [field]: value };
+
+    dispatch(
+      updateArrayItem({
+        section: "live",
+        fieldName: "details",
+        index,
+        value: updatedDetail
+      })
+    );
   };
 
-  // Add new detail
+  // Add new detail - using addArrayItem reducer
   const addDetail = () => {
+    if (live.details.length >= MAX_DETAILS) {
+      alert(`You can add a maximum of ${MAX_DETAILS} details`);
+      return;
+    }
+
     const newDetail = { title: "", heading: "", body: "" };
-    dispatch(updateContent({ section: "live", data: { details: [...live.details, newDetail] } }));
+    dispatch(
+      addArrayItem({
+        section: "live",
+        fieldName: "details",
+        value: newDetail
+      })
+    );
   };
 
-  // Remove detail
+  // Remove detail - using removeArrayItem reducer
   const removeDetail = (index: number) => {
-    const updatedDetails = live.details.filter((_, i) => i !== index);
-    dispatch(updateContent({ section: "live", data: { details: updatedDetails } }));
+    dispatch(
+      removeArrayItem({
+        section: "live",
+        fieldName: "details",
+        index
+      })
+    );
   };
 
   return (
@@ -51,22 +82,38 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       <div className="w-full font-dm-sans font-medium text-xs mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
         {/* Image */}
         <section className="p-4 xl:p-6">
-          <label htmlFor="image">Image</label>
+          <label htmlFor="live-image" className="block mb-2">
+            Image
+          </label>
           {live.image ? (
             <div className="relative w-40 h-40 mt-3">
-              <Image src={live.image} alt="Live" width={80} height={80} className="w-full h-full object-cover rounded-lg" />
+              <Image
+                src={live.image}
+                alt="Live Section Preview"
+                width={80}
+                height={80}
+                className="w-full h-full object-cover rounded-lg"
+              />
               <button
+                type="button"
+                aria-label="Remove image"
                 className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
-                onClick={() => dispatch(updateContent({ section: "live", data: { image: "" } }))}
+                onClick={removeImage}
               >
                 <RiDeleteBinLine />
               </button>
             </div>
           ) : (
             <div className="flex flex-col items-center">
-              <input type="file" id="image" className="hidden" onChange={handleImageChange} />
+              <input
+                type="file"
+                id="live-image"
+                className="hidden"
+                onChange={handleImageChange}
+                accept=".jpg,.jpeg,.png"
+              />
               <label
-                htmlFor="image"
+                htmlFor="live-image"
                 className="flex justify-center items-center pt-5 pb-6 border border-dashed border-gray-300 rounded-lg cursor-pointer h-24 mt-3 w-full hover:bg-[#fceed966] hover:border-[#F6D4A0]"
               >
                 <IoIosAddCircle className="text-gray-500" />
@@ -79,73 +126,111 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
 
         {/* Video */}
         <section className="p-4 xl:p-6">
-          <label htmlFor="video">Video</label>
+          <label htmlFor="live-video" className="block mb-2">
+            Video
+          </label>
           <input
             type="text"
-            id="video"
-            value={live.video}
+            id="live-video"
+            value={live.video ?? ""}
             onChange={handleVideoChange}
             placeholder="Enter Video URL or Upload"
             className={inputStyles}
           />
-          {live.video && (
-            <video controls className="mt-3 w-full">
-              <source src={live.video} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          )}
         </section>
 
         {/* Details */}
         <section className="p-4 xl:p-6">
-          <label>Details</label>
-          {live.details.map((detail, index) => (
-            <div key={index} className="border p-3 rounded-md mt-3">
-              <label htmlFor={`title-${index}`}>Title</label>
-              <input
-                type="text"
-                id={`title-${index}`}
-                value={detail.title}
-                placeholder="Title"
-                onChange={(e) => handleDetailChange(index, "title", e.target.value)}
-                className={inputStyles}
-              />
+          <div className="flex justify-between items-center mb-3">
+            <p className="block">
+              Details ({live.details.length}/{MAX_DETAILS})
+            </p>
+          </div>
 
-              <label htmlFor={`heading-${index}`} className="mt-2 block">
-                Heading
-              </label>
-              <input
-                type="text"
-                id={`heading-${index}`}
-                value={detail.heading}
-                placeholder="Heading"
-                onChange={(e) => handleDetailChange(index, "heading", e.target.value)}
-                className={inputStyles}
-              />
+          {live.details.map((detail, index) => {
+            const isMin = live.details.length <= 3;
+            return (
+              <div key={detail.title} className="border p-4 rounded-md mt-4 bg-white shadow-sm">
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    className={`text-red-500 hover:text-red-700 ${isMin ? "opacity-50 pointer-events-none" : ""}`}
+                    onClick={() => {
+                      if (!isMin) removeDetail(index);
+                    }}
+                    aria-label={`Remove detail ${index + 1}`}
+                    title={isMin ? "At least 3 details required" : "Remove"}
+                  >
+                    <RiDeleteBinLine className="size-4" />
+                  </button>
+                </div>
 
-              <label htmlFor={`body-${index}`} className="mt-2 block">
-                Body
-              </label>
-              <textarea
-                id={`body-${index}`}
-                value={detail.body}
-                placeholder="Body"
-                onChange={(e) => handleDetailChange(index, "body", e.target.value)}
-                className={inputStyles}
-              />
+                <label htmlFor={`title-${index}`} className="block mt-2 mb-1">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  id={`title-${index}`}
+                  value={detail.title}
+                  placeholder="E.g., website, youtube, podcast"
+                  onChange={(e) => handleDetailChange(index, "title", e.target.value)}
+                  className={inputStyles}
+                />
 
+                <label htmlFor={`heading-${index}`} className="block mt-3 mb-1">
+                  Heading
+                </label>
+                <input
+                  type="text"
+                  id={`heading-${index}`}
+                  value={detail.heading}
+                  placeholder="Detail heading or main title"
+                  onChange={(e) => handleDetailChange(index, "heading", e.target.value)}
+                  className={inputStyles}
+                />
+
+                <label htmlFor={`body-${index}`} className="block mt-3 mb-1">
+                  Body
+                </label>
+                <textarea
+                  id={`body-${index}`}
+                  value={detail.body}
+                  placeholder="Add description text"
+                  onChange={(e) => handleDetailChange(index, "body", e.target.value)}
+                  className={`${inputStyles} resize-y`}
+                  rows={3}
+                />
+              </div>
+            );
+          })}
+
+          {live.details.length < MAX_DETAILS && (
+            <div className="mt-6">
               <button
-                className="text-red-500 text-lg mt-2"
-                onClick={() => removeDetail(index)}
+                type="button"
+                className="flex gap-2 items-center text-[#a020f0] hover:text-purple-700"
+                onClick={addDetail}
+                aria-label="Add detail"
               >
-                <RiDeleteBinLine className="inline-block mr-1 size-4" />
+                <FaCirclePlus className="size-3" />
+                <span className="text-xs">Add Detail</span>
               </button>
             </div>
-          ))}
-          <div className="flex gap-2 items-center mt-6 cursor-pointer" onClick={addDetail}>
-            <FaCirclePlus className="text-[#a020f0] ml-1 size-3" />
-            <p className="text-gray-600 text-xs">Add Detail</p>
-          </div>
+          )}
+
+          {live.details.length === 0 && (
+            <div className="flex flex-col items-center justify-center border border-dashed p-6 rounded-lg mt-2">
+              <p className="text-gray-400">No details added yet</p>
+              <button
+                type="button"
+                className="flex gap-2 items-center mt-2 text-[#a020f0] hover:text-purple-700"
+                onClick={addDetail}
+              >
+                <FaCirclePlus className="size-3" />
+                <span className="text-xs">Add your first detail</span>
+              </button>
+            </div>
+          )}
         </section>
       </div>
     </>

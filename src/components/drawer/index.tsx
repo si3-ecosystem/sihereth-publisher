@@ -5,6 +5,7 @@ import TimeLine from "./_Timeline";
 import Orgs from "./_Orgs";
 import Available from "./_Available";
 import Live from "./_Live";
+import Footer from "./_Footer";
 
 const DynamicComponent = ({ toggleDrawer, editPage }: { toggleDrawer: () => void; editPage: string }) => {
   const renderComponent = () => {
@@ -23,6 +24,8 @@ const DynamicComponent = ({ toggleDrawer, editPage }: { toggleDrawer: () => void
         return <Available toggleDrawer={toggleDrawer} />;
       case "live":
         return <Live toggleDrawer={toggleDrawer} />;
+      case "footer":
+        return <Footer toggleDrawer={toggleDrawer} />;
       default:
         return null;
     }

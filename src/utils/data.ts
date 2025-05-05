@@ -87,3 +87,31 @@ export const languagesByRegion = {
   Americas: ["English", "French", "Haitian Creole", "Portuguese", "Quechua", "Spanish"],
   Oceania: ["Hawaiian", "Maori", "Samoan"]
 };
+
+export const socialChannels = [
+  { name: "Discord", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343760/Discord_hlnmmd.svg" },
+  { name: "Facebook", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343757/Facebook_bsmqay.svg" },
+  { name: "Instagram", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343757/Instagram_lyhjoi.svg" },
+  { name: "Github", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343754/Github_wxifxz.svg" },
+  { name: "Pinterest", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343761/Pinterest_qpfrrs.svg" },
+  { name: "Reddit", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343758/Reddit_lmbcuz.svg" },
+  { name: "Youtube", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343755/Youtube_k38ejq.svg" },
+  { name: "Medium", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343754/Medium_hsb5fk.svg" },
+  { name: "LinkedIn", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343758/LinkedIn_w2mz9f.svg" },
+  { name: "Snapchat", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746344586/Snapchat_qkbtvt.svg" },
+  { name: "Telegram", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343759/Telegram_qrg2q9.svg" },
+  { name: "Twitter", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746344739/Twitter_geucw3.svg" },
+  { name: "Steemit", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343760/Steemit_c5kvba.svg" },
+  { name: "Mastodon", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343761/Mastodon_hg0wmz.svg" },
+  {
+    name: "Lens Protocol",
+    icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343762/LensProtocol_ylzl8g.svg"
+  },
+  { name: "Bluesky", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343754/Bluesky_jg6dnl.svg" },
+  { name: "DeSo", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343756/Deso_l7dh8d.svg" },
+  { name: "Mirror", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343756/Mirror_od2pib.svg" },
+  { name: "Substack", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343756/Substack_evu1cc.svg" },
+  { name: "Farcaster", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343760/Farcaster_xeerbw.svg" },
+  { name: "Audius", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343754/Audius_ysfcat.svg" },
+  { name: "Tiktok", icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343757/Tiktok_jzqedh.svg" }
+];

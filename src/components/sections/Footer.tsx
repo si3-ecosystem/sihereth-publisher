@@ -1,17 +1,11 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import { FaXTwitter, FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { languagesByRegion } from "@/utils/data";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
-
-const iconMap: Record<string, { icon: React.ElementType; url: string }> = {
-  linkedin: { icon: FaLinkedin, url: "https://www.linkedin.com" },
-  instagram: { icon: FaInstagram, url: "https://www.instagram.com" },
-  twitter: { icon: FaXTwitter, url: "https://twitter.com" }
-};
+import Image from "next/image";
 
 const Footer = () => {
   const socialChannels = useSelector((state: RootState) => state.content.socialChannels);
@@ -57,25 +51,25 @@ const Footer = () => {
         {/* Social & Controls */}
         <section className="flex flex-col md:flex-row justify-between items-center gap-2">
           {/* Social Channels */}
-          <div className="flex justify-between w-full md:justify-start gap-4">
-            {socialChannels.map((channel) => {
-              const key = channel.text.toLowerCase();
-              const IconData = iconMap[key];
-              const Icon = IconData.icon;
-              const url = IconData.url;
-              return (
-                <a
-                  key={channel.text}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#C8BAFD] rounded-xl py-2 px-2 flex items-center justify-center"
-                >
-                  <Icon className="size-5 text-black" />
-                </a>
-              );
-            })}
-          </div>
+          {socialChannels.length > 0 && (
+            <div className="flex justify-between w-full md:justify-start gap-4">
+              {socialChannels.map((channel) => {
+                if (!channel.url || !channel.icon) return null;
+
+                return (
+                  <a
+                    key={channel.url}
+                    href={channel.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#C8BAFD] rounded-xl py-2 px-4 flex items-center justify-center font-semibold text-black hover:bg-[#b0a0f5] transition gap-2"
+                  >
+                    <Image src={channel.icon} alt="" width={20} height={20} />
+                  </a>
+                );
+              })}
+            </div>
+          )}
 
           {/* Controls */}
           <section className="flex items-center justify-between md:justify-end w-full gap-4">

@@ -36,15 +36,13 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     (field: keyof LandingTypes, value: any) => {
       setLocalData((prev) => ({ ...prev, [field]: value }));
 
-      // Small delay before updating Redux to batch potential changes
-      setTimeout(() => {
-        dispatch(
-          updateContent({
-            section: "landing",
-            data: { [field]: value }
-          })
-        );
-      }, 100);
+      // Immediately update Redux (removed setTimeout)
+      dispatch(
+        updateContent({
+          section: "landing",
+          data: { [field]: value }
+        })
+      );
     },
     [dispatch]
   );
@@ -57,14 +55,13 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
 
       setLocalData((prev) => ({ ...prev, [field]: updatedArray }));
 
-      setTimeout(() => {
-        dispatch(
-          updateContent({
-            section: "landing",
-            data: { [field]: updatedArray }
-          })
-        );
-      }, 100);
+      // Immediately update Redux (removed setTimeout)
+      dispatch(
+        updateContent({
+          section: "landing",
+          data: { [field]: updatedArray }
+        })
+      );
     },
     [dispatch, localData]
   );
@@ -188,34 +185,41 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
           { label: "Organization Affiliations", field: "organizationAffiliations", placeholder: "New organization" },
           { label: "Community Affiliations", field: "communityAffiliations", placeholder: "New community" },
           { label: "Super Powers", field: "superPowers", placeholder: "New superpower" }
-        ].map(({ label, field, placeholder }) => (
-          <section key={field} className="px-4 py-2">
-            <label htmlFor={field} className="text-xs">
-              {label}
-            </label>
-            {((localData[field as keyof LandingTypes] as string[]) || []).map((item, index) => (
-              <div className="flex gap-2 items-center w-full" key={`${field}-${index}`}>
-                <input
-                  type="text"
-                  className={inputStyles}
-                  value={item}
-                  onChange={(e) => handleArrayChange(field as keyof LandingTypes, index, e.target.value)}
-                />
-                <RiDeleteBinLine
-                  className="mt-2 size-4 text-red-500 cursor-pointer"
-                  onClick={() => removeFromArray(field as keyof LandingTypes, index)}
-                />
+        ].map(({ label, field, placeholder }) => {
+          const arr = (localData[field as keyof LandingTypes] as string[]) || [];
+          const isMax = arr.length >= 5;
+          return (
+            <section key={field} className="px-4 py-2">
+              <label htmlFor={field} className="text-xs">
+                {label}
+              </label>
+              {arr.map((item, index) => (
+                <div className="flex gap-2 items-center w-full" key={`${field}-${index}`}>
+                  <input
+                    type="text"
+                    className={inputStyles}
+                    value={item}
+                    onChange={(e) => handleArrayChange(field as keyof LandingTypes, index, e.target.value)}
+                  />
+                  <RiDeleteBinLine
+                    className="mt-2 size-4 text-red-500 cursor-pointer"
+                    onClick={() => removeFromArray(field as keyof LandingTypes, index)}
+                  />
+                </div>
+              ))}
+              <div
+                className={`flex gap-1 items-center mt-3 cursor-pointer text-xs w-max ${isMax ? "opacity-50 pointer-events-none" : ""}`}
+                onClick={() => {
+                  if (!isMax) addToArray(field as keyof LandingTypes, placeholder);
+                }}
+              >
+                <FaCirclePlus className="text-[#a020f0] size-3 cursor-pointer" />
+                <p className="text-gray-600">Add {label}</p>
+                {isMax && <span className="text-red-400 ms-2">(Max 5)</span>}
               </div>
-            ))}
-            <div
-              className="flex gap-1 items-center mt-3 cursor-pointer text-xs w-max"
-              onClick={() => addToArray(field as keyof LandingTypes, placeholder)}
-            >
-              <FaCirclePlus className="text-[#a020f0] size-3 cursor-pointer" />
-              <p className="text-gray-600">Add {label}</p>
-            </div>
-          </section>
-        ))}
+            </section>
+          );
+        })}
         {/* Region Selection */}
         <section className="px-4 py-2">
           <label htmlFor="region" className="text-xs">

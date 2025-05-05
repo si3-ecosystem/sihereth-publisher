@@ -92,7 +92,13 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       {/* Text section */}
       <Text />
       {/* Footer section */}
-      <section id="footer" onClick={() => setEditPage("footer")}>
+      <section
+        id="footer"
+        onClick={() => {
+          setEditPage("footer");
+          openDrawer();
+        }}
+      >
         <Footer />
       </section>
     </>

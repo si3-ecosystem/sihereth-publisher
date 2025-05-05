@@ -33,14 +33,14 @@ const Slider = () => {
   if (!data || data.length === 0) return null;
 
   return (
-    <div className="relative overflow-hidden h-12 bg-gray-800 py-3 px-4 lg:py-auto flex items-center mt-10">
+    <div className="relative overflow-hidden h-12 bg-gray-900 py-3 px-4 lg:py-auto flex items-center mt-10">
       <div className="absolute flex items-center" ref={scrollerRef} style={{ display: "flex", whiteSpace: "nowrap" }}>
         {[...data, ...data, ...data, ...data].map((slide, index) => (
           <div key={`${slide}-${index}`} className="flex items-center">
-            <div className="text-center flex items-center px-2 lg:px-4 text-white tracking-wider uppercase text-sm leading-4">
+            <div className="text-center flex items-center px-2 lg:px-4 text-white tracking-wider uppercase text-sm leading-4 mx-1">
               {slide}
             </div>
-            <div className="bg-white size-2 rounded-full mx-4"></div>
+            <div className="bg-white size-2 rounded-full mx-4" />
           </div>
         ))}
       </div>

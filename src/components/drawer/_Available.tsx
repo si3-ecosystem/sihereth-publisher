@@ -2,38 +2,21 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCirclePlus } from "react-icons/fa6";
 import DrawerHeader from "./DrawerHeader";
 import { useDispatch, useSelector } from "react-redux";
-import { updateContent } from "@/redux/contentSlice";
+import { addArrayItem, removeArrayItem, updateArrayItem } from "@/redux/contentSlice";
 import type { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
-import { useState, useEffect, useCallback } from "react";
-import { debounce } from "lodash";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
   const { availableFor } = useSelector((state: RootState) => state.content.available) ?? {};
-  const [localTags, setLocalTags] = useState<string[]>(availableFor ?? []);
   const [inputValues, setInputValues] = useState<string[]>(availableFor ?? []);
 
-  // Debounced Redux update
-  const debouncedUpdate = useCallback(
-    debounce((tags: string[]) => {
-      dispatch(updateContent({ section: "available", data: { availableFor: tags } }));
-    }, 100),
-    [dispatch]
-  );
-
-  // Sync with Redux on mount
+  // Sync local state with Redux on mount or when availableFor changes
   useEffect(() => {
-    setLocalTags(availableFor ?? []);
     setInputValues(availableFor ?? []);
   }, [availableFor]);
-
-  // Update Redux when localTags change
-  useEffect(() => {
-    debouncedUpdate(localTags);
-    return () => debouncedUpdate.cancel();
-  }, [localTags, debouncedUpdate]);
 
   const handleInputChange = (index: number, value: string) => {
     setInputValues((prev) => {
@@ -42,33 +25,52 @@ const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       return newValues;
     });
 
-    // Update localTags only when input is complete (on blur or debounced)
-    debounce(() => {
-      setLocalTags((prev) => {
-        const newTags = [...prev];
-        newTags[index] = value;
-        return newTags;
-      });
-    }, 100)();
-  };
-
-  const handleBlur = () => {
-    setLocalTags(inputValues);
+    // Update Redux in real-time
+    const trimmedValue = value.trim();
+    if (trimmedValue !== availableFor[index]) {
+      dispatch(
+        updateArrayItem({
+          section: "available",
+          fieldName: "availableFor",
+          index,
+          value: trimmedValue || "" // Allow empty strings during typing
+        })
+      );
+    }
   };
 
   const addToArray = () => {
-    if (localTags.length >= 6) {
-      toast.error("You can add a maximum of 6 items.");
+    if (inputValues.length >= 5) {
+      toast.error("You can add a maximum of 5 items.");
       return;
     }
-    setLocalTags((prev) => [...prev, ""]);
+
+    dispatch(
+      addArrayItem({
+        section: "available",
+        fieldName: "availableFor",
+        value: ""
+      })
+    );
     setInputValues((prev) => [...prev, ""]);
+    toast.success("Item added successfully!");
   };
 
   const removeFromArray = (index: number) => {
-    if (localTags.length <= 1) return;
-    setLocalTags((prev) => prev.filter((_, i) => i !== index));
+    if (inputValues.length <= 1) {
+      toast.error("You must have at least one item.");
+      return;
+    }
+
+    dispatch(
+      removeArrayItem({
+        section: "available",
+        fieldName: "availableFor",
+        index
+      })
+    );
     setInputValues((prev) => prev.filter((_, i) => i !== index));
+    toast.success("Item removed successfully!");
   };
 
   return (
@@ -76,27 +78,36 @@ const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       <DrawerHeader label="Available Section" toggleDrawer={toggleDrawer} />
       <div className="w-full font-dm-sans font-medium text-xs mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
         <section className="p-4">
-          <label htmlFor="tags">Available For</label>
+          <label htmlFor="tags" className="block mb-2 text-sm font-medium">
+            Available For
+          </label>
           {inputValues.map((item, index) => (
-            <div className="flex gap-4 items-center w-full" key={`available-${index}`}>
+            <div className="flex gap-4 items-center w-full mb-2" key={index}>
               <input
                 type="text"
                 id={`tag-${index}`}
                 className={inputStyles}
                 value={item}
                 onChange={(e) => handleInputChange(index, e.target.value)}
-                onBlur={handleBlur}
+                placeholder="Enter availability type"
               />
               <RiDeleteBinLine
-                className="mt-2 size-4 text-red-500 cursor-pointer"
+                className="size-4 text-red-500 cursor-pointer hover:text-red-700 transition-colors"
                 onClick={() => removeFromArray(index)}
+                aria-label="Remove item"
               />
             </div>
           ))}
-          <div className="flex gap-2 items-center mt-6 cursor-pointer" onClick={addToArray}>
-            <FaCirclePlus className="text-[#a020f0] ml-1 size-3" />
-            <p className="text-gray-600 text-xs">Add Item</p>
-          </div>
+          {inputValues.length < 5 && (
+            <button
+              className="flex gap-2 items-center mt-6 cursor-pointer hover:text-purple-800 transition-colors"
+              onClick={addToArray}
+              type="button"
+            >
+              <FaCirclePlus className="text-[#a020f0] ml-1 size-3" />
+              <p className="text-gray-600 text-xs">Add Item</p>
+            </button>
+          )}
         </section>
       </div>
     </>
