@@ -25,8 +25,9 @@ export interface ValueTypes {
 }
 
 export interface LiveTypes {
-  image: string | StaticImageData;
-  video: string;
+  image: string;
+  url: string;
+  walletUrl: string;
   details: {
     title: string;
     heading: string;
@@ -48,6 +49,8 @@ export interface SocialChannelTypes {
 export interface AvailableTypes {
   avatar: string;
   availableFor: string[];
+  ctaText: string;
+  ctaUrl: string;
 }
 
 export interface ContentState {

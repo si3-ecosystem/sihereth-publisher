@@ -6,14 +6,19 @@ import Heading from "@/components/ui/Heading";
 import Link from "next/link";
 
 const Available = () => {
-  const { avatar = "", availableFor = [] } = useSelector((state: RootState) => state.content.available);
+  const {
+    avatar = "",
+    availableFor = [],
+    ctaText = "Join SI<3>",
+    ctaUrl = "https://www.si3.space"
+  } = useSelector((state: RootState) => state.content.available);
 
   return (
     <div className="p-4 py-10">
       <div className="p-2 max-w-[90rem] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
         {/* Reverse Order on Mobile: Text First, Image Below */}
         <section className="flex flex-col justify-center items-center order-1 lg:order-2 space-y-6 lg:space-y-10 xxl:space-y-12 w-full">
-          <Heading label="AVAILABLE FOR" />
+          <Heading label="YOUR REPRESENTATION" />
           <div className="flex flex-col gap-4 justify-center items-center">
             {availableFor
               .filter((item) => item.trim() !== "")
@@ -46,12 +51,12 @@ const Available = () => {
             {avatar && <Image src={avatar} alt="" layout="fill" objectFit="cover" className="p-4" />}
           </div>
           <Link
-            href="https://www.si3.space/"
+            href={ctaUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="font-sora tracking-wider rounded-xl text-sm border border-[#3E21F3] bg-primary font-semibold text-[#3E21F3] px-4 py-2 lg:px-6 lg:py-3"
           >
-            Join SI&lt;3&gt;
+            {ctaText}
           </Link>
         </section>
       </div>

@@ -6,9 +6,15 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 
+// Get the encryption key from environment variables
+const encryptionKey = process.env.NEXT_PUBLIC_REDUX_KEY;
+if (!encryptionKey) {
+  throw new Error("NEXT_PUBLIC_REDUX_KEY environment variable is not set");
+}
+
 // Encryption transform configuration
 const encryptor = encryptTransform({
-  secretKey: process.env.NEXT_PUBLIC_REDUX_KEY!,
+  secretKey: encryptionKey,
   onError: (error) => {
     console.error("Encryption error:", error);
     storage.removeItem("persist:root");
@@ -23,13 +29,15 @@ const persistConfig = {
   timeout: 2000
 };
 
+// Create persisted reducers
 const persistedUserReducer = persistReducer(persistConfig, userReducer);
+const persistedContentReducer = persistReducer(persistConfig, contentReducer);
 
 // Configure the store
 const store = configureStore({
   reducer: {
     user: persistedUserReducer,
-    content: contentReducer
+    content: persistedContentReducer
   },
   middleware: (getDefaultMiddleware) => {
     const middlewares = getDefaultMiddleware({

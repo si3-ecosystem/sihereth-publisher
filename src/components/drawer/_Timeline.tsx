@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "@/redux/contentSlice";
 import type { RootState } from "@/redux/store";
 import { TimelineStyles } from "@/utils/customStyles";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { toast } from "react-hot-toast";
 
 // Maximum number of timeline entries allowed
@@ -14,44 +14,62 @@ const MAX_TIMELINE_ENTRIES = 8;
 
 const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
-  const data: TimelineTypes[] = useSelector((state: RootState) => state.content.timeline);
-  const [localData, setLocalData] = useState<TimelineTypes[]>(data);
+  const reduxData = useSelector((state: RootState) => state.content.timeline);
+  const [localData, setLocalData] = useState<TimelineTypes[]>([]);
+  const isInitialMount = useRef(true);
 
+  // Initialize local data from Redux only once on mount
   useEffect(() => {
-    setLocalData(data);
-  }, [data]);
+    if (isInitialMount.current) {
+      setLocalData(reduxData);
+      isInitialMount.current = false;
+    }
+  }, [reduxData]);
+
+  // Debounced function to update Redux
+  const updateRedux = useCallback(
+    (data: TimelineTypes[]) => {
+      dispatch(updateContent({ section: "timeline", data }));
+    },
+    [dispatch]
+  );
 
   const handleInputChange = (index: number, field: keyof TimelineTypes, value: string) => {
-    const updatedValue = value.toUpperCase();
+    // Only convert years to uppercase, not title
+    let updatedValue = value;
 
-    // Validate input for "from" field
-    if (field === "from") {
-      // Allow partial "PRESENT" or up to 4 digits
-      if (!"PRESENT".startsWith(updatedValue) && !/^\d{0,4}$/.test(updatedValue)) {
-        return;
-      }
-      // If user has entered 4 digits, but not a valid year, you can add further checks here if needed
-    }
+    // Apply different validation and formatting based on the field
+    if (field === "from" || field === "to") {
+      // Convert to uppercase and validate for year fields
+      updatedValue = value.toUpperCase();
 
-    // Validate input for "to" field
-    if (field === "to") {
-      if (!/^\d*$/.test(updatedValue)) {
+      // Only allow 4 digits for year fields
+      if (!/^\d{0,4}$/.test(updatedValue)) {
         return;
       }
     }
 
-    // Create a new array to update the Redux store
-    const updatedData = [...localData];
-    updatedData[index] = { ...updatedData[index], [field]: updatedValue };
+    // Update local state immediately
+    setLocalData((prevData) => {
+      const newData = [...prevData];
+      newData[index] = { ...newData[index], [field]: updatedValue };
+      // Update Redux after local state update
+      updateRedux(newData);
+      return newData;
+    });
+  };
 
-    // If "from" is set to "PRESENT", clear the "to" field
-    if (field === "from" && updatedValue === "PRESENT") {
-      updatedData[index].to = "";
-    }
-
-    // Update local state and Redux store
-    setLocalData(updatedData);
-    dispatch(updateContent({ section: "timeline", data: updatedData }));
+  const handleCurrentlyWorking = (index: number, isChecked: boolean) => {
+    setLocalData((prevData) => {
+      const newData = [...prevData];
+      newData[index] = {
+        ...newData[index],
+        to: isChecked ? "PRESENT" : ""
+      };
+      // Update Redux after local state update
+      updateRedux(newData);
+      return newData;
+    });
   };
 
   const addTimelineEntry = () => {
@@ -61,10 +79,12 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     }
 
     const newEntry: TimelineTypes = { title: "", from: "", to: "" };
-    const updatedData = [...localData, newEntry];
-
-    setLocalData(updatedData);
-    dispatch(updateContent({ section: "timeline", data: updatedData }));
+    setLocalData((prevData) => {
+      const newData = [...prevData, newEntry];
+      // Update Redux after local state update
+      updateRedux(newData);
+      return newData;
+    });
     toast.success("New timeline entry added");
   };
 
@@ -74,9 +94,12 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       return;
     }
 
-    const updatedData = localData.filter((_, i) => i !== index);
-    setLocalData(updatedData);
-    dispatch(updateContent({ section: "timeline", data: updatedData }));
+    setLocalData((prevData) => {
+      const newData = prevData.filter((_, i) => i !== index);
+      // Update Redux after local state update
+      updateRedux(newData);
+      return newData;
+    });
     toast.success("Timeline entry removed");
   };
 
@@ -107,7 +130,7 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                     <div className="flex gap-6 mb-4">
                       <section className="flex-1">
                         <label htmlFor={`from-${index}`} className="block mb-1">
-                          From
+                          From Year
                         </label>
                         <input
                           type="text"
@@ -115,26 +138,41 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                           className={TimelineStyles}
                           value={item.from}
                           onChange={(e) => handleInputChange(index, "from", e.target.value)}
-                          placeholder="YYYY or PRESENT"
-                          maxLength={7}
+                          placeholder="YYYY"
+                          maxLength={4}
+                          pattern="\d{4}"
                         />
                       </section>
                       <section className="flex-1">
                         <label htmlFor={`to-${index}`} className="block mb-1">
-                          To
+                          To Year
                         </label>
                         <input
                           type="text"
                           id={`to-${index}`}
-                          className={`${TimelineStyles} ${item.from === "PRESENT" ? "bg-gray-100" : ""}`}
+                          className={`${TimelineStyles} ${item.to === "PRESENT" ? "bg-gray-100" : ""}`}
                           value={item.to}
                           onChange={(e) => handleInputChange(index, "to", e.target.value)}
                           placeholder="YYYY"
-                          disabled={item.from === "PRESENT"}
+                          disabled={item.to === "PRESENT"}
                           maxLength={4}
+                          pattern="\d{4}"
                         />
                       </section>
                     </div>
+
+                    <div className="mb-4">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={item.to === "PRESENT"}
+                          onChange={(e) => handleCurrentlyWorking(index, e.target.checked)}
+                          className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                        />
+                        <span className="text-sm text-gray-600">I currently work here</span>
+                      </label>
+                    </div>
+
                     <section>
                       <label htmlFor={`title-${index}`} className="block mb-1">
                         Title

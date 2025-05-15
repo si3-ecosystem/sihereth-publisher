@@ -6,6 +6,7 @@ import { languagesByRegion } from "@/utils/data";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   const socialChannels = useSelector((state: RootState) => state.content.socialChannels);
@@ -73,13 +74,21 @@ const Footer = () => {
 
           {/* Controls */}
           <section className="flex items-center justify-between md:justify-end w-full gap-4">
+            <Link
+              href="https://www.si3.space/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-sora tracking-wider rounded-xl text-xs font-semibold bg-[#C8BAFD] px-4 py-2 lg:px-6 lg:py-3"
+            >
+              Join SI&gt;3&lt;
+            </Link>
             {/* Language Dropdown */}
             <div className="relative bg-[#C8BAFD] rounded-xl w-fit flex items-center gap-2" ref={dropdownRef}>
               <button
                 type="button"
                 ref={buttonRef}
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="bg-[#C8BAFD] text-[#1E1E1E] px-3 py-3 rounded-xl hover:bg-[#b0a0f5] whitespace-nowrap focus:outline-none"
+                className="bg-[#C8BAFD] tracking-wider px-3 py-3 rounded-xl hover:bg-[#b0a0f5] whitespace-nowrap font-sora font-semibold focus:outline-none"
               >
                 Select Language
               </button>
@@ -145,8 +154,8 @@ const Footer = () => {
         </section>
 
         {/* Footer Text */}
-        <section className="font-dm-sans font-normal leading-6 text-center text-white max-w-md mx-auto">
-          {"@2025, SI<3> is a collaborative Web3 Ecosystem powered by global voices."}
+        <section className="font-sora font-normal leading-4 tracking-wider text-center text-white max-w-md mx-auto">
+          {"@2025 Solar Intelligence, Inc. All rights reserved."}
         </section>
       </div>
     </div>

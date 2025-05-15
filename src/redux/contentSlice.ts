@@ -7,7 +7,7 @@ const initialState: ContentState = {
     title: "SI<3> Founder",
     headline: "& I create equitable platforms for the new economy.",
     hashTags: ["collaboration", "equity", "impact", "decentralization", "education"],
-    region: "Latin America",
+    region: "North America",
     organizationAffiliations: ["Si<3>"],
     communityAffiliations: ["OnChair Dreamers", "Cosmos Cartel", "The Phoenix Guild"],
     superPowers: ["Empathy", "Focus", "Leaps of Faith"],
@@ -28,7 +28,8 @@ const initialState: ContentState = {
   },
   live: {
     image: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345811/live_muepdq.png",
-    video: "https://res.cloudinary.com/dq033xs8n/video/upload/v1744345277/vid_cy6pec.mp4",
+    url: "https://res.cloudinary.com/dq033xs8n/video/upload/v1744345277/vid_cy6pec.mp4",
+    walletUrl: "https://pb.aurpay.net/pb/page/html/paymentbutton.html?token=pb_plugin_link_token_h6hzBGgZzFW1G5eO",
     details: [
       {
         title: "website",
@@ -91,7 +92,9 @@ const initialState: ContentState = {
   ],
   available: {
     avatar: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345808/avatar_zmxvul.png",
-    availableFor: ["collaboration", "advising", "speaking"]
+    availableFor: ["collaboration", "advising", "speaking"],
+    ctaText: "Join SI<3>",
+    ctaUrl: "https://www.si3.space"
   },
   socialChannels: [
     {

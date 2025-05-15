@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
-import Header from "@/components/main/Header";
 import Navbar from "@/components/main/Navbar";
 import Domain from "@/components/main/Domain";
 import DynamicComponent from "@/components/drawer";
@@ -28,14 +27,12 @@ const Home = () => {
 
   return (
     <div className="h-screen text-gray-800">
-      {/* Header */}
-      <Header />
       {/* Navbar */}
       <Navbar viewMode={viewMode} setViewMode={setViewMode} setDrawerWidth={setDrawerWidth} />
       {/* Domain section */}
       <Domain />
       {/* Page View */}
-      <div className={`flex justify-center h-[calc(100vh-9.4rem)] overflow-auto`}>
+      <div className="flex justify-center h-[calc(100vh-6.3rem)] overflow-auto">
         <section className="w-full">
           <EditablePage setEditPage={setEditPage} openDrawer={openDrawer} />
         </section>

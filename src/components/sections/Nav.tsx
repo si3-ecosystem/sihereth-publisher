@@ -22,7 +22,7 @@ const Navbar = () => {
         />
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center leading-4 gap-7">
-          {["Value", "Live", "Timeline", "Connect"].map((item) => (
+          {["Value", "Media", "Timeline", "Connect"].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}

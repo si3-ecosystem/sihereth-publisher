@@ -181,10 +181,10 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
         </section>
         {/* Reusable Array Field Component */}
         {[
-          { label: "Tags", field: "hashTags", placeholder: "New tag" },
+          { label: "Personal Brand Pillars", field: "hashTags", placeholder: "New tag" },
           { label: "Organization Affiliations", field: "organizationAffiliations", placeholder: "New organization" },
           { label: "Community Affiliations", field: "communityAffiliations", placeholder: "New community" },
-          { label: "Super Powers", field: "superPowers", placeholder: "New superpower" }
+          { label: "Superpowers", field: "superPowers", placeholder: "New superpower" }
         ].map(({ label, field, placeholder }) => {
           const arr = (localData[field as keyof LandingTypes] as string[]) || [];
           const isMax = arr.length >= 5;
@@ -210,11 +210,11 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
               <div
                 className={`flex gap-1 items-center mt-3 cursor-pointer text-xs w-max ${isMax ? "opacity-50 pointer-events-none" : ""}`}
                 onClick={() => {
-                  if (!isMax) addToArray(field as keyof LandingTypes, placeholder);
+                  if (!isMax && placeholder) addToArray(field as keyof LandingTypes, placeholder);
                 }}
               >
                 <FaCirclePlus className="text-[#a020f0] size-3 cursor-pointer" />
-                <p className="text-gray-600">Add {label}</p>
+                <p className="text-gray-600">Add New</p>
                 {isMax && <span className="text-red-400 ms-2">(Max 5)</span>}
               </div>
             </section>

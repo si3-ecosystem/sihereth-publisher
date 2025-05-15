@@ -9,13 +9,8 @@ const Text = () => {
           records/domains & IPFS/internet 3.0 content. For a complete web3 experience, we recommend viewing this site
           with a Metamask extension or Brave browser.
         </p>
-
         <p className="uppercase font-medium">
           This site has been built by SI&lt;3&gt; in support of the decentralized and democratized web.
-        </p>
-
-        <p className="uppercase font-medium">
-          Claim your free membership NFT and begin to discover the SI&lt;3&gt; ecosystem.
         </p>
       </div>
     </div>

@@ -6,10 +6,29 @@ import Heading from "../ui/Heading";
 
 const TimeLine = () => {
   const data = useSelector((state: RootState) => state.content.timeline ?? []);
-  // Filter out entries where all fields are empty (adjust as needed)
-  const filteredData = data.filter(
+
+  // Sort data based on 'from' value in descending order (newest first)
+  const sortedData = [...data].sort((a, b) => {
+    // If one has 'from' and the other doesn't, prioritize the one with 'from'
+    if (a.from.trim() && !b.from.trim()) return -1;
+    if (!a.from.trim() && b.from.trim()) return 1;
+
+    // If both have 'from', sort by the value
+    if (a.from.trim() && b.from.trim()) {
+      const dateA = Number.parseInt(a.from.replace(/\D/g, "")) || 0;
+      const dateB = Number.parseInt(b.from.replace(/\D/g, "")) || 0;
+      return dateB - dateA;
+    }
+
+    // If neither has 'from', maintain original order
+    return 0;
+  });
+
+  // Filter out entries where all fields are empty
+  const filteredData = sortedData.filter(
     (item) => item.title.trim() !== "" || item.from.trim() !== "" || item.to.trim() !== ""
   );
+
   if (filteredData.length === 0) return null;
 
   return (
@@ -31,7 +50,7 @@ const TimeLine = () => {
               index !== filteredData.length - 1 ? "border-b border-gray-300" : ""
             }`}
           >
-            <p className="font-dm-sans w-44 text-lg md:text-xl font-semibold whitespace-nowrap text-[#3E21F3] flex items-center uppercase">
+            <p className="font-dm-sans w-56 text-lg md:text-xl font-semibold whitespace-nowrap text-[#3E21F3] flex items-center uppercase">
               {item.from}
               {item.to ? ` - ${item.to}` : ""}
             </p>

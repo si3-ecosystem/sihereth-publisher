@@ -53,7 +53,7 @@ const SliderFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       <DrawerHeader label="Slider Section" toggleDrawer={toggleDrawer} />
       <div className="w-full font-dm-sans font-medium text-xs mb-28 overflow-y-auto max-h-[calc(100vh-5rem)]">
         <section className="p-4 xl:p-6">
-          <label htmlFor="slider">Slider Items</label>
+          <label htmlFor="slider" className="font-semibold">What I Create</label>
           {localData.map((item: string, index: number) => (
             <div key={`slider-${index}`} className="flex gap-4 items-center w-full">
               <input

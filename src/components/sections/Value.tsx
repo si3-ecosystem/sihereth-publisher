@@ -10,12 +10,12 @@ function Value() {
       <div className="max-w-[90rem] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-10">
         {/* Values */}
         <section className="flex flex-col items-center sm:items-start w-full space-y-6">
-          <Heading label="MY JOURNEY" />
+          <Heading label="MY EXPERIENCE SUMMARY" />
           <p className="font-dm-sans font-medium text-xl tracking-wide text-justify">{data.experience}</p>
         </section>
         {/* Experience */}
         <section className="flex flex-col items-center sm:items-start w-full space-y-6">
-          <Heading label="MY VALUE" />
+          <Heading label="MY VISION" />
           <div className="font-medium text-2xl font-sora text-justify">{data.values}</div>
         </section>
       </div>

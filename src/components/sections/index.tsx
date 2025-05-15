@@ -47,7 +47,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       </section>
       {/* Live section */}
       <section
-        id="live"
+        id="media"
         onClick={() => {
           setEditPage("live");
           openDrawer();
