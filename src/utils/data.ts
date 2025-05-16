@@ -17,7 +17,6 @@ export const countries = [
 ];
 
 export const pronouns = [
-  "he/him",
   "she/her",
   "they/them",
   "he/they",
