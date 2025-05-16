@@ -1,6 +1,6 @@
 import type { LiveTypes } from "@/utils/types";
 
-const Cards = ({ title, heading, body }: LiveTypes["details"][0]) => {
+const Cards = ({ title, heading }: LiveTypes["details"][0]) => {
   return (
     <div className="bg-white space-y-3 p-4 w-full rounded-2xl border border-light-purple flex flex-col items-center group text-center shadow-md hover:shadow-lg">
       {/* Title */}
@@ -9,8 +9,6 @@ const Cards = ({ title, heading, body }: LiveTypes["details"][0]) => {
       </div>
       {/* Heading */}
       <span className="font-sora text-xl font-medium">{heading}</span>
-      {/* Body */}
-      <p className="font-dm-sans opacity-0 text-xs group-hover:opacity-100">{body}</p>
     </div>
   );
 };

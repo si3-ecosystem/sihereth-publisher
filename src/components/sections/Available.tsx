@@ -18,7 +18,7 @@ const Available = () => {
       <div className="p-2 max-w-[90rem] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
         {/* Reverse Order on Mobile: Text First, Image Below */}
         <section className="flex flex-col justify-center items-center order-1 lg:order-2 space-y-6 lg:space-y-10 xxl:space-y-12 w-full">
-          <Heading label="YOUR REPRESENTATION" />
+          <Heading label="I'M AVAILABLE FOR" />
           <div className="flex flex-col gap-4 justify-center items-center">
             {availableFor
               .filter((item) => item.trim() !== "")

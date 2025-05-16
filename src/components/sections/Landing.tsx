@@ -122,7 +122,7 @@ const Landing = () => {
           {/* Information */}
           <section className="p-3 space-y-3 md:space-y-4 overflow-hidden bg-gray-100 border border-gray-200 w-full rounded-lg">
             <InfoRow title="Title:" value={title} />
-            <InfoRow title="Based in:" value={region} />
+            <InfoRow title="Presently based in:" value={region} />
             <InfoRow
               title="Organization Affiliations:"
               value={

@@ -5,25 +5,20 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import type { LiveTypes } from "@/utils/types";
-
-// Lazy load the Cards component
 const Cards = lazy(() => import("./LiveCards"));
 
 interface AudioVisualizerProps {
   isPlaying: boolean;
 }
 
-// Separate Audio Visualizer into its own component
 const AudioVisualizer = ({ isPlaying }: AudioVisualizerProps) => {
   const visualizerRef = useRef<HTMLDivElement>(null);
   const bars = useMemo(() => Array(5).fill(0), []);
 
   useEffect(() => {
     if (!isPlaying || !visualizerRef.current) return;
-
     const barElements = visualizerRef.current.childNodes;
     let animationId: number;
-
     const animate = () => {
       for (const bar of barElements) {
         if (bar instanceof HTMLElement) {
@@ -32,9 +27,7 @@ const AudioVisualizer = ({ isPlaying }: AudioVisualizerProps) => {
       }
       animationId = requestAnimationFrame(animate);
     };
-
     animate();
-
     return () => {
       cancelAnimationFrame(animationId);
     };
@@ -65,17 +58,13 @@ interface MediaComponentProps {
   onPlayStateChange: (isPlaying: boolean) => void;
 }
 
-// Media component (Video or Audio)
 const MediaComponent = ({ url, mediaType, onPlayStateChange }: MediaComponentProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-
   if (!url) return null;
-
   if (mediaType === "video") {
     return <video src={url} className="w-full h-full object-cover rounded-2xl" playsInline muted loop autoPlay />;
   }
-
   if (mediaType === "audio") {
     const handlePlay = () => {
       if (audioRef.current) {
@@ -84,7 +73,6 @@ const MediaComponent = ({ url, mediaType, onPlayStateChange }: MediaComponentPro
         onPlayStateChange(true);
       }
     };
-
     return (
       <div className="w-full h-full flex flex-col rounded-2xl bg-gray-100 p-4 relative">
         <audio
@@ -115,31 +103,23 @@ const MediaComponent = ({ url, mediaType, onPlayStateChange }: MediaComponentPro
       </div>
     );
   }
-
   return null;
 };
 
 const Live = () => {
   const data: LiveTypes = useSelector((state: RootState) => state.content.live);
   const name: string = useSelector((state: RootState) => state.content.landing.fullName.trim().split(" ")[0]);
-
   const [mediaType, setMediaType] = useState<"video" | "audio" | null>(null);
   const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-
-  // Filter out any details that are missing required fields
   const validDetails = useMemo(() => {
-    return data?.details?.filter((item) => item?.title?.trim() && item?.heading?.trim() && item?.body?.trim()) || [];
+    return data?.details?.filter((item) => item?.title?.trim() && item?.heading?.trim()) ?? [];
   }, [data?.details]);
-
-  // Check if image or video exists
   const hasImage: boolean = Boolean(data?.image);
   const hasMedia: boolean = Boolean(data?.url);
 
-  // Determine if the URL is for a video or audio
   useEffect(() => {
     if (data?.url) {
-      // Check if the URL ends with common audio extensions
       const isAudio: boolean = /\.(mp3|wav|ogg|aac|flac)$/i.test(data.url);
       setMediaType(isAudio ? "audio" : "video");
     } else {
@@ -150,7 +130,7 @@ const Live = () => {
   return (
     <section className="bg-primary p-4 py-10 sm:py-16" aria-label="Live Section">
       <div className="max-w-[90rem] mx-auto space-y-8">
-        {/* Live content - only show if we have image or media */}
+        {/* Live content */}
         {(hasImage || hasMedia) && (
           <div className="relative bg-white rounded-2xl md:p-4 shadow-sm">
             <Image
@@ -161,7 +141,6 @@ const Live = () => {
               className="absolute top-0 left-0 mx-auto w-full p-4"
               priority
             />
-
             {/* Live image and media container */}
             <div className="md:mt-6 p-4 sm:p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
               {hasImage && hasMedia ? (
@@ -180,7 +159,6 @@ const Live = () => {
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
-
                   {/* Media */}
                   <div className="w-full aspect-video">
                     <MediaComponent url={data.url} mediaType={mediaType} onPlayStateChange={setIsPlaying} />
@@ -201,7 +179,6 @@ const Live = () => {
                   />
                 </div>
               ) : (
-                // Only media exists - use full width
                 <div className="w-full aspect-video col-span-full">
                   <MediaComponent url={data.url} mediaType={mediaType} onPlayStateChange={setIsPlaying} />
                 </div>
@@ -210,7 +187,7 @@ const Live = () => {
           </div>
         )}
 
-        {/* Action Buttons */}
+        {/* Crypto button */}
         <div className="flex justify-center">
           {data.walletUrl && (
             <Link
@@ -225,16 +202,10 @@ const Live = () => {
           )}
         </div>
 
-        {/* Live Cards - only show if we have valid details */}
+        {/* Live Cards */}
         {validDetails.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            <Suspense
-              fallback={
-                <div className="col-span-full flex justify-center py-8">
-                  <div className="w-8 h-8 border-4 border-blue-primary border-t-transparent rounded-full animate-spin" />
-                </div>
-              }
-            >
+            <Suspense>
               {validDetails.map((item, index) => (
                 <div key={`${item.title}-${index}`} className="w-full">
                   <Cards {...item} />

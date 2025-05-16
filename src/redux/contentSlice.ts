@@ -33,18 +33,15 @@ const initialState: ContentState = {
     details: [
       {
         title: "website",
-        heading: "SI<3> and the Si Her Co-Active",
-        body: "A community focused on building the next era of Web3."
+        heading: "SI<3> and the Si Her Co-Active"
       },
       {
         title: "youtube",
-        heading: "Unlocking NFT's For Meta Impact",
-        body: "My participation at NFT NYC in 2023."
+        heading: "Unlocking NFT's For Meta Impact"
       },
       {
         title: "podcast",
-        heading: "Diversity in the New Economy",
-        body: "My participation in W3B Talks where I talk about diversity."
+        heading: "Diversity in the New Economy"
       }
     ]
   },

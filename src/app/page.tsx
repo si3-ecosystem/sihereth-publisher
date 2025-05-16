@@ -32,7 +32,7 @@ const Home = () => {
       {/* Domain section */}
       <Domain />
       {/* Page View */}
-      <div className="flex justify-center h-[calc(100vh-6.3rem)] overflow-auto">
+      <div className="flex justify-center">
         <section className="w-full">
           <EditablePage setEditPage={setEditPage} openDrawer={openDrawer} />
         </section>

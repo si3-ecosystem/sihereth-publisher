@@ -12,14 +12,11 @@ import Image from "next/image";
 
 const MAX_DETAILS = 6;
 
-// Define the LiveDetail interface
 interface LiveDetail {
   title: string;
   heading: string;
-  body: string;
 }
 
-// Define the LiveData interface
 interface LiveData {
   image: string;
   url: string;
@@ -30,8 +27,8 @@ interface LiveData {
 const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
   const reduxLive = useSelector((state: RootState) => state.content.live);
+  const [showVideoPreview, setShowVideoPreview] = useState(false);
 
-  // Local state for form data to prevent focus issues
   const [localLive, setLocalLive] = useState<LiveData>({
     image: reduxLive.image || "",
     url: reduxLive.url || "",
@@ -39,16 +36,11 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     details: reduxLive.details || []
   });
 
-  // State for validation
   const [validation, setValidation] = useState({
     error: "",
     isValid: true
   });
 
-  // State to show video preview
-  const [showVideoPreview, setShowVideoPreview] = useState(false);
-
-  // Initialize local state from Redux when component mounts
   useEffect(() => {
     setLocalLive({
       image: reduxLive.image ?? "",
@@ -58,7 +50,6 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     });
   }, [reduxLive]);
 
-  // Validate that user has at least image or URL
   const validateForm = (): boolean => {
     if (!localLive.image && !localLive.url) {
       setValidation({
@@ -67,7 +58,6 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       });
       return false;
     }
-
     setValidation({
       error: "",
       isValid: true
@@ -75,33 +65,24 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     return true;
   };
 
-  // Handle file upload for image
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      const file = URL.createObjectURL(e.target.files[0]); // Temporary preview
+      const file = URL.createObjectURL(e.target.files[0]);
       setLocalLive((prev) => ({ ...prev, image: file }));
-
-      // Update Redux immediately
       dispatch(updateContent({ section: "live", data: { image: file } }));
     }
   };
 
-  // Handle video URL input
   const handleVideoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newUrl = e.target.value;
     setLocalLive((prev) => ({ ...prev, url: newUrl }));
-
-    // Update Redux immediately if validation passes
     if (validateForm()) {
       dispatch(updateContent({ section: "live", data: { url: newUrl } }));
     }
   };
 
-  // Remove image
   const removeImage = () => {
     setLocalLive((prev) => ({ ...prev, image: "" }));
-
-    // Only remove from Redux if URL exists (to maintain at least one media)
     if (localLive.url) {
       dispatch(updateContent({ section: "live", data: { image: "" } }));
     } else {
@@ -112,20 +93,16 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     }
   };
 
-  // Handle details update - using local state and Redux
   const handleDetailChange = (index: number, field: string, value: string) => {
     const updatedDetails = [...localLive.details];
     updatedDetails[index] = {
       ...updatedDetails[index],
       [field]: value
     };
-
     setLocalLive((prev) => ({
       ...prev,
       details: updatedDetails
     }));
-
-    // Update Redux immediately
     dispatch(
       updateArrayItem({
         section: "live",
@@ -136,22 +113,16 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     );
   };
 
-  // Add new detail
   const addDetail = () => {
     if (localLive.details.length >= MAX_DETAILS) {
       alert(`You can add a maximum of ${MAX_DETAILS} details`);
       return;
     }
-
-    const newDetail = { title: "", heading: "", body: "" };
-
-    // Update local state
+    const newDetail = { title: "", heading: "" };
     setLocalLive((prev) => ({
       ...prev,
       details: [...prev.details, newDetail]
     }));
-
-    // Update Redux immediately
     dispatch(
       addArrayItem({
         section: "live",
@@ -161,18 +132,13 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     );
   };
 
-  // Remove detail
   const removeDetail = (index: number) => {
-    // Update local state
     const updatedDetails = [...localLive.details];
     updatedDetails.splice(index, 1);
-
     setLocalLive((prev) => ({
       ...prev,
       details: updatedDetails
     }));
-
-    // Update Redux immediately
     dispatch(
       removeArrayItem({
         section: "live",
@@ -180,11 +146,6 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         index
       })
     );
-  };
-
-  // Toggle video preview
-  const toggleVideoPreview = () => {
-    setShowVideoPreview(!showVideoPreview);
   };
 
   return (
@@ -195,7 +156,6 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         {!validation.isValid && (
           <div className="mx-4 xl:mx-6 mt-4 p-3 bg-red-100 text-red-700 rounded-md">{validation.error}</div>
         )}
-
         {/* Image */}
         <section className="p-4 xl:p-6 bg-white rounded-lg shadow-sm">
           <label htmlFor="live-image" className="block mb-3 font-semibold text-gray-700">
@@ -241,7 +201,6 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
             </div>
           )}
         </section>
-
         {/* Video */}
         <section className="p-4 xl:p-6 bg-white rounded-lg shadow-sm mt-4">
           <label htmlFor="live-video" className="block mb-3 font-semibold text-gray-700">
@@ -281,7 +240,6 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                 </button>
               )}
             </div>
-
             {localLive.url && (
               <div className="mt-4 bg-gray-50 p-4 rounded-lg border border-gray-100">
                 <div className="relative aspect-video w-full max-w-2xl mx-auto">
@@ -294,7 +252,6 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
             )}
           </div>
         </section>
-
         {/* Crypto Wallet URL */}
         <section className="p-4 xl:p-6 bg-white rounded-lg shadow-sm mt-4">
           <label htmlFor="crypto-wallet" className="block mb-3 font-semibold text-gray-700">
@@ -314,7 +271,6 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
             />
           </div>
         </section>
-
         {/* Details */}
         <section className="p-4 xl:p-6">
           <div className="flex justify-between items-center mb-3">
@@ -322,24 +278,16 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
               Supporting Media ({localLive.details.length}/{MAX_DETAILS})
             </p>
           </div>
-
           {localLive.details.map((detail, index) => {
             const isMin = localLive.details.length <= 3;
             return (
-              <div key={`detail-${index}`} className="border p-4 rounded-md mt-4 bg-white shadow-sm">
-                <div className="flex justify-end">
-                  <button
-                    type="button"
-                    className={`text-red-500 hover:text-red-700 ${isMin ? "opacity-50 pointer-events-none" : ""}`}
-                    onClick={() => {
-                      if (!isMin) removeDetail(index);
-                    }}
-                    aria-label={`Remove detail ${index + 1}`}
-                    title={isMin ? "At least 3 details required" : "Remove"}
-                  >
-                    <RiDeleteBinLine className="size-4" />
-                  </button>
-                </div>
+              <div key={`detail-${index}`} className="relative border p-4 rounded-md mt-4 bg-white shadow-sm">
+                <RiDeleteBinLine
+                  className={`absolute top-2 right-2 size-4 text-red-500 hover:text-red-700 ${isMin ? "opacity-50 pointer-events-none" : ""}`}
+                  onClick={() => {
+                    if (!isMin) removeDetail(index);
+                  }}
+                />
 
                 <label htmlFor={`title-${index}`} className="block mt-2 mb-1">
                   Title
@@ -352,7 +300,6 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                   onChange={(e) => handleDetailChange(index, "title", e.target.value)}
                   className={inputStyles}
                 />
-
                 <label htmlFor={`heading-${index}`} className="block mt-3 mb-1">
                   Heading
                 </label>
@@ -364,22 +311,9 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                   onChange={(e) => handleDetailChange(index, "heading", e.target.value)}
                   className={inputStyles}
                 />
-
-                <label htmlFor={`body-${index}`} className="block mt-3 mb-1">
-                  Body
-                </label>
-                <textarea
-                  id={`body-${index}`}
-                  value={detail.body}
-                  placeholder="Add description text"
-                  onChange={(e) => handleDetailChange(index, "body", e.target.value)}
-                  className={`${inputStyles} resize-y`}
-                  rows={3}
-                />
               </div>
             );
           })}
-
           {localLive.details.length < MAX_DETAILS && (
             <div className="mt-6">
               <button
@@ -393,7 +327,6 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
               </button>
             </div>
           )}
-
           {localLive.details.length === 0 && (
             <div className="flex flex-col items-center justify-center border border-dashed p-6 rounded-lg mt-2">
               <p className="text-gray-400">No details added yet</p>

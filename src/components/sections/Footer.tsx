@@ -50,23 +50,22 @@ const Footer = () => {
     <div className="bg-gray-800 p-4 text-xs">
       <div className="max-w-[90rem] mx-auto space-y-2">
         {/* Social & Controls */}
-        <section className="flex flex-col md:flex-row justify-between items-center gap-2">
+        <section className="flex flex-col md:flex-row justify-between items-center gap-3">
           {/* Social Channels */}
           {socialChannels.length > 0 && (
             <div className="flex justify-between w-full md:justify-start gap-4">
               {socialChannels.map((channel) => {
                 if (!channel.url || !channel.icon) return null;
-
                 return (
-                  <a
+                  <Link
                     key={channel.url}
                     href={channel.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-[#C8BAFD] rounded-xl py-2 px-4 flex items-center justify-center font-semibold text-black hover:bg-[#b0a0f5] transition gap-2"
+                    className="bg-[#C8BAFD] rounded-xl py-2 px-4 flex items-center justify-center font-semibold hover:bg-[#b0a0f5] transition gap-2 w-full md:w-fit"
                   >
                     <Image src={channel.icon} alt="" width={20} height={20} />
-                  </a>
+                  </Link>
                 );
               })}
             </div>
@@ -78,9 +77,9 @@ const Footer = () => {
               href="https://www.si3.space/"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-sora tracking-wider rounded-xl text-xs font-semibold bg-[#C8BAFD] px-4 py-2 lg:px-6 lg:py-3"
+              className="bg-[#C8BAFD] tracking-wider px-3 py-3 rounded-xl hover:bg-[#b0a0f5] whitespace-nowrap font-sora font-semibold focus:outline-none"
             >
-              Join SI&gt;3&lt;
+              Join SI&lt;3&gt;
             </Link>
             {/* Language Dropdown */}
             <div className="relative bg-[#C8BAFD] rounded-xl w-fit flex items-center gap-2" ref={dropdownRef}>
@@ -139,16 +138,18 @@ const Footer = () => {
               )}
             </div>
             {/* Newsletter Form */}
-            <div className="flex rounded-xl w-full sm:w-fit items-center bg-white gap-4 h-fit pl-3">
-              <MdEmail className="size-6" />
+            <div className="flex rounded-xl w-full lg:w-fit h-10 items-center bg-white">
+              <MdEmail className="size-6 mx-2" />
               <input
                 type="email"
                 placeholder="Subscribe to our newsletter..."
-                className="flex-grow leading-4 py-1 sm:py-2 focus:outline-none font-dm-sans w-full"
+                className="focus:outline-none font-dm-sans w-full mr-3 lg:w-44"
               />
-              <button type="submit" className="bg-[#C8BAFD] rounded-xl p-2">
-                <IoIosArrowForward className="size-5" />
-              </button>
+              <div className="flex justify-end h-full">
+                <button type="button" className="bg-[#C8BAFD] rounded-xl w-10">
+                  <IoIosArrowForward className="size-4 mx-auto" />
+                </button>
+              </div>
             </div>
           </section>
         </section>
