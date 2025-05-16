@@ -25,7 +25,6 @@ apiClient.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError) => {
     if (!error.response) {
-      toast.error("Network error. Please check your internet connection.");
       return Promise.reject(error);
     }
     const { status, data } = error.response;

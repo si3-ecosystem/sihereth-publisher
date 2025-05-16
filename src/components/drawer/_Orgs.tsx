@@ -54,8 +54,6 @@ const OrgsFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         data: updatedOrgs
       })
     );
-
-    toast.success("Organization image updated");
   };
 
   const addOrganization = () => {

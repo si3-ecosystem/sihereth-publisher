@@ -85,7 +85,6 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       updateRedux(newData);
       return newData;
     });
-    toast.success("New timeline entry added");
   };
 
   const removeTimelineEntry = (index: number) => {
@@ -100,7 +99,6 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       updateRedux(newData);
       return newData;
     });
-    toast.success("Timeline entry removed");
   };
 
   return (

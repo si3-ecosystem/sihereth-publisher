@@ -83,6 +83,7 @@ const Navbar = ({ viewMode, setViewMode, setDrawerWidth }: NavbarProps) => {
             {/* Preview Button */}
             <Link
               href="/preview"
+              target="_blank"
               className="flex gap-2 items-center px-4 h-8 text-white bg-gray-900 rounded-lg hover:shadow-md"
             >
               <FaPlay className="size-3" />
