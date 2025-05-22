@@ -7,6 +7,7 @@ import Orgs from "@/components/sections/Orgs";
 import TimeLine from "@/components/sections/Timeline";
 import People from "@/components/sections/People";
 import Available from "@/components/sections/Available";
+import Text from "@/components/sections/Text";
 import Footer from "@/components/sections/Footer";
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
       <TimeLine />
       <People />
       <Available />
+      <Text />
       <Footer />
     </>
   );

@@ -17,6 +17,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       {/* Landing section */}
       <section
         id="landing"
+        onKeyDown={() => {}}
         onClick={() => {
           setEditPage("landing");
           openDrawer();
@@ -27,6 +28,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       {/* Slider section */}
       <section
         id="slider"
+        onKeyDown={() => {}}
         onClick={() => {
           setEditPage("slider");
           openDrawer();
@@ -38,6 +40,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       {/* Value section */}
       <section
         id="value"
+        onKeyDown={() => {}}
         onClick={() => {
           setEditPage("value");
           openDrawer();
@@ -48,6 +51,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       {/* Live section */}
       <section
         id="media"
+        onKeyDown={() => {}}
         onClick={() => {
           setEditPage("live");
           openDrawer();
@@ -58,6 +62,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       {/* Orgs section */}
       <section
         id="orgs"
+        onKeyDown={() => {}}
         onClick={() => {
           setEditPage("orgs");
           openDrawer();
@@ -68,6 +73,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       {/* Timeline section */}
       <section
         id="timeline"
+        onKeyDown={() => {}}
         onClick={() => {
           setEditPage("timeline");
           openDrawer();
@@ -82,6 +88,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       {/* Available section */}
       <section
         id="available"
+        onKeyDown={() => {}}
         onClick={() => {
           setEditPage("available");
           openDrawer();
@@ -94,6 +101,7 @@ const Home = ({ setEditPage, openDrawer }: { setEditPage: (section: string) => v
       {/* Footer section */}
       <section
         id="footer"
+        onKeyDown={() => {}}
         onClick={() => {
           setEditPage("footer");
           openDrawer();

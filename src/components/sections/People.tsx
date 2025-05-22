@@ -20,8 +20,6 @@ const People = () => {
     const fetchData = async () => {
       try {
         const response = await apiClient.get("/users");
-
-        console.log("sssss", response);
         const formattedUsers = response.data.map((user: User) => ({
           _id: user._id,
           fullName: user.fullName,
