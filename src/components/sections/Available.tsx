@@ -54,7 +54,7 @@ const Available = () => {
             href={ctaUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sora tracking-wider rounded-xl text-sm border border-[#3E21F3] bg-primary font-semibold text-[#3E21F3] px-4 py-2 lg:px-6 lg:py-3"
+            className="font-sora tracking-wider rounded-xl text-sm border border-[#3E21F3] bg-purple-primary font-semibold text-[#3E21F3] px-4 py-2 lg:px-6 lg:py-3"
           >
             {ctaText}
           </Link>

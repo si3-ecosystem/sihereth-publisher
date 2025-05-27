@@ -128,7 +128,7 @@ const Live = () => {
   }, [data?.url]);
 
   return (
-    <section className="bg-primary p-4 py-10 sm:py-16" aria-label="Live Section">
+    <section className="bg-purple-primary p-4 py-10 sm:py-16" aria-label="Live Section">
       <div className="max-w-[90rem] mx-auto space-y-8">
         {/* Live content */}
         {(hasImage || hasMedia) && (

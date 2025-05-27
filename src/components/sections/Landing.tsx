@@ -69,7 +69,7 @@ const ProfileCard = ({ image, fullName, pronoun }: { image: string; fullName: st
           priority
         />
       )}
-      <div className="rounded-2xl absolute right-0 lg:-right-2 -bottom-4 xl:-right-4 border border-light-purple p-4 flex flex-col justify-center items-center gap-1 md:gap-2 bg-primary shadow-md font-dmsans">
+      <div className="rounded-2xl absolute right-0 lg:-right-2 -bottom-4 xl:-right-4 border border-light-purple p-4 flex flex-col justify-center items-center gap-1 md:gap-2 bg-purple-primary shadow-md font-dmsans">
         <span className="font-medium text-base md:text-lg whitespace-nowrap">{fullName}</span>
         <span className="tracking-wider text-xs md:text-sm">{pronoun ? `(${pronoun.toLowerCase()})` : ""}</span>
       </div>
@@ -109,7 +109,7 @@ const Landing = () => {
                 hashtagElements.push(
                   <div
                     key={`hashtag-${index++}-${hashtag}`}
-                    className="bg-primary tracking-wider whitespace-nowrap py-2 px-3 md:py-3 md:px-4 rounded-2xl hover:text-gray-200 hover:bg-gray-800 transition-all ease-out duration-500 cursor-default hover:shadow-md"
+                    className="bg-purple-primary tracking-wider whitespace-nowrap py-2 px-3 md:py-3 md:px-4 rounded-2xl hover:text-gray-200 hover:bg-gray-800 transition-all ease-out duration-500 cursor-default hover:shadow-md"
                   >
                     #{hashtag.toUpperCase()}
                   </div>

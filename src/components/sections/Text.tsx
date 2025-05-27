@@ -1,6 +1,6 @@
 const Text = () => {
   return (
-    <div className="px-4 py-8 bg-primary text-xs">
+    <div className="px-4 py-8 bg-purple-primary text-xs">
       <div className="max-w-[90rem] mx-auto space-y-4 text-justify md:text-center leading-4">
         <p className="font-dm-sans text-sm">
           You are viewing an ENS domain, which is a distributed and open naming system based on the Ethereum blockchain.
