@@ -21,17 +21,25 @@ const encryptor = encryptTransform({
   }
 });
 
-// Redux-persist configuration
-const persistConfig = {
-  key: "siher",
+// Create separate persist configs for each reducer
+const userPersistConfig = {
+  key: "siher-user",
+  storage,
+  transforms: [encryptor],
+  timeout: 2000,
+  whitelist: ["id", "email", "name", "domain"] // explicitly specify which fields to persist
+};
+
+const contentPersistConfig = {
+  key: "siher-content",
   storage,
   transforms: [encryptor],
   timeout: 2000
 };
 
-// Create persisted reducers
-const persistedUserReducer = persistReducer(persistConfig, userReducer);
-const persistedContentReducer = persistReducer(persistConfig, contentReducer);
+// Create persisted reducers with their specific configs
+const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
+const persistedContentReducer = persistReducer(contentPersistConfig, contentReducer);
 
 // Configure the store
 const store = configureStore({
