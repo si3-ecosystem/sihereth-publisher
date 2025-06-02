@@ -1,7 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
 import { languagesByRegion } from "@/utils/data";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
@@ -47,7 +46,7 @@ const Footer = () => {
   }, [isDropdownOpen]);
 
   return (
-    <div className="bg-gray-800 p-4 text-xs">
+    <div className="bg-gray-900 p-4 text-xs">
       <div className="max-w-[90rem] mx-auto space-y-2">
         {/* Social & Controls */}
         <section className="flex flex-col md:flex-row justify-between items-center gap-3">
@@ -139,7 +138,13 @@ const Footer = () => {
             </div>
             {/* Newsletter Form */}
             <div className="flex rounded-xl w-full lg:w-fit h-10 items-center bg-white">
-              <MdEmail className="size-6 mx-2" />
+              <Image
+                src="https://res.cloudinary.com/dq033xs8n/image/upload/v1748561322/mail_ycoudk.png"
+                alt=""
+                width={17}
+                height={17}
+                className="mx-2"
+              />
               <input
                 type="email"
                 placeholder="Subscribe to our newsletter..."

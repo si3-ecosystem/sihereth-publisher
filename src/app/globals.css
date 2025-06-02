@@ -106,6 +106,12 @@ body::-webkit-scrollbar {
 .font-firamono {
   font-family: "FiraMono", monospace, "Courier New", Courier;
 }
+.fade-in-up {
+  animation: fadeInUp 0.4s ease;
+}
+.EZDrawer__container {
+  border-left: 1px solid #cbd5e0;
+}
 
 @keyframes fadeInUp {
   from {
@@ -116,7 +122,4 @@ body::-webkit-scrollbar {
     opacity: 1;
     transform: translateY(0);
   }
-}
-.fade-in-up {
-  animation: fadeInUp 0.4s ease;
 }

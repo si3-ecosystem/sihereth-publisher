@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.6.0",
     "animejs": "^3.2.2",
     "axios": "^1.8.1",
+    "cloudinary": "^2.6.1",
     "lodash": "^4.17.21",
     "next": "15.2.0",
     "react": "^19.0.0",

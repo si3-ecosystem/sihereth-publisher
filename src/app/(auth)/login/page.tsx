@@ -7,6 +7,7 @@ import apiClient from "@/utils/interceptor";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { login } from "@/redux/authSlice";
+import { setAllContent } from "@/redux/contentSlice";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -21,7 +22,14 @@ const Login = () => {
       setLoading(true);
       try {
         const response = await apiClient.post("/auth/login", { email, password });
-        dispatch(login(response.data.user));
+        dispatch(
+          login({
+            id: response.data.user.id,
+            email: response.data.user.email,
+            domain: response.data.user.domain
+          })
+        );
+        dispatch(setAllContent(response.data.user.webContent));
         router.push("/");
       } finally {
         setLoading(false);

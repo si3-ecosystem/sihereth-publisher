@@ -1,5 +1,3 @@
-import type { StaticImageData } from "next/image";
-
 export interface LinkTypes {
   type: string;
   title: string;
@@ -56,7 +54,7 @@ export interface ContentState {
   landing: LandingTypes;
   value: ValueTypes;
   live: LiveTypes;
-  organizations: string[] | StaticImageData[];
+  organizations: string[];
   timeline: TimelineTypes[];
   available: AvailableTypes;
   isNewWebpage: boolean;

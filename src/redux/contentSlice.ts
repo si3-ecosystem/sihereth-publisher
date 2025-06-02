@@ -117,42 +117,27 @@ const contentSlice = createSlice({
     setAllContent: (state, action: PayloadAction<ContentState>) => {
       return action.payload;
     },
-
     updateContent: (state, action: PayloadAction<{ section: keyof ContentState; data: any }>) => {
       const { section, data } = action.payload;
-
-      // Handle boolean field specially
       if (section === "isNewWebpage" && typeof data === "boolean") {
         state.isNewWebpage = data;
         return;
       }
-
-      // Make sure the section exists
       if (!state[section]) {
         console.error(`Invalid section: ${section}`);
         return;
       }
-
-      // Handle array sections
       if (Array.isArray(state[section])) {
         state[section] = data;
         return;
       }
-
-      // Handle object sections - merge only the fields provided instead of overwriting the entire object
       if (typeof state[section] === "object" && data !== null && typeof data === "object") {
-        // Safe merge of data into state[section]
         Object.keys(data).forEach((key) => {
           (state[section] as any)[key] = data[key];
         });
         return;
       }
-
-      // Handle primitive fields
-      console.error(`Invalid data type for section: ${section}`);
     },
-
-    // Add a dedicated reducer for array operations
     updateArrayItem: (
       state,
       action: PayloadAction<{
@@ -163,31 +148,21 @@ const contentSlice = createSlice({
       }>
     ) => {
       const { section, fieldName, index, value } = action.payload;
-
-      // Make sure the section exists and is an object
       if (!state[section] || typeof state[section] !== "object") {
         console.error(`Invalid section: ${section}`);
         return;
       }
-
-      // Make sure the field is an array
       const field = (state[section] as any)[fieldName];
       if (!Array.isArray(field)) {
         console.error(`Field ${fieldName} is not an array in section ${section}`);
         return;
       }
-
-      // Make sure the index is valid
       if (index < 0 || index >= field.length) {
         console.error(`Invalid index ${index} for array with length ${field.length}`);
         return;
       }
-
-      // Update the array item
       field[index] = value;
     },
-
-    // Add a dedicated reducer for adding items to arrays
     addArrayItem: (
       state,
       action: PayloadAction<{
@@ -197,25 +172,17 @@ const contentSlice = createSlice({
       }>
     ) => {
       const { section, fieldName, value } = action.payload;
-
-      // Make sure the section exists and is an object
       if (!state[section] || typeof state[section] !== "object") {
         console.error(`Invalid section: ${section}`);
         return;
       }
-
-      // Make sure the field is an array
       const field = (state[section] as any)[fieldName];
       if (!Array.isArray(field)) {
         console.error(`Field ${fieldName} is not an array in section ${section}`);
         return;
       }
-
-      // Add the item to the array
       field.push(value);
     },
-
-    // Add a dedicated reducer for removing items from arrays
     removeArrayItem: (
       state,
       action: PayloadAction<{
@@ -225,32 +192,26 @@ const contentSlice = createSlice({
       }>
     ) => {
       const { section, fieldName, index } = action.payload;
-
-      // Make sure the section exists and is an object
       if (!state[section] || typeof state[section] !== "object") {
         console.error(`Invalid section: ${section}`);
         return;
       }
-
-      // Make sure the field is an array
       const field = (state[section] as any)[fieldName];
       if (!Array.isArray(field)) {
         console.error(`Field ${fieldName} is not an array in section ${section}`);
         return;
       }
-
-      // Make sure the index is valid
       if (index < 0 || index >= field.length) {
         console.error(`Invalid index ${index} for array with length ${field.length}`);
         return;
       }
-
-      // Remove the item from the array
       field.splice(index, 1);
-    }
+    },
+    clearContent: () => initialState
   }
 });
 
-export const { setAllContent, updateContent, updateArrayItem, addArrayItem, removeArrayItem } = contentSlice.actions;
+export const { setAllContent, updateContent, updateArrayItem, addArrayItem, removeArrayItem, clearContent } =
+  contentSlice.actions;
 
 export default contentSlice.reducer;

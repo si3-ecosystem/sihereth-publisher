@@ -1,4 +1,4 @@
-import { useState, useEffect, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, useRef } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { IoIosAddCircle } from "react-icons/io";
 import { FaCirclePlus } from "react-icons/fa6";
@@ -9,8 +9,9 @@ import { updateContent, updateArrayItem, addArrayItem, removeArrayItem } from "@
 import type { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
 import Image from "next/image";
-
-const MAX_DETAILS = 6;
+import { toast } from "react-hot-toast";
+import { uploadToCloudinary, removeFromCloudinary } from "@/utils/cloudinary";
+import { validateImage } from "@/utils/imageCompression";
 
 interface LiveDetail {
   title: string;
@@ -26,29 +27,20 @@ interface LiveData {
 
 const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
-  const reduxLive = useSelector((state: RootState) => state.content.live);
-  const [showVideoPreview, setShowVideoPreview] = useState(false);
-
+  const reduxLive = useSelector((state: RootState) => state.content.live) as LiveData;
+  const [isUploading, setIsUploading] = useState(false);
+  const [isRemoving, setIsRemoving] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [localLive, setLocalLive] = useState<LiveData>({
     image: reduxLive.image || "",
     url: reduxLive.url || "",
     walletUrl: reduxLive.walletUrl || "",
     details: reduxLive.details || []
   });
-
   const [validation, setValidation] = useState({
     error: "",
     isValid: true
   });
-
-  useEffect(() => {
-    setLocalLive({
-      image: reduxLive.image ?? "",
-      url: reduxLive.url ?? "",
-      walletUrl: reduxLive.walletUrl ?? "",
-      details: [...(reduxLive.details ?? [])]
-    });
-  }, [reduxLive]);
 
   const validateForm = (): boolean => {
     if (!localLive.image && !localLive.url) {
@@ -65,11 +57,26 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     return true;
   };
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = URL.createObjectURL(e.target.files[0]);
-      setLocalLive((prev) => ({ ...prev, image: file }));
-      dispatch(updateContent({ section: "live", data: { image: file } }));
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      try {
+        const file = e.target.files[0];
+        if (!validateImage(file)) {
+          toast.error("Invalid image format or size. Please use JPG, JPEG, or PNG under 2MB.");
+          return;
+        }
+        setIsUploading(true);
+        toast.success("Uploading image...");
+        const imageUrl = await uploadToCloudinary(file);
+        setLocalLive((prev) => ({ ...prev, image: imageUrl }));
+        dispatch(updateContent({ section: "live", data: { image: imageUrl } }));
+        toast.success("Image uploaded successfully!");
+      } catch (error) {
+        console.error("Upload error:", error);
+        toast.error("Failed to upload image");
+      } finally {
+        setIsUploading(false);
+      }
     }
   };
 
@@ -81,15 +88,20 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     }
   };
 
-  const removeImage = () => {
-    setLocalLive((prev) => ({ ...prev, image: "" }));
-    if (localLive.url) {
+  const handleRemoveImage = async () => {
+    if (!localLive.image) return;
+    try {
+      setIsRemoving(true);
+      toast.success("Removing image...");
+      await removeFromCloudinary(localLive.image);
+      setLocalLive((prev) => ({ ...prev, image: "" }));
       dispatch(updateContent({ section: "live", data: { image: "" } }));
-    } else {
-      setValidation({
-        error: "You must have at least an image or a video URL",
-        isValid: false
-      });
+      toast.success("Image removed successfully!");
+    } catch (error) {
+      console.error("Remove error:", error);
+      toast.error("Failed to remove image");
+    } finally {
+      setIsRemoving(false);
     }
   };
 
@@ -114,8 +126,8 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   };
 
   const addDetail = () => {
-    if (localLive.details.length >= MAX_DETAILS) {
-      alert(`You can add a maximum of ${MAX_DETAILS} details`);
+    if (localLive.details.length >= 6) {
+      toast.error(`You can add a maximum of six items`);
       return;
     }
     const newDetail = { title: "", heading: "" };
@@ -173,10 +185,14 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
               <button
                 type="button"
                 aria-label="Remove image"
-                className="absolute top-2 right-2 bg-white/90 text-red-500 p-2 rounded-full shadow-md hover:bg-white hover:text-red-600 transition-all duration-200"
-                onClick={removeImage}
+                className={`absolute top-2 right-2 bg-white/90 text-red-500 p-2 rounded-full shadow-md hover:bg-white hover:text-red-600 transition-all duration-200 ${
+                  isRemoving ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                onClick={handleRemoveImage}
+                disabled={isRemoving}
               >
                 <RiDeleteBinLine className="size-5" />
+                {isRemoving ? "Removing..." : ""}
               </button>
             </div>
           ) : (
@@ -185,18 +201,29 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                 type="file"
                 id="live-image"
                 className="hidden"
-                onChange={handleImageChange}
+                ref={fileInputRef}
+                onChange={handleImageUpload}
                 accept=".jpg,.jpeg,.png"
+                disabled={isUploading}
               />
               <label
                 htmlFor="live-image"
-                className="flex justify-center items-center pt-6 pb-7 border-2 border-dashed border-gray-200 rounded-lg cursor-pointer h-32 mt-3 w-full hover:bg-purple-50 hover:border-purple-200 transition-all duration-200"
+                className={`flex justify-center items-center pt-6 pb-7 border-2 border-dashed border-gray-200 rounded-lg cursor-pointer h-32 mt-3 w-full hover:bg-purple-50 hover:border-purple-200 transition-all duration-200 ${
+                  isUploading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
-                <div className="flex flex-col items-center gap-2">
-                  <IoIosAddCircle className="text-purple-500 size-8" />
-                  <p className="text-gray-600 font-medium">Upload Featured Image</p>
-                  <p className="text-xs text-gray-400">JPG, JPEG, or PNG</p>
-                </div>
+                {isUploading ? (
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-500"></div>
+                    <p className="text-gray-500">Uploading...</p>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-2">
+                    <IoIosAddCircle className="text-purple-500 size-8" />
+                    <p className="text-gray-600 font-medium">Upload Featured Image</p>
+                    <p className="text-xs text-gray-400">JPG, JPEG, or PNG (max 2MB)</p>
+                  </div>
+                )}
               </label>
             </div>
           )}
@@ -274,21 +301,18 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         {/* Details */}
         <section className="p-4 xl:p-6">
           <div className="flex justify-between items-center mb-3">
-            <p className="block font-semibold">
-              Supporting Media ({localLive.details.length}/{MAX_DETAILS})
-            </p>
+            <p className="block font-semibold">Supporting Media ({localLive.details.length}/6)</p>
           </div>
           {localLive.details.map((detail, index) => {
             const isMin = localLive.details.length <= 3;
             return (
-              <div key={`detail-${index}`} className="relative border p-4 rounded-md mt-4 bg-white shadow-sm">
+              <div key={index} className="relative border p-4 rounded-md mt-4 bg-white shadow-sm">
                 <RiDeleteBinLine
                   className={`absolute top-2 right-2 size-4 text-red-500 hover:text-red-700 ${isMin ? "opacity-50 pointer-events-none" : ""}`}
                   onClick={() => {
                     if (!isMin) removeDetail(index);
                   }}
                 />
-
                 <label htmlFor={`title-${index}`} className="block mt-2 mb-1">
                   Title
                 </label>
@@ -314,7 +338,7 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
               </div>
             );
           })}
-          {localLive.details.length < MAX_DETAILS && (
+          {localLive.details.length < 6 && (
             <div className="mt-6">
               <button
                 type="button"

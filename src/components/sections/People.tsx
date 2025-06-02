@@ -58,7 +58,7 @@ const People = () => {
   return (
     <div className="overflow-hidden bg-gray-900 py-3 px-4 flex items-center">
       <div className="flex items-center font-sora gap-4" ref={scrollerRef} style={{ whiteSpace: "nowrap" }}>
-        {[...users, ...users].map((user, index) => (
+        {[...users, ...users, ...users].map((user, index) => (
           <div key={`${user._id}-${index}`} className="flex items-center">
             <div className="text-center flex w-max items-center px-3 text-white tracking-wider uppercase">
               <div className="size-12 relative">

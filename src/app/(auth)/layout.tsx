@@ -9,10 +9,10 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    if (user?.id && user?.token) {
+    if (user?.id) {
       router.replace("/");
     }
-  }, [user?.id, user?.token, router]);
+  }, [user?.id, router]);
 
   return children;
 };

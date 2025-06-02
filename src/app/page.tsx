@@ -18,16 +18,14 @@ const Home = () => {
   const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    if (!user?.id && !user?.token) {
+    if (!user?.id) {
       router.replace("/login");
     }
-  }, [user?.id, user?.token, router]);
+  }, [user?.id, router]);
 
   return (
     <div className="h-screen text-gray-800">
-      {/* Navbar */}
       <Navbar />
-      {/* Domain section */}
       <Domain />
       {/* Page View */}
       <div className="flex justify-center">

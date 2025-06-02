@@ -13,9 +13,8 @@ const Orgs = () => {
       <div className="max-w-[90rem] mx-auto flex flex-col gap-8 justify-center items-center">
         <Heading label="ORGANIZATIONS I SUPPORT" />
         <section className="w-full flex flex-col md:flex-row gap-10 justify-center items-center">
-          {data.map((org, index) => {
-            const orgSrc = typeof org === "string" ? org.trim() : org.src;
-            return orgSrc && <Image key={index} src={orgSrc} alt="" width={100} height={100} />;
+          {data.map((org) => {
+            return org && <Image key={org} src={org} alt="" width={100} height={100} />;
           })}
         </section>
       </div>

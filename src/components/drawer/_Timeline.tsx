@@ -9,16 +9,12 @@ import { TimelineStyles } from "@/utils/customStyles";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { toast } from "react-hot-toast";
 
-// Maximum number of timeline entries allowed
-const MAX_TIMELINE_ENTRIES = 8;
-
 const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
   const reduxData = useSelector((state: RootState) => state.content.timeline);
   const [localData, setLocalData] = useState<TimelineTypes[]>([]);
   const isInitialMount = useRef(true);
 
-  // Initialize local data from Redux only once on mount
   useEffect(() => {
     if (isInitialMount.current) {
       setLocalData(reduxData);
@@ -26,7 +22,6 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
     }
   }, [reduxData]);
 
-  // Debounced function to update Redux
   const updateRedux = useCallback(
     (data: TimelineTypes[]) => {
       dispatch(updateContent({ section: "timeline", data }));
@@ -35,25 +30,16 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   );
 
   const handleInputChange = (index: number, field: keyof TimelineTypes, value: string) => {
-    // Only convert years to uppercase, not title
     let updatedValue = value;
-
-    // Apply different validation and formatting based on the field
     if (field === "from" || field === "to") {
-      // Convert to uppercase and validate for year fields
       updatedValue = value.toUpperCase();
-
-      // Only allow 4 digits for year fields
       if (!/^\d{0,4}$/.test(updatedValue)) {
         return;
       }
     }
-
-    // Update local state immediately
     setLocalData((prevData) => {
       const newData = [...prevData];
       newData[index] = { ...newData[index], [field]: updatedValue };
-      // Update Redux after local state update
       updateRedux(newData);
       return newData;
     });
@@ -66,22 +52,19 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         ...newData[index],
         to: isChecked ? "PRESENT" : ""
       };
-      // Update Redux after local state update
       updateRedux(newData);
       return newData;
     });
   };
 
   const addTimelineEntry = () => {
-    if (localData.length >= MAX_TIMELINE_ENTRIES) {
-      toast.error(`You can add a maximum of ${MAX_TIMELINE_ENTRIES} timeline entries.`);
+    if (localData.length >= 8) {
+      toast.error("You can add a maximum of eight timeline entries.");
       return;
     }
-
     const newEntry: TimelineTypes = { title: "", from: "", to: "" };
     setLocalData((prevData) => {
       const newData = [...prevData, newEntry];
-      // Update Redux after local state update
       updateRedux(newData);
       return newData;
     });
@@ -92,10 +75,8 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       toast.error("You must have at least one timeline entry.");
       return;
     }
-
     setLocalData((prevData) => {
       const newData = prevData.filter((_, i) => i !== index);
-      // Update Redux after local state update
       updateRedux(newData);
       return newData;
     });
@@ -124,7 +105,7 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
             ) : (
               <>
                 {localData.map((item, index) => (
-                  <div key={`timeline-${index}`} className="border rounded-lg border-gray-300 p-4 relative">
+                  <div key={index} className="border rounded-lg border-gray-300 p-4 relative">
                     <div className="flex gap-6 mb-4">
                       <section className="flex-1">
                         <label htmlFor={`from-${index}`} className="block mb-1">
@@ -158,7 +139,6 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                         />
                       </section>
                     </div>
-
                     <div className="mb-4">
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
@@ -197,9 +177,7 @@ const TimelineFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                     )}
                   </div>
                 ))}
-
-                {/* Add Timeline Entry button below the entries */}
-                {localData.length < MAX_TIMELINE_ENTRIES && (
+                {localData.length < 8 && (
                   <button
                     type="button"
                     className="flex gap-2 items-center justify-center text-[#a020f0] hover:text-purple-700 p-3 border border-dashed rounded-lg w-full mt-2"

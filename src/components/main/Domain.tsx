@@ -11,10 +11,8 @@ import Link from "next/link";
 const Domain = () => {
   const dispatch = useDispatch();
   const existingDomain = useSelector((state: RootState) => state.user?.domain);
-
   const [subDomain, setSubDomain] = useState<string>("");
   const [domainLoading, setDomainLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     if (existingDomain) {
@@ -22,38 +20,27 @@ const Domain = () => {
     }
   }, [existingDomain]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
-    setSubDomain(value);
-    const regex = /\.?siher(?:\.eth\.link)?(?:eth)?(?:eth\b|\b)/i;
-    const containsInvalidCharacters = /[^a-zA-Z0-9]/.test(value);
-    if (regex.test(value) || containsInvalidCharacters) {
-      setErrorMessage(
-        "Invalid name. Only letters and numbers allowed, no special characters or .siher.eth variations."
-      );
-    } else {
-      setErrorMessage("");
-    }
-  };
-
   const AssignDomain = async () => {
     if (!subDomain) {
       toast.error("Please enter a valid domain name.");
       return;
     }
+    if (subDomain.includes(".") || subDomain.includes("siher") || subDomain.includes("eth")) {
+      toast.error("Please enter only the name");
+      return;
+    }
     try {
       setDomainLoading(true);
-      const formattedDomain = subDomain.endsWith(".siher.eth.link") ? subDomain : `${subDomain}.siher.eth.link`;
+      const formattedDomain = `${subDomain}.siher.eth.link`;
       const response = await apiClient.post(`/domain/publish`, { domain: formattedDomain });
       if (response.status === 200) {
         toast.success("Domain successfully published!");
         dispatch(updateDomain(formattedDomain));
       } else {
-        toast.error(response.data?.message || "Failed to register domain.");
+        toast.error(response.data?.message ?? "Failed to register domain.");
       }
     } catch (error: any) {
-      console.error("[ERROR] Failed to register domain:", error);
-      toast.error(error.response?.data?.message || "Something went wrong.");
+      toast.error(error.response?.data?.message ?? "Something went wrong. Please try again.");
     } finally {
       setDomainLoading(false);
     }
@@ -82,14 +69,14 @@ const Domain = () => {
                 className="w-full bg-transparent border-none outline-none focus:ring-0"
                 placeholder="Enter your domain name"
                 value={subDomain}
-                onChange={handleChange}
+                onChange={(e) => setSubDomain(e.target.value)}
               />
             </div>
             <div className="flex justify-center items-center">
               <button
-                disabled={domainLoading || !!errorMessage}
+                disabled={domainLoading || !subDomain}
                 onClick={AssignDomain}
-                className="flex gap-2 sm:gap-4 items-center px-4 h-8 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md whitespace-nowrap"
+                className="flex gap-2 sm:gap-4 items-center px-4 h-8 sm:font-medium text-white bg-gray-900 rounded-lg hover:shadow-md whitespace-nowrap disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {domainLoading && <RiLoaderFill className="animate-spin size-4" />}
                 {domainLoading ? "Loading..." : "Publish Domain"}

@@ -12,31 +12,25 @@ import type { RootState } from "@/redux/store";
 import { inputStyles } from "@/utils/customStyles";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { uploadToCloudinary, removeFromCloudinary } from "@/utils/cloudinary";
+import { toast } from "react-hot-toast";
+import { compressImage, validateImage } from "@/utils/imageCompression";
 
 const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
   const dispatch = useDispatch();
   const reduxData = useSelector((state: RootState) => state.content.landing);
   const [localData, setLocalData] = useState<LandingTypes>(reduxData);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isRemoving, setIsRemoving] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Only initialize localData from Redux once on mount
   useEffect(() => {
     setLocalData(reduxData);
   }, []);
 
-  // Sync Redux changes to local state (only when Redux is updated from elsewhere)
-  useEffect(() => {
-    const isInitializing = Object.keys(localData).length === 0;
-    if (isInitializing || JSON.stringify(reduxData) !== JSON.stringify(localData)) {
-      setLocalData(reduxData);
-    }
-  }, [reduxData]);
-
-  // Update both local state and dispatch to Redux
   const updateField = useCallback(
     (field: keyof LandingTypes, value: any) => {
       setLocalData((prev) => ({ ...prev, [field]: value }));
-
-      // Immediately update Redux (removed setTimeout)
       dispatch(
         updateContent({
           section: "landing",
@@ -47,15 +41,11 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     [dispatch]
   );
 
-  // Handle array changes
   const handleArrayChange = useCallback(
     (field: keyof LandingTypes, index: number, value: string) => {
       const updatedArray = [...(localData[field] as string[])];
       updatedArray[index] = value;
-
       setLocalData((prev) => ({ ...prev, [field]: updatedArray }));
-
-      // Immediately update Redux (removed setTimeout)
       dispatch(
         updateContent({
           section: "landing",
@@ -66,13 +56,10 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     [dispatch, localData]
   );
 
-  // Add item to array
   const addToArray = useCallback(
     (field: keyof LandingTypes, placeholder: string) => {
       const updatedArray = [...((localData[field] as string[]) || []), placeholder];
-
       setLocalData((prev) => ({ ...prev, [field]: updatedArray }));
-
       dispatch(
         updateContent({
           section: "landing",
@@ -83,13 +70,10 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     [dispatch, localData]
   );
 
-  // Remove item from array
   const removeFromArray = useCallback(
     (field: keyof LandingTypes, index: number) => {
       const updatedArray = (localData[field] as string[]).filter((_, i) => i !== index);
-
       setLocalData((prev) => ({ ...prev, [field]: updatedArray }));
-
       dispatch(
         updateContent({
           section: "landing",
@@ -100,23 +84,47 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
     [dispatch, localData]
   );
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  // Handle image upload
   const handleImageUpload = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.files?.[0]) {
-        const file = event.target.files[0];
-        const imageUrl = URL.createObjectURL(file);
-
-        updateField("image", imageUrl);
-
-        // Clean up the object URL after it's no longer needed
-        setTimeout(() => URL.revokeObjectURL(imageUrl), 5000);
+        try {
+          const file = event.target.files[0];
+          if (!validateImage(file)) {
+            return;
+          }
+          setIsUploading(true);
+          toast.success("Uploading image...");
+          const compressedFile = await compressImage(file);
+          const imageUrl = await uploadToCloudinary(compressedFile);
+          updateField("image", imageUrl);
+          toast.success("Image uploaded successfully!");
+        } catch (error) {
+          console.error("Upload error:", error);
+          toast.error("Failed to upload image");
+        } finally {
+          setIsUploading(false);
+        }
       }
     },
     [updateField]
   );
+
+  const handleRemoveImage = useCallback(async () => {
+    if (localData?.image) {
+      try {
+        setIsRemoving(true);
+        toast.success("Removing image...");
+        await removeFromCloudinary(localData.image);
+        updateField("image", "");
+        toast.success("Image removed successfully!");
+      } catch (error) {
+        console.error("Remove error:", error);
+        toast.error("Failed to remove image");
+      } finally {
+        setIsRemoving(false);
+      }
+    }
+  }, [localData?.image, updateField]);
 
   return (
     <>
@@ -163,7 +171,7 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
             className={inputStyles}
             value={localData?.headline || ""}
             onChange={(e) => updateField("headline", e.target.value)}
-            rows={4}
+            rows={2}
           />
         </section>
         {/* Title */}
@@ -247,19 +255,46 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
             <div className="mt-3">
               <Image src={localData?.image} alt="Uploaded" width={100} height={100} className="rounded-lg" />
               <div className="flex gap-2 mt-2">
-                <RiDeleteBinLine className="text-red-500 cursor-pointer" onClick={() => updateField("image", "")} />
+                <button
+                  onClick={handleRemoveImage}
+                  disabled={isRemoving}
+                  className={`flex items-center gap-1 text-red-500 ${isRemoving ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+                >
+                  <RiDeleteBinLine className="size-4" />
+                  {isRemoving ? "Removing..." : "Remove"}
+                </button>
               </div>
             </div>
           ) : (
             <>
-              <input type="file" id="image" className="hidden" ref={fileInputRef} onChange={handleImageUpload} />
+              <input
+                type="file"
+                id="image"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={handleImageUpload}
+                accept=".jpg,.jpeg,.png"
+                disabled={isUploading}
+              />
               <div
-                className="flex justify-center items-center pt-5 pb-6 border border-dashed border-gray-300 rounded-lg cursor-pointer h-24 mt-3 hover:bg-[#fceed966] hover:border-[#F6D4A0]"
-                onClick={() => fileInputRef.current?.click()}
+                className={`flex justify-center items-center pt-5 pb-6 border border-dashed border-gray-300 rounded-lg cursor-pointer h-24 mt-3 hover:bg-[#fceed966] hover:border-[#F6D4A0] ${
+                  isUploading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                onClick={() => !isUploading && fileInputRef.current?.click()}
               >
-                <IoIosAddCircle className="text-gray-500" />
-                <p className="text-gray-500 ms-1">ADD AN IMAGE</p>
+                {isUploading ? (
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-500"></div>
+                    <p className="text-gray-500">Uploading...</p>
+                  </div>
+                ) : (
+                  <>
+                    <IoIosAddCircle className="text-gray-500" />
+                    <p className="text-gray-500 ms-1">ADD AN IMAGE</p>
+                  </>
+                )}
               </div>
+              <p className="text-xs text-gray-500 mt-2">Supported formats: JPG, JPEG, PNG (max 2MB)</p>
             </>
           )}
         </section>

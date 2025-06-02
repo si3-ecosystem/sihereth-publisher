@@ -91,8 +91,6 @@ const Landing = () => {
     fullName = ""
   } = useMemo(() => landingData, [landingData]);
 
-  const displayName = fullName || "";
-
   return (
     <div className="px-4 py-6 text-xs">
       <div className="max-w-[90rem] mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -152,7 +150,7 @@ const Landing = () => {
 
         {/* Profile */}
         <div className="w-full flex md:justify-end justify-center">
-          <ProfileCard image={image} fullName={displayName} pronoun={pronoun} />
+          <ProfileCard image={image} fullName={fullName} pronoun={pronoun} />
         </div>
       </div>
     </div>
