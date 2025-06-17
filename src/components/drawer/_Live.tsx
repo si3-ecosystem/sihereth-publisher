@@ -16,6 +16,7 @@ import { validateImage } from "@/utils/imageCompression";
 interface LiveDetail {
   title: string;
   heading: string;
+  url: string;
 }
 
 interface LiveData {
@@ -130,7 +131,7 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
       toast.error(`You can add a maximum of six items`);
       return;
     }
-    const newDetail = { title: "", heading: "" };
+    const newDetail = { title: "", heading: "", url: "" };
     setLocalLive((prev) => ({
       ...prev,
       details: [...prev.details, newDetail]
@@ -333,6 +334,17 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                   value={detail.heading}
                   placeholder="Detail heading or main title"
                   onChange={(e) => handleDetailChange(index, "heading", e.target.value)}
+                  className={inputStyles}
+                />
+                <label htmlFor={`url-${index}`} className="block mt-3 mb-1">
+                  URL
+                </label>
+                <input
+                  type="text"
+                  id={`url-${index}`}
+                  value={detail.url}
+                  placeholder="Enter URL for this detail"
+                  onChange={(e) => handleDetailChange(index, "url", e.target.value)}
                   className={inputStyles}
                 />
               </div>

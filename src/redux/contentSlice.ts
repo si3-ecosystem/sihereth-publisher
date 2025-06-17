@@ -33,15 +33,18 @@ const initialState: ContentState = {
     details: [
       {
         title: "website",
-        heading: "SI<3> and the Si Her Co-Active"
+        heading: "SI<3> and the Si Her Co-Active",
+        url: "https://www.si3.space"
       },
       {
         title: "youtube",
-        heading: "Unlocking NFT's For Meta Impact"
+        heading: "Unlocking NFT's For Meta Impact",
+        url: "https://www.youtube.com"
       },
       {
         title: "podcast",
-        heading: "Diversity in the New Economy"
+        heading: "Diversity in the New Economy",
+        url: "https://www.podcast.com"
       }
     ]
   },

@@ -29,6 +29,7 @@ export interface LiveTypes {
   details: {
     title: string;
     heading: string;
+    url: string;
   }[];
 }
 
