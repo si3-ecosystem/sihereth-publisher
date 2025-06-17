@@ -103,15 +103,17 @@ const Landing = () => {
             {(() => {
               const hashtagElements: React.ReactNode[] = [];
               let index = 0;
-              for (const hashtag of hashTags) {
-                hashtagElements.push(
-                  <div
-                    key={`hashtag-${index++}-${hashtag}`}
-                    className="bg-purple-primary tracking-wider whitespace-nowrap py-2 px-3 md:py-3 md:px-4 rounded-2xl hover:text-gray-200 hover:bg-gray-800 transition-all ease-out duration-500 cursor-default hover:shadow-md"
-                  >
-                    #{hashtag.toUpperCase()}
-                  </div>
-                );
+              if (hashTags?.length > 0) {
+                for (const hashtag of hashTags) {
+                  hashtagElements.push(
+                    <div
+                      key={`hashtag-${index++}-${hashtag}`}
+                      className="bg-purple-primary tracking-wider whitespace-nowrap py-2 px-3 md:py-3 md:px-4 rounded-2xl hover:text-gray-200 hover:bg-gray-800 transition-all ease-out duration-500 cursor-default hover:shadow-md"
+                    >
+                      #{hashtag.toUpperCase()}
+                    </div>
+                  );
+                }
               }
               return hashtagElements;
             })()}

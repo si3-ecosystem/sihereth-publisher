@@ -67,7 +67,7 @@ const Domain = () => {
               <input
                 type="text"
                 className="w-full bg-transparent border-none outline-none focus:ring-0"
-                placeholder="Enter your domain name"
+                placeholder="Enter your domain"
                 value={subDomain}
                 onChange={(e) => setSubDomain(e.target.value)}
               />
