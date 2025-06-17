@@ -72,6 +72,7 @@ const Domain = () => {
                 onChange={(e) => setSubDomain(e.target.value)}
               />
             </div>
+            <p className="mr-4 text-gray-500">.siher.eth</p>
             <div className="flex justify-center items-center">
               <button
                 disabled={domainLoading || !subDomain}

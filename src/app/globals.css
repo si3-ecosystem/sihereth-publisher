@@ -109,9 +109,6 @@ body::-webkit-scrollbar {
 .fade-in-up {
   animation: fadeInUp 0.4s ease;
 }
-.EZDrawer__container {
-  border-left: 1px solid #cbd5e0;
-}
 
 @keyframes fadeInUp {
   from {

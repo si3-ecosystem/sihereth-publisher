@@ -82,9 +82,6 @@ const Login = () => {
               "Sign In"
             )}
           </button>
-
-          {/* Forgot Password */}
-          <div className="flex justify-end text-xs text-[#592bff] hover:underline">Forgot password?</div>
         </form>
       </div>
     </section>
