@@ -11,11 +11,11 @@ const Navbar = () => {
   };
 
   return (
-    <section className="border-b border-gray-500 p-4 relative text-md">
+    <section className="border-b border-gray-500 bg-[linear-gradient(90deg,_#FFF_0%,_#D5D5F7_59%,_#F1EFFF_100%)] p-4 relative text-md">
       <div className="flex justify-between items-center mx-auto max-w-[90rem]">
         {/* Logo */}
         <Image
-          src="https://res.cloudinary.com/dq033xs8n/image/upload/v1744345811/si3_g3ow9r.svg"
+          src="https://res.cloudinary.com/dq033xs8n/image/upload/v1750780830/si3logo_sktbua.svg"
           width={100}
           height={80}
           alt="logo"

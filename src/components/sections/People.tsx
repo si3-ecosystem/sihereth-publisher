@@ -39,7 +39,7 @@ const People = () => {
     if (!scroller) return;
     let animationFrame: number;
     let scrollAmount = 0;
-    const scrollSpeed = 0.3;
+    const scrollSpeed = 1;
     const animate = () => {
       if (!scroller) return;
       scrollAmount -= scrollSpeed;

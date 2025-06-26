@@ -13,7 +13,7 @@ const Cards = ({ title, heading, url }: LiveTypes["details"][0]) => {
         {title}
       </Link>
       {/* Heading */}
-      <span className="font-sora text-xl font-medium">{heading}</span>
+      <span className="font-sora text-lg font-medium">{heading}</span>
     </div>
   );
 };
