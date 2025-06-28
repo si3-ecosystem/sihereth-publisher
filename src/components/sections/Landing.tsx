@@ -91,6 +91,9 @@ const Landing = () => {
     fullName = ""
   } = useMemo(() => landingData, [landingData]);
 
+  // Ensure hashTags is always an array
+  const safeHashTags = Array.isArray(hashTags) ? hashTags : [];
+
   return (
     <div className="px-4 py-6 text-xs">
       <div className="max-w-[90rem] mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -103,8 +106,8 @@ const Landing = () => {
             {(() => {
               const hashtagElements: React.ReactNode[] = [];
               let index = 0;
-              if (hashTags?.length > 0) {
-                for (const hashtag of hashTags) {
+              if (safeHashTags.length > 0) {
+                for (const hashtag of safeHashTags) {
                   hashtagElements.push(
                     <div
                       key={`hashtag-${index++}-${hashtag}`}
