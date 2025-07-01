@@ -89,7 +89,7 @@ const Landing = () => {
     pronoun = "",
     title = "",
     fullName = ""
-  } = useMemo(() => landingData, [landingData]);
+  } = useMemo(() => landingData || {}, [landingData]);
 
   // Ensure hashTags is always an array
   const safeHashTags = Array.isArray(hashTags) ? hashTags : [];

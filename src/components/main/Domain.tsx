@@ -31,11 +31,11 @@ const Domain = () => {
     }
     try {
       setDomainLoading(true);
-      const formattedDomain = `${subDomain}.siher.eth.link`;
-      const response = await apiClient.post(`/domain/publish`, { domain: formattedDomain });
+      const response = await apiClient.post(`/domain/publish`, { domain: subDomain });
       if (response.status === 200) {
         toast.success("Domain successfully published!");
-        dispatch(updateDomain(formattedDomain));
+        console.log(response?.data?.domain);
+        dispatch(updateDomain(response?.data?.domain));
       } else {
         toast.error(response.data?.message ?? "Failed to register domain.");
       }
@@ -49,7 +49,7 @@ const Domain = () => {
   return (
     <div className="tracking-wider border-b border-gray-300 bg-gray-100 shadow-md text-xs py-1 lg:py-2 px-2">
       <div className="flex justify-center items-center mx-auto">
-        {existingDomain ? (
+        {!existingDomain ? (
           <div className="flex items-center p-2">
             <p>Web page URL: </p>
             <Link
