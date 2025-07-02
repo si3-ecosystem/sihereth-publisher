@@ -139,7 +139,7 @@ const Footer = () => {
             {/* Newsletter Form */}
             <div className="flex rounded-xl w-full lg:w-fit h-10 items-center bg-white">
               <Image
-                src="https://res.cloudinary.com/dq033xs8n/image/upload/v1748561322/mail_ycoudk.png"
+                src="https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386798/mail_ibby6d.png"
                 alt=""
                 width={17}
                 height={17}

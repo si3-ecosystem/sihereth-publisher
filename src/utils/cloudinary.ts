@@ -1,12 +1,12 @@
 const DEFAULT_IMAGES = {
-  landing: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345809/girl_hhqylb.png",
-  live: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345811/live_muepdq.png",
+  landing: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386821/girl_ainxhw.png",
+  live: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386800/live_tjgq2c.png",
   organizations: [
-    "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345807/base_ad5an0.png",
-    "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345807/solana_lbprwc.png",
-    "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345810/lukso_ytxf1e.png"
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/base_aujphz.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386801/solana_i2f2s3.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386798/lukso_dl7aia.png"
   ],
-  available: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345808/avatar_zmxvul.png"
+  available: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/avatar_vpdoef.png"
 };
 
 const isDefaultImage = (url: string): boolean => {

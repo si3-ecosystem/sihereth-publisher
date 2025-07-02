@@ -37,7 +37,7 @@ const TimeLine = () => {
         <div className="flex justify-between items-center">
           <Heading label="TIMELINE" />
           <Image
-            src={"https://res.cloudinary.com/dq033xs8n/image/upload/v1744345810/runes_oieejv.png"}
+            src={"https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386800/runes_ppyc4o.png"}
             alt=""
             width={70}
             height={70}

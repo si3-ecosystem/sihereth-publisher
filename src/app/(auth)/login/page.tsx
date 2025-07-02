@@ -44,7 +44,7 @@ const Login = () => {
         {/* Logo and Title */}
         <div className="flex flex-col items-center space-y-3">
           <Image
-            src="https://res.cloudinary.com/dq033xs8n/image/upload/v1744345811/si3_g3ow9r.svg"
+            src="https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386801/si3_ykl61i.svg"
             alt="Logo"
             width={100}
             height={90}

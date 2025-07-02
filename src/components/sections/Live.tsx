@@ -134,7 +134,7 @@ const Live = () => {
         {(hasImage || hasMedia) && (
           <div className="relative bg-white rounded-2xl md:p-4 shadow-sm">
             <Image
-              src="https://res.cloudinary.com/dq033xs8n/image/upload/v1744345807/border_cawmkx.png"
+              src="https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/border_qpdezn.png"
               alt=""
               width={500}
               height={500}

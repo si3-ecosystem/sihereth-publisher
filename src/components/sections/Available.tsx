@@ -36,13 +36,13 @@ const Available = () => {
         <section className="flex flex-col gap-6 items-center w-full order-2 lg:order-1">
           <div className="relative">
             <Image
-              src={"https://res.cloudinary.com/dq033xs8n/image/upload/v1744345807/border_available_xotm0d.png"}
+              src={"https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/border_available_ykxocj.png"}
               alt=""
               width={260}
               height={100}
             />
             <Image
-              src={"https://res.cloudinary.com/dq033xs8n/image/upload/v1744345808/donut_opazh4.png"}
+              src={"https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386813/donut_jmhyk6.png"}
               alt=""
               layout="fill"
               objectFit="cover"

@@ -11,7 +11,7 @@ const initialState: ContentState = {
     organizationAffiliations: ["Si<3>"],
     communityAffiliations: ["OnChair Dreamers", "Cosmos Cartel", "The Phoenix Guild"],
     superPowers: ["Empathy", "Focus", "Leaps of Faith"],
-    image: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345809/girl_hhqylb.png",
+    image: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386821/girl_ainxhw.png",
     pronoun: "SHE/HER"
   },
   slider: [
@@ -27,8 +27,8 @@ const initialState: ContentState = {
       " I experienced shared value when I SI women & non-binary creators grow. My value lies in my ability to understand collaboration models at an ecosystemic level, and focus my energy towards my intentions."
   },
   live: {
-    image: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345811/live_muepdq.png",
-    url: "https://res.cloudinary.com/dq033xs8n/video/upload/v1744345277/vid_cy6pec.mp4",
+    image: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386800/live_tjgq2c.png",
+    url: "https://res.cloudinary.com/dv52zu7pu/video/upload/v1751386825/vid_vxw5em.mp4",
     walletUrl: "https://pb.aurpay.net/pb/page/html/paymentbutton.html?token=pb_plugin_link_token_h6hzBGgZzFW1G5eO",
     details: [
       {
@@ -49,9 +49,9 @@ const initialState: ContentState = {
     ]
   },
   organizations: [
-    "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345807/base_ad5an0.png",
-    "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345807/solana_lbprwc.png",
-    "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345810/lukso_ytxf1e.png"
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/base_aujphz.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386801/solana_i2f2s3.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386798/lukso_dl7aia.png"
   ],
   timeline: [
     {
@@ -91,22 +91,22 @@ const initialState: ContentState = {
     }
   ],
   available: {
-    avatar: "https://res.cloudinary.com/dq033xs8n/image/upload/v1744345808/avatar_zmxvul.png",
+    avatar: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/avatar_vpdoef.png",
     availableFor: ["collaboration", "advising", "speaking"],
     ctaText: "Join SI<3>",
     ctaUrl: "https://www.si3.space"
   },
   socialChannels: [
     {
-      icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343758/LinkedIn_w2mz9f.svg",
+      icon: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386798/LinkedIn_mrnvct.svg",
       url: "https://www.linkedin.com"
     },
     {
-      icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746343757/Instagram_lyhjoi.svg",
+      icon: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386821/Instagram_qpdoa3.svg",
       url: "https://www.instagram.com"
     },
     {
-      icon: "https://res.cloudinary.com/dq033xs8n/image/upload/v1746344739/Twitter_geucw3.svg",
+      icon: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386803/Twitter_btmxyb.svg",
       url: "https://twitter.com"
     }
   ],

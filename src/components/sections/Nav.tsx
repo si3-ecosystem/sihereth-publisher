@@ -15,7 +15,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center mx-auto max-w-[90rem]">
         {/* Logo */}
         <Image
-          src="https://res.cloudinary.com/dq033xs8n/image/upload/v1750780830/si3logo_sktbua.svg"
+          src="https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386801/si3_ykl61i.svg"
           width={100}
           height={80}
           alt="logo"
