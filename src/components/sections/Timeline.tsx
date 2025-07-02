@@ -50,11 +50,11 @@ const TimeLine = () => {
               index !== filteredData.length - 1 ? "border-b border-gray-300" : ""
             }`}
           >
-            <p className="font-dm-sans w-56 text-lg font-semibold whitespace-nowrap text-[#3E21F3] flex items-center uppercase">
+            <p className="font-dm-sans w-56 text-sm sm:text-lg font-semibold whitespace-nowrap text-[#3E21F3] flex items-center uppercase">
               {item.from}
               {item.to ? ` - ${item.to}` : ""}
             </p>
-            <span className="w-72 md:w-full uppercase text-lg leading-6 font-sora font-medium">
+            <span className="w-72 md:w-full uppercase text-sm sm:text-lg leading-6 font-sora font-medium">
               {item.title}
             </span>
           </div>

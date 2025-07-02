@@ -133,7 +133,7 @@ const AvailableFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
           {/* Avatar */}
           <section className="px-4 py-2">
             <label htmlFor="avatar-upload" className="text-xs">
-              Avatar Image
+              Image of your choice
             </label>
             {localAvatar ? (
               <div className="mt-3">

@@ -160,8 +160,9 @@ const Footer = () => {
         </section>
 
         {/* Footer Text */}
-        <section className="font-sora font-normal leading-4 tracking-wider text-center text-white max-w-md mx-auto">
-          {"@2025 Solar Intelligence, Inc. All rights reserved."}
+        <section className="font-sora font-normal leading-4 space-y-1 tracking-wider text-center text-white max-w-md mx-auto">
+          <p>@2025 Solar Intelligence, Inc.</p>
+          <p>All rights reserved.</p>
         </section>
       </div>
     </div>
