@@ -295,7 +295,7 @@ const LiveFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
                 dispatch(updateContent({ section: "live", data: { walletUrl: e.target.value } }));
               }}
               placeholder="Enter your crypto wallet URL"
-              className={`${inputStyles} pl-10 bg-gray-50 border-gray-200 focus:border-purple-300 focus:ring-purple-200`}
+              className={`${inputStyles} bg-gray-50 border-gray-200 focus:border-purple-300 focus:ring-purple-200`}
             />
           </div>
         </section>

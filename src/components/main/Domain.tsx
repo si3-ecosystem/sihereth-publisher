@@ -10,13 +10,13 @@ import Link from "next/link";
 
 const Domain = () => {
   const dispatch = useDispatch();
-  const existingDomain = useSelector((state: RootState) => state.user?.domain);
+  const existingDomain = useSelector((state: RootState) => state.user?.domain) ?? "";
   const [subDomain, setSubDomain] = useState<string>("");
   const [domainLoading, setDomainLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (existingDomain) {
-      setSubDomain(existingDomain);
+      setSubDomain(existingDomain ?? "");
     }
   }, [existingDomain]);
 
@@ -49,7 +49,7 @@ const Domain = () => {
   return (
     <div className="tracking-wider border-b border-gray-300 bg-gray-100 shadow-md text-xs py-1 lg:py-2 px-2">
       <div className="flex justify-center items-center mx-auto">
-        {!existingDomain ? (
+        {existingDomain ? (
           <div className="flex items-center p-2">
             <p>Web page URL: </p>
             <Link
@@ -68,11 +68,11 @@ const Domain = () => {
                 type="text"
                 className="w-full bg-transparent border-none outline-none focus:ring-0"
                 placeholder="Enter your domain"
-                value={subDomain}
+                value={subDomain ?? ""}
                 onChange={(e) => setSubDomain(e.target.value)}
               />
             </div>
-            <p className="mr-4 text-gray-500">.siher.eth</p>
+            {!subDomain && <p className="mr-4 text-gray-500">.siher.eth</p>}
             <div className="flex justify-center items-center">
               <button
                 disabled={domainLoading || !subDomain}

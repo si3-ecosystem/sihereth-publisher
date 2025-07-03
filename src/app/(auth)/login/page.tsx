@@ -29,7 +29,9 @@ const Login = () => {
             domain: response.data.user.domain
           })
         );
-        dispatch(setAllContent(response.data.user.webContent));
+        if (response.data.user.webContent) {
+          dispatch(setAllContent(response.data.user.webContent));
+        }
         router.push("/");
       } finally {
         setLoading(false);
