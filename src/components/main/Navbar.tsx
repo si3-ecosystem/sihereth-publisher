@@ -7,15 +7,17 @@ import { FaPlay } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { logout } from "@/redux/authSlice";
+import { setIsNewWebpage } from "@/redux/contentSlice";
 import apiClient from "@/utils/interceptor";
-import type { RootState } from "@/redux/store";
+import { handleCompleteLogout, type RootState } from "@/redux/store";
 
 const Navbar = () => {
   const [loading, setLoading] = useState(false);
   const [visibleIframe, setVisibleIframe] = useState<string | null>(null);
   const isNewWebpage = useSelector((state: RootState) => state.content.isNewWebpage);
   const [iframeLoading, setIframeLoading] = useState(false);
+
+  console.log("is new", isNewWebpage);
   const router = useRouter();
   const dispatch = useDispatch();
   const store = useStore();
@@ -39,6 +41,7 @@ const Navbar = () => {
       const response = await apiClient.post(url, publishData);
       if (response.status === 200 || response.status === 201) {
         toast.success("Content published successfully!");
+        dispatch(setIsNewWebpage(false));
       } else {
         throw new Error("Unexpected response status");
       }
@@ -48,7 +51,7 @@ const Navbar = () => {
       if (error.response?.status === 400) {
         errorMessage = error.response.data?.message ?? error.response.data ?? "Bad request";
       } else if (error.response?.status === 401) {
-        dispatch(logout());
+        await handleCompleteLogout();
         router.replace("/login");
         return;
       } else if (error.code === "ECONNABORTED") {
@@ -74,10 +77,10 @@ const Navbar = () => {
     setIframeLoading(false);
   }, []);
 
-  const handleLogout = useCallback(() => {
-    dispatch(logout());
+  const handleLogout = useCallback(async () => {
+    await handleCompleteLogout();
     router.replace("/login");
-  }, [dispatch, router]);
+  }, [router]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -104,9 +107,9 @@ const Navbar = () => {
 
   let buttonText = "";
   if (loading) {
-    buttonText = isNewWebpage ? "Publishing..." : "Updating...";
+    buttonText = !isNewWebpage ? "Updating..." : "Publishing...";
   } else {
-    buttonText = isNewWebpage ? "Publish" : "Update";
+    buttonText = !isNewWebpage ? "Update" : "Publish";
   }
 
   return (

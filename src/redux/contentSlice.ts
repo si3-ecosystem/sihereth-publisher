@@ -210,11 +210,21 @@ const contentSlice = createSlice({
       }
       field.splice(index, 1);
     },
-    clearContent: () => initialState
+    clearContent: () => initialState,
+    setIsNewWebpage: (state, action: PayloadAction<boolean>) => {
+      state.isNewWebpage = action.payload;
+    }
   }
 });
 
-export const { setAllContent, updateContent, updateArrayItem, addArrayItem, removeArrayItem, clearContent } =
-  contentSlice.actions;
+export const {
+  setAllContent,
+  updateContent,
+  updateArrayItem,
+  addArrayItem,
+  removeArrayItem,
+  clearContent,
+  setIsNewWebpage
+} = contentSlice.actions;
 
 export default contentSlice.reducer;

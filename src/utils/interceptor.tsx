@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import store from "../redux/store";
-import { logout } from "../redux/authSlice";
+import { handleCompleteLogout } from "../redux/store";
 import toast from "react-hot-toast";
 
 const apiClient = axios.create({
@@ -9,9 +8,10 @@ const apiClient = axios.create({
   timeout: 30000
 });
 
+// Make the response error interceptor async so you can use `await`
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => response,
-  (error: AxiosError) => {
+  async (error: AxiosError) => {
     if (!error.response) {
       return Promise.reject(error);
     }
@@ -22,7 +22,7 @@ apiClient.interceptors.response.use(
     }
     switch (status) {
       case 401:
-        store.dispatch(logout());
+        await handleCompleteLogout();
         toast.error("Session expired. Please log in again.");
         if (typeof window !== "undefined") {
           window.location.href = "/login";

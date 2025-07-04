@@ -24,14 +24,13 @@ const authSlice = createSlice({
       state.email = action.payload.email;
       state.domain = action.payload.domain;
     },
-    logout: (state) => {
-      Object.assign(state, initialState);
-    },
+    logout: () => initialState,
+    resetAuth: () => initialState,
     updateDomain: (state, action: PayloadAction<string>) => {
       state.domain = action.payload;
     }
   }
 });
 
-export const { login, logout, updateDomain } = authSlice.actions;
+export const { login, logout, resetAuth, updateDomain } = authSlice.actions;
 export default authSlice.reducer;
