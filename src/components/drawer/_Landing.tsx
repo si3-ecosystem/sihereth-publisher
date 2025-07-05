@@ -57,8 +57,8 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
   );
 
   const addToArray = useCallback(
-    (field: keyof LandingTypes, placeholder: string) => {
-      const updatedArray = [...((localData[field] as string[]) || []), placeholder];
+    (field: keyof LandingTypes) => {
+      const updatedArray = [...((localData[field] as string[]) || []), ""];
       setLocalData((prev) => ({ ...prev, [field]: updatedArray }));
       dispatch(
         updateContent({
@@ -189,11 +189,11 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
         </section>
         {/* Reusable Array Field Component */}
         {[
-          { label: "Personal Brand Pillars", field: "hashTags", placeholder: "New tag" },
-          { label: "Organization Affiliations", field: "organizationAffiliations", placeholder: "New organization" },
-          { label: "Community Affiliations", field: "communityAffiliations", placeholder: "New community" },
-          { label: "Superpowers", field: "superPowers", placeholder: "New superpower" }
-        ].map(({ label, field, placeholder }) => {
+          { label: "Personal Brand Pillars", field: "hashTags" },
+          { label: "Organization Affiliations", field: "organizationAffiliations" },
+          { label: "Community Affiliations", field: "communityAffiliations" },
+          { label: "Superpowers", field: "superPowers" }
+        ].map(({ label, field }) => {
           const arr = (localData[field as keyof LandingTypes] as string[]) || [];
           const isMax = arr.length >= 5;
           return (
@@ -218,7 +218,7 @@ const LandingFieldsComponent = ({ toggleDrawer }: { toggleDrawer: () => void }) 
               <div
                 className={`flex gap-1 items-center mt-3 cursor-pointer text-xs w-max ${isMax ? "opacity-50 pointer-events-none" : ""}`}
                 onClick={() => {
-                  if (!isMax && placeholder) addToArray(field as keyof LandingTypes, placeholder);
+                  if (!isMax) addToArray(field as keyof LandingTypes);
                 }}
               >
                 <FaCirclePlus className="text-[#a020f0] size-3 cursor-pointer" />

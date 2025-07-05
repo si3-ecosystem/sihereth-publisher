@@ -45,7 +45,7 @@ const ValueFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         {/* Experience Section */}
         <section className="p-4 xl:p-6">
           <label htmlFor="experience" className="block mb-2">
-            Experience
+            My Experience Summary
           </label>
           <textarea
             id="experience"
@@ -64,7 +64,7 @@ const ValueFields = ({ toggleDrawer }: { toggleDrawer: () => void }) => {
         {/* Values Section */}
         <section className="p-4 xl:p-6">
           <label htmlFor="values" className="block mb-2">
-            Values
+            My Vision
           </label>
           <textarea
             id="values"

@@ -194,7 +194,7 @@ const Live = () => {
               href={data.walletUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-light-purple text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white font-fira-mono font-medium tracking-wide px-4 py-2 sm:px-5 sm:py-3 hover:shadow-md cursor-pointer mx-auto sm:mx-0 uppercase text-sm sm:text-base"
+              className="bg-light-purple border border-[#3E21F3] text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white font-fira-mono font-medium tracking-wide px-4 py-2 sm:px-5 sm:py-3 hover:shadow-md cursor-pointer mx-auto sm:mx-0 uppercase text-sm sm:text-base"
               aria-label={`Tip ${name} in crypto`}
             >
               TIP {name} IN CRYPTO

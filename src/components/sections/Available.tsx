@@ -6,12 +6,7 @@ import Heading from "@/components/ui/Heading";
 import Link from "next/link";
 
 const Available = () => {
-  const {
-    avatar = "",
-    availableFor = [],
-    ctaText = "Join SI<3>",
-    ctaUrl = "https://www.si3.space"
-  } = useSelector((state: RootState) => state.content.available);
+  const { avatar = "", availableFor = [] } = useSelector((state: RootState) => state.content.available);
 
   return (
     <div className="p-4 py-10">
@@ -34,28 +29,35 @@ const Available = () => {
 
         {/* Image Section */}
         <section className="flex flex-col gap-6 items-center w-full order-2 lg:order-1">
-          <div className="relative">
-            <Image
-              src={"https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/border_available_ykxocj.png"}
-              alt=""
-              width={260}
-              height={100}
-            />
-            <Image
-              src={"https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386813/donut_jmhyk6.png"}
-              alt=""
-              layout="fill"
-              objectFit="cover"
-            />
-            {avatar && <Image src={avatar} alt="" layout="fill" objectFit="cover" className="p-4" />}
+          <div>
+            {avatar &&
+            avatar !== "" &&
+            avatar !== "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/avatar_vpdoef.png" ? (
+              <Image
+                src={avatar}
+                alt=""
+                width={260}
+                height={260}
+                objectFit="cover"
+                className="rounded-lg border border-[#3E21F3]"
+              />
+            ) : (
+              <Image
+                src={"https://res.cloudinary.com/dv52zu7pu/image/upload/v1751741835/available_uqqfbn.svg"}
+                alt=""
+                width={260}
+                height={260}
+                objectFit="cover"
+              />
+            )}
           </div>
           <Link
-            href={ctaUrl}
+            href="https://www.si3.space"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sora tracking-wider rounded-xl text-sm border border-[#3E21F3] bg-purple-primary font-semibold text-[#3E21F3] px-4 py-2 lg:px-6 lg:py-3"
+            className="bg-light-purple border border-[#3E21F3] text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white font-fira-mono font-medium tracking-wide px-4 py-2 sm:px-5 sm:py-3 hover:shadow-md cursor-pointer mx-auto sm:mx-0 uppercase text-sm sm:text-base"
           >
-            {ctaText}
+            Join SI&lt;3&gt;
           </Link>
         </section>
       </div>
