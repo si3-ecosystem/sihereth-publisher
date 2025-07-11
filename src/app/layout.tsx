@@ -16,7 +16,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "siher.eth",
+  title: "siher.eth publisher",
   description: "Si Her Site Publisher"
 };
 
