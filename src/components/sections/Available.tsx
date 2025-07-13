@@ -6,7 +6,7 @@ import Heading from "@/components/ui/Heading";
 import Link from "next/link";
 
 const Available = () => {
-  const { avatar = "", availableFor = [] } = useSelector((state: RootState) => state.content.available);
+  const { avatar = "", availableFor = [], ctaText } = useSelector((state: RootState) => state.content.available);
 
   return (
     <div className="p-4 py-10">
@@ -57,7 +57,7 @@ const Available = () => {
             rel="noopener noreferrer"
             className="bg-light-purple border border-[#3E21F3] text-blue-primary rounded-full transition-all ease-out duration-300 hover:bg-[#7E5BFF] hover:text-white font-fira-mono font-medium tracking-wide px-4 py-2 sm:px-5 sm:py-3 hover:shadow-md cursor-pointer mx-auto sm:mx-0 uppercase text-sm sm:text-base"
           >
-            Join SI&lt;3&gt;
+            {ctaText}
           </Link>
         </section>
       </div>

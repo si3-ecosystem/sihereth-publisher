@@ -1,12 +1,14 @@
 const DEFAULT_IMAGES = {
   landing: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386821/girl_ainxhw.png",
-  live: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386800/live_tjgq2c.png",
+  live: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363967/livemedia_turqfv.png",
   organizations: [
-    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/base_aujphz.png",
-    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386801/solana_i2f2s3.png",
-    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386798/lukso_dl7aia.png"
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363966/unlock_nrtdlk.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363966/dune_n4xvii.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363967/zerion_sjjw6q.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363966/stellar_luopdr.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363966/ledger_umjp3a.png"
   ],
-  available: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/avatar_vpdoef.png"
+  available: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363968/available_nzy4gl.png"
 };
 
 const isDefaultImage = (url: string): boolean => {

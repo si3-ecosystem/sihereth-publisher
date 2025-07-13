@@ -6,58 +6,55 @@ const initialState: ContentState = {
     fullName: "Kara Howard",
     title: "SI<3> Founder",
     headline: "& I create equitable platforms for the new economy.",
-    hashTags: ["collaboration", "equity", "impact", "decentralization", "education"],
+    hashTags: ["collaboration", "inclusivity", "impact", "transparency", "acessibility"],
     region: "North America",
     organizationAffiliations: ["Si<3>"],
-    communityAffiliations: ["OnChair Dreamers", "Cosmos Cartel", "The Phoenix Guild"],
+    communityAffiliations: ["Si Her", "BitQueens"],
     superPowers: ["Empathy", "Focus", "Leaps of Faith"],
     image: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386821/girl_ainxhw.png",
     pronoun: "SHE/HER"
   },
-  slider: [
-    "INCLUSIVE PLATFORMS",
-    "decentralizing currencies & technologies",
-    "ECOSYSTEM GROWTH",
-    "COLLABORATE WITH WEB3"
-  ],
+  slider: ["focussed pathways", "economic freedom", "human potential", "collaborative growth"],
   value: {
     experience:
-      "My career began as an Equity Research analyst on Wall St. I started the MBA program at NYU in the Fall of 2008, right as the market crashed, with Occupy Wall St. protests happening outside our campus doors. As often happens, times of crises create opportunity and I shifted my career focus from finance to marketing & entrepreneurship.",
+      "My professional experience includes twelve years of womxn-in-tech community leadership and fifteen years in growth and partnerships in emerging technology. I am a strong ecosystem builder and connecter, and enjoy creating collaborative value with community networks and product integrations. I am values-driven in my personal and professional lives, and maintain a solid connection to my inner guidance system as I navigate the complexities of creating value in the new economy.",
     values:
-      " I experienced shared value when I SI women & non-binary creators grow. My value lies in my ability to understand collaboration models at an ecosystemic level, and focus my energy towards my intentions."
+      "My vision is for humanity to reach its greatest potential. This includes equitable and accessible financial systems created with care, emotional intelligence, and compassion. I envision an acceleration of feminine intelligence and underrepresented voices reaching new heights of leadership. I believe we will experience in our lifetimes profound growth in our abilities and capacities as humans, and I am hopeful for the end of centralized power structures that limit that potential."
   },
   live: {
-    image: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386800/live_tjgq2c.png",
+    image: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363967/livemedia_turqfv.png",
     url: "https://res.cloudinary.com/dv52zu7pu/video/upload/v1751386825/vid_vxw5em.mp4",
     walletUrl: "https://pb.aurpay.net/pb/page/html/paymentbutton.html?token=pb_plugin_link_token_h6hzBGgZzFW1G5eO",
     details: [
       {
-        title: "website",
-        heading: "SI<3> and the Si Her Co-Active",
+        title: "SI<3>",
+        heading: "SI<3>'s Mission",
         url: "https://www.si3.space"
       },
       {
-        title: "youtube",
-        heading: "Unlocking NFT's For Meta Impact",
+        title: "Wirex Podcast",
+        heading: "How True is Web3's Commitment to Diversity and Inclusion",
         url: "https://www.youtube.com"
       },
       {
-        title: "podcast",
-        heading: "Diversity in the New Economy",
+        title: "EcstaSHE LinkedIn Live",
+        heading: "Fundraising in Web3: Summer Edition",
         url: "https://www.podcast.com"
       }
     ]
   },
   organizations: [
-    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/base_aujphz.png",
-    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386801/solana_i2f2s3.png",
-    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386798/lukso_dl7aia.png"
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363966/unlock_nrtdlk.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363966/dune_n4xvii.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363967/zerion_sjjw6q.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363966/stellar_luopdr.png",
+    "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363966/ledger_umjp3a.png"
   ],
   timeline: [
     {
       title: "Co-Creating SI<3>",
-      to: "",
-      from: "PRESENT"
+      to: "PRESENT",
+      from: "2023"
     },
     {
       title: "Personal Development Retreat",
@@ -91,7 +88,7 @@ const initialState: ContentState = {
     }
   ],
   available: {
-    avatar: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1751386807/avatar_vpdoef.png",
+    avatar: "https://res.cloudinary.com/dv52zu7pu/image/upload/v1752363968/available_nzy4gl.png",
     availableFor: ["collaboration", "advising", "speaking"],
     ctaText: "Join SI<3>",
     ctaUrl: "https://www.si3.space"
