@@ -13,7 +13,8 @@ export const countries = [
   { value: "Western Europe", label: "Western Europe" },
   { value: "Middle East", label: "Middle East" },
   { value: "Northern Africa", label: "Northern Africa" },
-  { value: "Southern Africa", label: "Southern Africa" }
+  { value: "Southern Africa", label: "Southern Africa" },
+  { value: "Western Africa", label: "Western Africa" }
 ];
 
 export const pronouns = [
